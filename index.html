@@ -2263,10 +2263,21 @@ function showMapToast(msg){
 /* Map interactions handled by qgis2web iframe */
 
 /* ── Security ── */
-var ENV=Object.freeze({API_ENDPOINT:'https://formspree.io/f/maqzlzbg',RATE_LIMIT_MS:60000,MAX_MSG_LEN:2000});
+var ENV=Object.freeze({API_ENDPOINT:'https://formspree.io/f/maqzlzbg',RATE_LIMIT_MS:60000,RATE_LIMIT_MAX:3,MAX_MSG_LEN:2000});
 var sanitize={html:function(s){var d=document.createElement('div');d.appendChild(document.createTextNode(String(s||'')));return d.innerHTML;},text:function(s){return String(s||'').trim().replace(/[\x00-\x1F\x7F]/g,'');},email:function(s){var v=String(s||'').trim();return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)?v:null;},stripTags:function(s){return String(s||'').replace(/<[^>]*>/g,'').trim();},maxLen:function(s,n){return String(s||'').substring(0,n);}};
 var _rateStore={};
-function rateCheck(key,ms){var now=Date.now(),last=_rateStore[key]||0;if(now-last<ms)return{ok:false,wait:Math.ceil((ms-(now-last))/1000)};_rateStore[key]=now;return{ok:true};}
+function rateCheck(key,ms,max){
+  var now=Date.now();
+  max=max||1;
+  var arr=(_rateStore[key]||[]).filter(function(t){return now-t<ms;});
+  if(arr.length>=max){
+    var wait=Math.ceil((ms-(now-arr[0]))/1000);
+    return{ok:false,wait:wait};
+  }
+  arr.push(now);
+  _rateStore[key]=arr;
+  return{ok:true};
+}
 (function(){var arr=new Uint8Array(32);crypto.getRandomValues(arr);var tok=Array.from(arr).map(function(b){return b.toString(16).padStart(2,'0');}).join('');sessionStorage.setItem('_csrf',tok);var inp=document.querySelector('input[name="_csrf"]');if(inp)inp.value=tok;})();
 
 /* ── Form ── */
@@ -2284,7 +2295,7 @@ function rateCheck(key,ms){var now=Date.now(),last=_rateStore[key]||0;if(now-las
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var hp=form.querySelector('[name="website"]');if(hp&&hp.value!=='')return;
-    var rate=rateCheck('form',ENV.RATE_LIMIT_MS);if(!rate.ok){alert('Espera '+rate.wait+' segundos.');return;}
+    var rate=rateCheck('form',ENV.RATE_LIMIT_MS,ENV.RATE_LIMIT_MAX);if(!rate.ok){alert('Espera '+rate.wait+' segundos.');return;}
     var valid=true;
     ['fn','fap','fem','fmsg'].forEach(function(id){if(!validators[id](document.getElementById(id).value)){showE(_errMap[id],id==='fem'?'Email no válido':'Campo obligatorio');valid=false;}else clearE(_errMap[id]);});
     var rgpd=document.getElementById('frgpd');if(!rgpd||!rgpd.checked){showE('rgpd',(d(currentLang).formPrivacyErr)||'Acepta la política de privacidad');valid=false;}else clearE('rgpd');
