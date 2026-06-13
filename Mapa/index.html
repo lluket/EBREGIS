@@ -152,11 +152,21 @@
         map.createPane('pane_GoogleSatelliteHybrid_0');
         map.getPane('pane_GoogleSatelliteHybrid_0').style.zIndex = 400;
         var layer_GoogleSatelliteHybrid_0 = L.tileLayer(
-            'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+            'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
             { pane:'pane_GoogleSatelliteHybrid_0', opacity:1.0,
               minZoom:1, maxZoom:28, minNativeZoom:0, maxNativeZoom:19 }
         );
         map.addLayer(layer_GoogleSatelliteHybrid_0);
+
+        /* ══ Capa 0b: CartoDB Positron (fondo claro) ═══════════ */
+        map.createPane('pane_CartoPositron_0b');
+        map.getPane('pane_CartoPositron_0b').style.zIndex = 399;
+        var layer_CartoPositron_0b = L.tileLayer(
+            'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+            { pane:'pane_CartoPositron_0b', opacity:1.0,
+              attribution:'&copy; OpenStreetMap, &copy; CARTO',
+              subdomains:'abcd', minZoom:1, maxZoom:20, maxNativeZoom:20 }
+        );
 
         /* ══ Capa 1: Clasificación ═════════════════════════════ */
         function pop_Clasificacin_1(feature, layer) {
@@ -330,7 +340,8 @@
                 ['<img src="legend/Municipios_3.png"/> ' + L_t.layerMuni]:  layer_Municipios_3,
                 ['<img src="legend/Propuestaubicacinresortdeportivo_2.png"/> ' + L_t.layerResort]: layer_Propuestaubicacinresortdeportivo_2,
                 [clasifLegend]: layer_Clasificacin_1,
-                'Google Satellite Hybrid': layer_GoogleSatelliteHybrid_0,
+                'Satélite': layer_GoogleSatelliteHybrid_0,
+                'Mapa claro (CartoDB)': layer_CartoPositron_0b,
             };
         }
 
