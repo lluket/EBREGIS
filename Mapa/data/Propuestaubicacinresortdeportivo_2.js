@@ -1,0 +1,1 @@
+var json_Propuestaubicacinresortdeportivo_2 = {"type":"FeatureCollection","name":"Propuestaubicacinresortdeportivo_2","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":null},"geometry":{"type":"Point","coordinates":[1.44523711951217,41.161671077859943]}}]}

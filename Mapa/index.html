@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map { width:100%; height:100%; padding:0; margin:0; }
+        .info h2 { font-size: 1rem; margin: 0 0 4px; }
+        </style>
+        <title>Resultados</title>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Clasificacin_1.js"></script>
+        <script src="data/Propuestaubicacinresortdeportivo_2.js"></script>
+        <script src="data/Municipios_3.js"></script>
+        <script src="data/Tarragons_4.js"></script>
+
+        <script>
+        /* ══════════════════════════════════════════════
+           SISTEMA DE TRADUCCIÓN DEL MAPA
+           Lee el idioma del localStorage de la web padre
+           ══════════════════════════════════════════════ */
+        var T = {
+            es: {
+                title:        'Resultados',
+                layerTagona:  'Tarragonés',
+                layerMuni:    'Municipios',
+                layerResort:  'Propuesta ubicación resort deportivo',
+                layerClasif:  'Clasificación',
+                noApto:       'No apto',
+                aptBaja:      'Aptitud baja',
+                aptMedia:     'Aptitud media',
+                aptAlta:      'Aptitud alta',
+                aptMuyAlta:   'Aptitud muy alta',
+                /* popup Clasificación */
+                superficie:   'Superficie',
+                idoneidad:    'Idoneidad',
+                precio:       'Precio',
+                /* popup Municipios */
+                codimuni:     'Código municipio',
+                nommuni:      'Municipio',
+                km2:          'km²',
+                /* popup Tarragonés */
+                comarca:      'Comarca',
+                poblacion:    'Población',
+            },
+            en: {
+                title:        'Results',
+                layerTagona:  'Tarragonès',
+                layerMuni:    'Municipalities',
+                layerResort:  'Proposed sports resort location',
+                layerClasif:  'Classification',
+                noApto:       'Not suitable',
+                aptBaja:      'Low suitability',
+                aptMedia:     'Medium suitability',
+                aptAlta:      'High suitability',
+                aptMuyAlta:   'Very high suitability',
+                superficie:   'Area',
+                idoneidad:    'Suitability',
+                precio:       'Price',
+                codimuni:     'Municipality code',
+                nommuni:      'Municipality',
+                km2:          'km²',
+                comarca:      'Region',
+                poblacion:    'Population',
+            },
+            ca: {
+                title:        'Resultats',
+                layerTagona:  'Tarragonès',
+                layerMuni:    'Municipis',
+                layerResort:  'Proposta ubicació resort esportiu',
+                layerClasif:  'Classificació',
+                noApto:       'No apte',
+                aptBaja:      'Aptitud baixa',
+                aptMedia:     'Aptitud mitjana',
+                aptAlta:      'Aptitud alta',
+                aptMuyAlta:   'Aptitud molt alta',
+                superficie:   'Superfície',
+                idoneidad:    'Idoneïtat',
+                precio:       'Preu',
+                codimuni:     'Codi municipi',
+                nommuni:      'Municipi',
+                km2:          'km²',
+                comarca:      'Comarca',
+                poblacion:    'Població',
+            },
+            fr: {
+                title:        'Résultats',
+                layerTagona:  'Tarragonès',
+                layerMuni:    'Communes',
+                layerResort:  'Emplacement proposé pour le resort sportif',
+                layerClasif:  'Classification',
+                noApto:       'Non adapté',
+                aptBaja:      'Aptitude faible',
+                aptMedia:     'Aptitude moyenne',
+                aptAlta:      'Aptitude élevée',
+                aptMuyAlta:   'Aptitude très élevée',
+                superficie:   'Superficie',
+                idoneidad:    'Adéquation',
+                precio:       'Prix',
+                codimuni:     'Code commune',
+                nommuni:      'Commune',
+                km2:          'km²',
+                comarca:      'Région',
+                poblacion:    'Population',
+            }
+        };
+
+        /* Lee idioma del localStorage (guardado por la web principal) */
+        function getLang() {
+            try { return localStorage.getItem('ebregis_lang') || 'es'; }
+            catch(e) { return 'es'; }
+        }
+        var currentLang = getLang();
+        var L_t = T[currentLang] || T.es;  /* traducciones activas */
+
+        /* ══ Mapa ══════════════════════════════════════════════ */
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[41.12613317917907,1.215674617632398],[41.286436052052075,1.559416860494097]]);
+
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix(
+            '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>' +
+            ' &middot; <a href="https://leafletjs.com">Leaflet</a>' +
+            ' &middot; <a href="https://qgis.org">QGIS</a>'
+        );
+        var autolinker = new Autolinker({truncate:{length:30,location:'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {}
+
+        /* ══ Capa 0: Satélite ══════════════════════════════════ */
+        map.createPane('pane_GoogleSatelliteHybrid_0');
+        map.getPane('pane_GoogleSatelliteHybrid_0').style.zIndex = 400;
+        var layer_GoogleSatelliteHybrid_0 = L.tileLayer(
+            'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+            { pane:'pane_GoogleSatelliteHybrid_0', opacity:1.0,
+              minZoom:1, maxZoom:28, minNativeZoom:0, maxNativeZoom:19 }
+        );
+        map.addLayer(layer_GoogleSatelliteHybrid_0);
+
+        /* ══ Capa 1: Clasificación ═════════════════════════════ */
+        function pop_Clasificacin_1(feature, layer) {
+            var p = feature.properties;
+            var popupContent = '<table>' +
+                '<tr><td colspan="2"><b>' + (p['layer'] || '') + '</b></td></tr>' +
+                '<tr><th>' + L_t.superficie + '</th><td>' + (p['Superficie'] !== null ? autolinker.link(String(p['Superficie'])) : '') + '</td></tr>' +
+                '<tr><th>' + L_t.idoneidad  + '</th><td>' + (p['Idonïetat'] !== null ? autolinker.link(String(p['Idonïetat'])) : '') + '</td></tr>' +
+                '<tr><th>' + L_t.precio     + '</th><td>' + (p['Preu'] !== null ? autolinker.link(String(p['Preu'])) : '') + '</td></tr>' +
+                '</table>';
+            layer.bindPopup(popupContent, {maxHeight:400});
+        }
+
+        /* Mapeo de valores de datos (en catalán original) → clave de traducción */
+        var clasifMap = {
+            'No apte':        'noApto',
+            'Aptitud baixa':  'aptBaja',
+            'Aptitud mitjana':'aptMedia',
+            'Aptitud alta':   'aptAlta',
+            'Aptitud molt alta':'aptMuyAlta',
+            /* por si los datos están en español */
+            'No apto':        'noApto',
+            'Aptitud baja':   'aptBaja',
+            'Aptitud media':  'aptMedia',
+            'Aptitud muy alta':'aptMuyAlta',
+        };
+
+        function style_Clasificacin_1_0(feature) {
+            var colors = {
+                noApto:      'rgba(255,245,240,0.753)',
+                aptBaja:     'rgba(253,204,184,0.753)',
+                aptMedia:    'rgba(252,143,111,0.753)',
+                aptAlta:     'rgba(244,77,56,0.753)',
+                aptMuyAlta:  'rgba(116,0,4,0.753)',
+            };
+            var key = clasifMap[String(feature.properties['layer'])] || 'noApto';
+            return {
+                pane:'pane_Clasificacin_1', stroke:false, fill:true,
+                fillOpacity:1, fillColor:colors[key], interactive:true
+            };
+        }
+        map.createPane('pane_Clasificacin_1');
+        map.getPane('pane_Clasificacin_1').style.zIndex = 401;
+        map.getPane('pane_Clasificacin_1').style['mix-blend-mode'] = 'normal';
+        var layer_Clasificacin_1 = new L.geoJson(json_Clasificacin_1, {
+            attribution:'', interactive:true,
+            dataVar:'json_Clasificacin_1', layerName:'layer_Clasificacin_1',
+            pane:'pane_Clasificacin_1',
+            onEachFeature: pop_Clasificacin_1,
+            style: style_Clasificacin_1_0,
+        });
+        bounds_group.addLayer(layer_Clasificacin_1);
+        map.addLayer(layer_Clasificacin_1);
+
+        /* ══ Capa 2: Propuesta resort ══════════════════════════ */
+        function pop_Propuestaubicacinresortdeportivo_2(feature, layer) {
+            var popupContent = '<table><tr><td colspan="2">' +
+                (feature.properties['id'] !== null ? autolinker.link(String(feature.properties['id'])) : '') +
+                '</td></tr></table>';
+            layer.bindPopup(popupContent, {maxHeight:400});
+        }
+        function style_Propuestaubicacinresortdeportivo_2_0() {
+            return { pane:'pane_Propuestaubicacinresortdeportivo_2', radius:17.6,
+                opacity:1, color:'rgba(250,139,57,1.0)', dashArray:'', lineCap:'butt',
+                lineJoin:'miter', weight:4.0, fill:true, fillOpacity:1,
+                fillColor:'rgba(255,255,255,1.0)', interactive:false };
+        }
+        function style_Propuestaubicacinresortdeportivo_2_1() {
+            return { pane:'pane_Propuestaubicacinresortdeportivo_2', radius:7.2,
+                opacity:1, color:'rgba(250,176,124,1.0)', dashArray:'', lineCap:'butt',
+                lineJoin:'miter', weight:1.0, fill:true, fillOpacity:1,
+                fillColor:'rgba(250,176,124,1.0)', interactive:false };
+        }
+        map.createPane('pane_Propuestaubicacinresortdeportivo_2');
+        map.getPane('pane_Propuestaubicacinresortdeportivo_2').style.zIndex = 402;
+        map.getPane('pane_Propuestaubicacinresortdeportivo_2').style['mix-blend-mode'] = 'normal';
+        var layer_Propuestaubicacinresortdeportivo_2 = new L.geoJson.multiStyle(
+            json_Propuestaubicacinresortdeportivo_2, {
+            attribution:'', interactive:false,
+            dataVar:'json_Propuestaubicacinresortdeportivo_2',
+            layerName:'layer_Propuestaubicacinresortdeportivo_2',
+            pane:'pane_Propuestaubicacinresortdeportivo_2',
+            onEachFeature: pop_Propuestaubicacinresortdeportivo_2,
+            pointToLayers: [
+                function(feature,latlng){ return L.shapeMarker(latlng, style_Propuestaubicacinresortdeportivo_2_0(feature)); },
+                function(feature,latlng){ return L.shapeMarker(latlng, style_Propuestaubicacinresortdeportivo_2_1(feature)); },
+            ]
+        });
+        bounds_group.addLayer(layer_Propuestaubicacinresortdeportivo_2);
+        map.addLayer(layer_Propuestaubicacinresortdeportivo_2);
+
+        /* ══ Capa 3: Municipios ════════════════════════════════ */
+        function pop_Municipios_3(feature, layer) {
+            var p = feature.properties;
+            var popupContent = '<table>' +
+                '<tr><th>' + L_t.codimuni  + '</th><td>' + (p['CODIMUNI'] !== null ? autolinker.link(String(p['CODIMUNI'])) : '') + '</td></tr>' +
+                '<tr><th>' + L_t.nommuni   + '</th><td>' + (p['NOMMUNI']  !== null ? autolinker.link(String(p['NOMMUNI']))  : '') + '</td></tr>' +
+                '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
+                '</table>';
+            layer.bindPopup(popupContent, {maxHeight:400});
+        }
+        function style_Municipios_3_0() {
+            return { pane:'pane_Municipios_3', opacity:1, color:'rgba(101,7,7,1.0)',
+                dashArray:'', lineCap:'square', lineJoin:'bevel',
+                weight:2.0, fillOpacity:0, interactive:true };
+        }
+        map.createPane('pane_Municipios_3');
+        map.getPane('pane_Municipios_3').style.zIndex = 403;
+        map.getPane('pane_Municipios_3').style['mix-blend-mode'] = 'normal';
+        var layer_Municipios_3 = new L.geoJson(json_Municipios_3, {
+            attribution:'', interactive:true,
+            dataVar:'json_Municipios_3', layerName:'layer_Municipios_3',
+            pane:'pane_Municipios_3',
+            onEachFeature: pop_Municipios_3,
+            style: style_Municipios_3_0,
+        });
+        bounds_group.addLayer(layer_Municipios_3);
+        map.addLayer(layer_Municipios_3);
+
+        /* ══ Capa 4: Tarragonés ════════════════════════════════ */
+        function pop_Tarragons_4(feature, layer) {
+            var p = feature.properties;
+            var popupContent = '<table>' +
+                '<tr><th>' + L_t.comarca   + '</th><td>' + (p['Comarca']   !== null ? autolinker.link(String(p['Comarca']))   : '') + '</td></tr>' +
+                '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']       !== null ? autolinker.link(String(p['km2']))       : '') + '</td></tr>' +
+                '<tr><th>' + L_t.poblacion + '</th><td>' + (p['Poblacion'] !== null ? autolinker.link(String(p['Poblacion'])) : '') + '</td></tr>' +
+                '</table>';
+            layer.bindPopup(popupContent, {maxHeight:400});
+        }
+        function style_Tarragons_4_0() {
+            return { pane:'pane_Tarragons_4', opacity:1, color:'rgba(228,26,28,1.0)',
+                dashArray:'', lineCap:'square', lineJoin:'bevel',
+                weight:4.0, fillOpacity:0, interactive:true };
+        }
+        map.createPane('pane_Tarragons_4');
+        map.getPane('pane_Tarragons_4').style.zIndex = 404;
+        map.getPane('pane_Tarragons_4').style['mix-blend-mode'] = 'normal';
+        var layer_Tarragons_4 = new L.geoJson(json_Tarragons_4, {
+            attribution:'', interactive:true,
+            dataVar:'json_Tarragons_4', layerName:'layer_Tarragons_4',
+            pane:'pane_Tarragons_4',
+            onEachFeature: pop_Tarragons_4,
+            style: style_Tarragons_4_0,
+        });
+        bounds_group.addLayer(layer_Tarragons_4);
+        map.addLayer(layer_Tarragons_4);
+
+        /* ══ Título del mapa ═══════════════════════════════════ */
+        var titleControl = new L.Control({position:'topleft'});
+        titleControl.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this._div.innerHTML = '<h2 id="map-title">' + L_t.title + '</h2>';
+            return this._div;
+        };
+        titleControl.addTo(map);
+
+        /* ══ Control de capas con leyenda traducida ════════════ */
+        function buildLayerControl() {
+            var clasifLegend =
+                L_t.layerClasif + '<br>' +
+                '<table>' +
+                '<tr><td style="text-align:center"><img src="legend/Clasificacin_1_Noapto0.png"/></td><td>' + L_t.noApto     + '</td></tr>' +
+                '<tr><td style="text-align:center"><img src="legend/Clasificacin_1_Aptitudbaja1.png"/></td><td>' + L_t.aptBaja   + '</td></tr>' +
+                '<tr><td style="text-align:center"><img src="legend/Clasificacin_1_Aptitudmedia2.png"/></td><td>' + L_t.aptMedia  + '</td></tr>' +
+                '<tr><td style="text-align:center"><img src="legend/Clasificacin_1_Aptitudalta3.png"/></td><td>' + L_t.aptAlta   + '</td></tr>' +
+                '<tr><td style="text-align:center"><img src="legend/Clasificacin_1_Aptitudmuyalta4.png"/></td><td>' + L_t.aptMuyAlta + '</td></tr>' +
+                '</table>';
+
+            return {
+                '<img src="legend/Tarragons_4.png"/> ' + L_t.layerTagona: layer_Tarragons_4,
+                '<img src="legend/Municipios_3.png"/> ' + L_t.layerMuni:  layer_Municipios_3,
+                '<img src="legend/Propuestaubicacinresortdeportivo_2.png"/> ' + L_t.layerResort: layer_Propuestaubicacinresortdeportivo_2,
+                [clasifLegend]: layer_Clasificacin_1,
+                'Google Satellite Hybrid': layer_GoogleSatelliteHybrid_0,
+            };
+        }
+
+        var layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
+        setBounds();
+
+        /* ══ Escucha cambios de idioma desde la web padre ══════
+           La web principal guarda el idioma en localStorage.
+           Aquí escuchamos el evento storage para actualizarlo
+           sin recargar la página.
+        ════════════════════════════════════════════════════════ */
+        window.addEventListener('storage', function(e) {
+            if (e.key !== 'ebregis_lang') return;
+            var newLang = e.newValue || 'es';
+            if (newLang === currentLang) return;
+            currentLang = newLang;
+            L_t = T[currentLang] || T.es;
+
+            /* Actualiza título */
+            var titleEl = document.getElementById('map-title');
+            if (titleEl) titleEl.textContent = L_t.title;
+
+            /* Reconstruye el control de capas */
+            layerControl.remove();
+            layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
+
+            /* Actualiza idioma HTML */
+            document.documentElement.lang = currentLang;
+        });
+
+        /* También escucha mensajes postMessage desde el iframe padre */
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'setLang') {
+                var newLang = e.data.lang;
+                if (!T[newLang] || newLang === currentLang) return;
+                currentLang = newLang;
+                L_t = T[currentLang] || T.es;
+                var titleEl = document.getElementById('map-title');
+                if (titleEl) titleEl.textContent = L_t.title;
+                layerControl.remove();
+                layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
+                document.documentElement.lang = currentLang;
+            }
+        });
+
+        </script>
+    </body>
+</html>
