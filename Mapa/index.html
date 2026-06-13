@@ -306,7 +306,7 @@
 
         /* ══ Título del mapa ═══════════════════════════════════ */
         var titleControl = new L.Control({position:'topleft'});
-        titleControl.onAdd = function(map) {
+       // titleControl.onAdd = function(map) {
             this._div = L.DomUtil.create('div', 'info');
             this._div.innerHTML = '<h2 id="map-title">' + L_t.title + '</h2>';
             return this._div;
