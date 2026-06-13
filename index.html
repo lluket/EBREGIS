@@ -1032,17 +1032,17 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
           <input type="hidden" name="_csrf" value="">
           <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="frow">
-            <div class="fg"><label class="fl" for="fn">Nombre *</label><input class="fi" type="text" id="fn" required maxlength="100" autocomplete="given-name" placeholder="Tu nombre" id="ph-fn"><span class="ferr" id="en">Campo obligatorio</span></div>
-            <div class="fg"><label class="fl" for="fap">Apellidos *</label><input class="fi" type="text" id="fap" required maxlength="150" autocomplete="family-name" placeholder="Tus apellidos" id="ph-fap"><span class="ferr" id="eap">Campo obligatorio</span></div>
+            <div class="fg"><label class="fl" for="fn">Nombre *</label><input class="fi" type="text" id="fn" required maxlength="100" autocomplete="given-name" placeholder="Tu nombre"><span class="ferr" id="en">Campo obligatorio</span></div>
+            <div class="fg"><label class="fl" for="fap">Apellidos *</label><input class="fi" type="text" id="fap" required maxlength="150" autocomplete="family-name" placeholder="Tus apellidos"><span class="ferr" id="eap">Campo obligatorio</span></div>
           </div>
           <div class="frow">
-            <div class="fg"><label class="fl" for="fem">Email *</label><input class="fi" type="email" id="fem" required maxlength="200" autocomplete="email" placeholder="correo@empresa.com" id="ph-fem"><span class="ferr" id="eem">Email no válido</span></div>
+            <div class="fg"><label class="fl" for="fem">Email *</label><input class="fi" type="email" id="fem" required maxlength="200" autocomplete="email" placeholder="correo@empresa.com"><span class="ferr" id="eem">Email no válido</span></div>
             <div class="fg"><label class="fl" for="femp">Empresa</label><input class="fi" type="text" id="femp" maxlength="150" autocomplete="organization" placeholder="Opcional"></div>
           </div>
           <div class="fg"><label class="fl" for="fsrv">Servicio de interés</label>
             <select class="fi" id="fsrv"><option value="">— Selecciona —</option><option value="gis">Desarrollo GIS</option><option value="catastro">Propiedad / Catastro</option><option value="riego">Estudios de Riego</option><option value="cartografia">Cartografía</option><option value="python">Automatizaciones Python</option><option value="topografia">Topografía</option><option value="web">Apps y Webs</option><option value="otro">Otro</option></select>
           </div>
-          <div class="fg"><label class="fl" for="fmsg">Mensaje *</label><textarea class="fi" id="fmsg" required maxlength="2000" placeholder="Describe tu proyecto. Cuanta más información facilites, mejor podremos orientarte." id="ph-fmsg"></textarea><div class="fchar" id="fchar">0 / 2000</div><span class="ferr" id="emsg">Escribe tu mensaje</span></div>
+          <div class="fg"><label class="fl" for="fmsg">Mensaje *</label><textarea class="fi" id="fmsg" required maxlength="2000" placeholder="Describe tu proyecto. Cuanta más información facilites, mejor podremos orientarte."></textarea><div class="fchar" id="fchar">0 / 2000</div><span class="ferr" id="emsg">Escribe tu mensaje</span></div>
           <div class="fg"><label class="fcheck"><input type="checkbox" id="frgpd" required><span class="fnote"><span id="form-privacy-text">He leído y acepto la</span> <button type="button" id="form-privacy-link" onclick="openM('privacy')" style="background:none;border:none;color:var(--green);cursor:pointer;text-decoration:underline;font:inherit;padding:0;font-weight:600">Política de Privacidad</button>.</span></label><span class="ferr" id="ergpd">Acepta la política de privacidad</span></div>
           <div class="fok" id="fok">✓ Mensaje enviado. Te responderemos en menos de 24 h.</div>
           <button type="submit" class="btn btn-g" style="align-self:flex-start">Enviar mensaje</button>
@@ -2278,14 +2278,15 @@ function rateCheck(key,ms){var now=Date.now(),last=_rateStore[key]||0;if(now-las
   var validators={fn:function(v){return sanitize.text(v).length>=1;},fap:function(v){return sanitize.text(v).length>=1;},fem:function(v){return!!sanitize.email(v);},fmsg:function(v){return sanitize.stripTags(v).length>=5;}};
   function showE(id,msg){var e=document.getElementById('e'+id);if(e){e.textContent=msg;e.style.display='block';}var i=document.getElementById('f'+id);if(i)i.setAttribute('aria-invalid','true');}
   function clearE(id){var e=document.getElementById('e'+id);if(e)e.style.display='none';var i=document.getElementById('f'+id);if(i)i.removeAttribute('aria-invalid');}
-  ['fn','fap','fem','fmsg'].forEach(function(id){var el=document.getElementById('f'+id);if(el)el.addEventListener('blur',function(){if(validators[id](el.value))clearE(id);});});
+  var _errMap={fn:'n',fap:'ap',fem:'em',fmsg:'msg'};
+  ['fn','fap','fem','fmsg'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('blur',function(){if(validators[id](el.value))clearE(_errMap[id]);});});
   var rgpdEl=document.getElementById('frgpd');if(rgpdEl)rgpdEl.addEventListener('change',function(){if(rgpdEl.checked)clearE('rgpd');});
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var hp=form.querySelector('[name="website"]');if(hp&&hp.value!=='')return;
     var rate=rateCheck('form',ENV.RATE_LIMIT_MS);if(!rate.ok){alert('Espera '+rate.wait+' segundos.');return;}
     var valid=true;
-    ['fn','fap','fem','fmsg'].forEach(function(id){if(!validators[id](document.getElementById('f'+id).value)){showE(id,id==='fem'?'Email no válido':'Campo obligatorio');valid=false;}else clearE(id);});
+    ['fn','fap','fem','fmsg'].forEach(function(id){if(!validators[id](document.getElementById(id).value)){showE(_errMap[id],id==='fem'?'Email no válido':'Campo obligatorio');valid=false;}else clearE(_errMap[id]);});
     var rgpd=document.getElementById('frgpd');if(!rgpd||!rgpd.checked){showE('rgpd',(d(currentLang).formPrivacyErr)||'Acepta la política de privacidad');valid=false;}else clearE('rgpd');
     if(!valid)return;
     var payload={nombre:sanitize.maxLen(sanitize.text(document.getElementById('fn').value),100),apellidos:sanitize.maxLen(sanitize.text(document.getElementById('fap').value),150),email:sanitize.email(document.getElementById('fem').value),empresa:sanitize.maxLen(sanitize.stripTags(document.getElementById('femp').value),150),servicio:document.getElementById('fsrv').value,mensaje:sanitize.maxLen(sanitize.stripTags(document.getElementById('fmsg').value),MAX),_csrf:sessionStorage.getItem('_csrf')};
