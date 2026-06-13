@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-<title>EBREGIS			 | GIS y Topografía</title>
+<title>EBREGIS | Sistemas de Información Geográfica</title>
 
 <!-- Canonical e idiomas -->
 <link rel="canonical" href="https://ebregis.com/">
@@ -2454,10 +2454,10 @@ if(lb2) lb2.addEventListener('click', function(e){ if(e.target===this) closeProj
     var vid = document.getElementById('proj-video');
     if(!modal||!vid) return;
     /* Set video src on first open */
-    /* Set video src from GitHub repo on first open */
-    if(!vid.querySelector('source').src || vid.querySelector('source').src === window.location.href) {
-      var src = 'img/Video%20Project.mp4';
-      vid.querySelector('source').src = src;
+    var srcEl = vid.querySelector('source');
+    var src = 'img/Video%20Project.mp4';
+    if(srcEl && srcEl.getAttribute('src') !== src){
+      srcEl.setAttribute('src', src);
       vid.load();
     }
     modal.classList.add('open');
