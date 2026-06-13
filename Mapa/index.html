@@ -136,7 +136,7 @@
         /* ══ Mapa ══════════════════════════════════════════════ */
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[41.12613317917907,1.215674617632398],[41.286436052052075,1.559416860494097]]);
+        }).setView([41.1598, 1.2950], 11);
 
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix(
@@ -304,14 +304,14 @@
         bounds_group.addLayer(layer_Tarragons_4);
         map.addLayer(layer_Tarragons_4);
 
-        /* ══ Título del mapa ═══════════════════════════════════ */
-        var titleControl = new L.Control({position:'topleft'});
-        titleControl.onAdd = function(map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this._div.innerHTML = '<h2 id="map-title">' + L_t.title + '</h2>';
-            return this._div;
-        };
-        titleControl.addTo(map);
+        /* ══ Título del mapa (desactivado) ═════════════════════ */
+        // var titleControl = new L.Control({position:'topleft'});
+        // titleControl.onAdd = function(map) {
+        //     this._div = L.DomUtil.create('div', 'info');
+        //     this._div.innerHTML = '<h2 id="map-title">' + L_t.title + '</h2>';
+        //     return this._div;
+        // };
+        // titleControl.addTo(map);
 
         /* ══ Control de capas con leyenda traducida ════════════ */
         function buildLayerControl() {
