@@ -2216,6 +2216,7 @@ function setLang(lang){
     if(ogl)ogl.content={es:'es_ES',ca:'ca_ES',en:'en_GB',fr:'fr_FR'}[lang]||'es_ES';
   }catch(e){}
   var m=document.getElementById('lang-menu');if(m)m.style.display='none';
+  try{var mf=document.getElementById('qgis-map-frame');if(mf&&mf.contentWindow)mf.contentWindow.postMessage({type:'setLang',lang:lang},'*');}catch(e){}
 }
 
 /* ── GIS Viewer functional tools ── */

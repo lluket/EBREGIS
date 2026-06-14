@@ -12,6 +12,10 @@
         <style>
         html, body, #map { width:100%; height:100%; padding:0; margin:0; }
         .info h2 { font-size: 1rem; margin: 0 0 4px; }
+        /* Elimina líneas blancas entre tiles (escala mínima para solapar) */
+        .leaflet-tile-container img,
+        .leaflet-tile { will-change: transform; outline: 1px solid transparent; }
+        .leaflet-tile-container { transform: scale(1.001); transform-origin: 0 0; }
         </style>
         <title>Resultados</title>
     </head>
@@ -45,6 +49,10 @@
                 layerTagona:  'Tarragonés',
                 layerMuni:    'Municipios',
                 layerResort:  'Propuesta ubicación resort deportivo',
+                baseSat:      'Satélite',
+                baseLight:    'Mapa claro',
+                baseEsri:     'Satélite Esri',
+                baseDark:     'Mapa oscuro',
                 layerClasif:  'Clasificación',
                 noApto:       'No apto',
                 aptBaja:      'Aptitud baja',
@@ -68,6 +76,10 @@
                 layerTagona:  'Tarragonès',
                 layerMuni:    'Municipalities',
                 layerResort:  'Proposed sports resort location',
+                baseSat:      'Satellite',
+                baseLight:    'Light map',
+                baseEsri:     'Esri Satellite',
+                baseDark:     'Dark map',
                 layerClasif:  'Classification',
                 noApto:       'Not suitable',
                 aptBaja:      'Low suitability',
@@ -88,6 +100,10 @@
                 layerTagona:  'Tarragonès',
                 layerMuni:    'Municipis',
                 layerResort:  'Proposta ubicació resort esportiu',
+                baseSat:      'Satèl·lit',
+                baseLight:    'Mapa clar',
+                baseEsri:     'Satèl·lit Esri',
+                baseDark:     'Mapa fosc',
                 layerClasif:  'Classificació',
                 noApto:       'No apte',
                 aptBaja:      'Aptitud baixa',
@@ -108,6 +124,10 @@
                 layerTagona:  'Tarragonès',
                 layerMuni:    'Communes',
                 layerResort:  'Emplacement proposé pour le resort sportif',
+                baseSat:      'Satellite',
+                baseLight:    'Carte claire',
+                baseEsri:     'Satellite Esri',
+                baseDark:     'Carte sombre',
                 layerClasif:  'Classification',
                 noApto:       'Non adapté',
                 aptBaja:      'Aptitude faible',
@@ -164,6 +184,26 @@
         var layer_CartoPositron_0b = L.tileLayer(
             'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
             { pane:'pane_CartoPositron_0b', opacity:1.0,
+              attribution:'&copy; OpenStreetMap, &copy; CARTO',
+              subdomains:'abcd', minZoom:1, maxZoom:20, maxNativeZoom:20 }
+        );
+
+        /* ══ Capa 0c: Esri World Imagery (satélite alternativo) ═ */
+        map.createPane('pane_EsriImagery_0c');
+        map.getPane('pane_EsriImagery_0c').style.zIndex = 398;
+        var layer_EsriImagery_0c = L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            { pane:'pane_EsriImagery_0c', opacity:1.0,
+              attribution:'&copy; Esri, Maxar, Earthstar Geographics',
+              minZoom:1, maxZoom:28, maxNativeZoom:19 }
+        );
+
+        /* ══ Capa 0d: CartoDB Dark Matter (fondo oscuro) ═══════ */
+        map.createPane('pane_CartoDark_0d');
+        map.getPane('pane_CartoDark_0d').style.zIndex = 397;
+        var layer_CartoDark_0d = L.tileLayer(
+            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+            { pane:'pane_CartoDark_0d', opacity:1.0,
               attribution:'&copy; OpenStreetMap, &copy; CARTO',
               subdomains:'abcd', minZoom:1, maxZoom:20, maxNativeZoom:20 }
         );
@@ -340,8 +380,10 @@
                 ['<img src="legend/Municipios_3.png"/> ' + L_t.layerMuni]:  layer_Municipios_3,
                 ['<img src="legend/Propuestaubicacinresortdeportivo_2.png"/> ' + L_t.layerResort]: layer_Propuestaubicacinresortdeportivo_2,
                 [clasifLegend]: layer_Clasificacin_1,
-                'Satélite': layer_GoogleSatelliteHybrid_0,
-                'Mapa claro (CartoDB)': layer_CartoPositron_0b,
+                [L_t.baseSat]: layer_GoogleSatelliteHybrid_0,
+                [L_t.baseEsri]: layer_EsriImagery_0c,
+                [L_t.baseLight]: layer_CartoPositron_0b,
+                [L_t.baseDark]: layer_CartoDark_0d,
             };
         }
 
