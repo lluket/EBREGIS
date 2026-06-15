@@ -164,7 +164,10 @@
             'Superficie suficient amb poca capacitat expansió':   {es:'Superficie suficiente con poca capacidad de expansión',   ca:'Superfície suficient amb poca capacitat expansió',  en:'Sufficient area with low expansion capacity',   fr:'Superficie suffisante avec faible capacité d\'expansion'},
             'Superficie suficient sense capacitat expansió':      {es:'Superficie suficiente sin capacidad de expansión',        ca:'Superfície suficient sense capacitat expansió',     en:'Sufficient area without expansion capacity',    fr:'Superficie suffisante sans capacité d\'expansion'},
             /* Campo Comarca */
-            'Tarragonés':        {es:'Tarragonès',            ca:'Tarragonès',            en:'Tarragonès',              fr:'Tarragonès'}
+            'Tarragonés':        {es:'Tarragonès',            ca:'Tarragonès',            en:'Tarragonès',              fr:'Tarragonès'},
+            /* Campo Preu / precio — valor sin precio público */
+            'Descongeut':        {es:'Privado',               ca:'Privat',                en:'Private',                 fr:'Privé'},
+            'Desconegut':        {es:'Privado',               ca:'Privat',                en:'Private',                 fr:'Privé'}
         };
 
         /* Traduce un valor si está en el diccionario; si no, lo deja igual */
@@ -244,7 +247,7 @@
                 '<tr><td colspan="2"><b>' + tVal(p['layer'] || '') + '</b></td></tr>' +
                 '<tr><th>' + L_t.superficie + '</th><td>' + (p['Superficie'] !== null ? autolinker.link(String(p['Superficie'])) : '') + '</td></tr>' +
                 '<tr><th>' + L_t.idoneidad  + '</th><td>' + (p['Idonïetat'] !== null ? tVal(p['Idonïetat']) : '') + '</td></tr>' +
-                '<tr><th>' + L_t.precio     + '</th><td>' + (p['Preu'] !== null ? autolinker.link(String(p['Preu'])) : '') + '</td></tr>' +
+                '<tr><th>' + L_t.precio     + '</th><td>' + (p['Preu'] !== null ? tVal(p['Preu']) : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
         }
