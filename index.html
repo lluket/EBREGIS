@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-<title>EBREGIS | Sistemas de Información Geográfica</title>
+<title>EBREGIS | APPS, GIS & Topografía</title>
 
 <!-- Canonical e idiomas -->
 <link rel="canonical" href="https://ebregis.com/">
@@ -163,7 +163,7 @@ em{font-style:normal;color:var(--green3);font-weight:600}
 #nav:not(.scrolled) .nav-links a.act{border-bottom-color:#fff;color:#fff}
 #nav-tog{display:none;background:none;border:none;cursor:pointer;width:36px;height:36px;align-items:center;justify-content:center;color:var(--ink);margin-left:.5rem}
 #nav:not(.scrolled) #nav-tog{color:#fff}
-@media(max-width:900px){
+@media(max-width:980px){
   #nav-tog{display:flex}
   .nav-links{display:none;flex-direction:column;gap:0;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--white);overflow-y:auto;padding:1rem 0;z-index:800;margin:0;align-items:flex-start}
   .nav-links.open{display:flex}
@@ -257,6 +257,13 @@ em{font-style:normal;color:var(--green3);font-weight:600}
 .vt-name{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none;margin-left:.25rem}
 .vt-badge{flex-shrink:0;display:flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(66,184,102,.25);padding:.3rem .9rem;border-radius:100px;border:1.5px solid rgba(66,184,102,.55)}
 .vt-badge-dot{width:6px;height:6px;background:#42b866;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+
+/* Visor title bar responsive — evita solape nombre/badge */
+@media(max-width:680px){
+  .vt-name{display:none}
+  .vt-badge span{display:none}
+  .vt-badge{padding:.3rem .5rem}
+}
 
 /* Toolbar */
 .v-toolbar{background:var(--f1);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;flex-wrap:wrap}
@@ -503,6 +510,8 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 #proj-vmodal.open{display:flex}
 .proj-vbox{position:relative;width:100%;max-width:900px;background:#000;border-radius:var(--r-xl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.6)}
 .proj-vbox video{width:100%;display:block;max-height:75vh}
+.proj-vyt{position:relative;width:100%;aspect-ratio:16/9;max-height:75vh;background:#000}
+.proj-vyt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .proj-vclose{position:absolute;top:.85rem;right:.85rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background var(--t);backdrop-filter:blur(6px)}
 .proj-vclose:hover{background:rgba(255,255,255,.3)}
 
@@ -915,9 +924,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-vmodal">
   <div class="proj-vbox">
     <button class="proj-vclose" onclick="closeProjVideo()">✕</button>
-    <video id="proj-video" controls preload="none">
-      <source src="" id="proj-video-src" type="video/mp4">
-    </video>
+    <div class="proj-vyt" id="proj-yt-wrap"></div>
   </div>
 </div>
 
@@ -2474,29 +2481,24 @@ document.addEventListener('keydown', function(e){
 var lb2 = document.getElementById('proj-lightbox2');
 if(lb2) lb2.addEventListener('click', function(e){ if(e.target===this) closeProjLightbox2(); });
 
-/* ── Project video modal ── */
+/* ── Project video modal (YouTube) ── */
 (function(){
-  var VIDEO_B64 = ''; /* Loaded lazily from file — set src at open */
+  var YT_ID = 'DVnhbrJJlZQ';
   window.openProjVideo = function(){
     var modal = document.getElementById('proj-vmodal');
-    var vid = document.getElementById('proj-video');
-    if(!modal||!vid) return;
-    /* Set video src on first open */
-    var srcEl = vid.querySelector('source');
-    var src = 'img/Video%20Project.mp4';
-    if(srcEl && srcEl.getAttribute('src') !== src){
-      srcEl.setAttribute('src', src);
-      vid.load();
-    }
+    var wrap = document.getElementById('proj-yt-wrap');
+    if(!modal||!wrap) return;
+    /* Inserta el iframe al abrir (autoplay) — así no penaliza la carga inicial */
+    wrap.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/'+YT_ID+'?autoplay=1&rel=0&modestbranding=1" title="Vídeo de una inspección — EBREGIS" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>';
     modal.classList.add('open');
     document.body.style.overflow='hidden';
-    vid.play().catch(function(){});
   };
   window.closeProjVideo = function(){
     var modal = document.getElementById('proj-vmodal');
-    var vid = document.getElementById('proj-video');
+    var wrap = document.getElementById('proj-yt-wrap');
     if(modal) modal.classList.remove('open');
-    if(vid) { vid.pause(); vid.currentTime=0; }
+    /* Vacía el iframe para detener la reproducción */
+    if(wrap) wrap.innerHTML='';
     document.body.style.overflow='';
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProjVideo();});
