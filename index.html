@@ -171,6 +171,20 @@ em{font-style:normal;color:var(--green3);font-weight:600}
   #nav:not(.scrolled) .nav-links.open a{color:var(--text)}
 }
 
+/* ── NAVBAR RESPONSIVE FIX ── */
+@media(max-width:600px){
+  .nav-in{padding:0 1rem;gap:.5rem}
+  .nav-brand img{height:50px;max-width:150px}
+  .nav-brand-name{font-size:.95rem;margin-left:-12px}
+  #nav-contact-btn{padding:.45rem .8rem!important;font-size:.62rem!important}
+}
+@media(max-width:420px){
+  /* En pantallas muy pequeñas, oculta el botón Contactar del header
+     (ya está dentro del menú hamburguesa y en el footer) */
+  #nav-contact-btn{display:none}
+  .nav-brand img{height:46px;max-width:120px}
+}
+
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(148deg,#061410 0%,#0d2218 45%,#091c2a 100%)}
 #hero-cv{position:absolute;inset:0;width:100%;height:100%}
