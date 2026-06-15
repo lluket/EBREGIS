@@ -1186,7 +1186,7 @@ function setActiveNav(){
     }
   }
   menu.querySelectorAll('a').forEach(a=>a.classList.remove('act'));
-  if(currentId){const l=menu.querySelector(`a[href="#${currentId}"]`);if(l)l.classList.add('act');}
+  /* Resaltado de sección activa desactivado a petición */
 }
 window.addEventListener('scroll',setActiveNav,{passive:true});
 window.addEventListener('resize',setActiveNav,{passive:true});
