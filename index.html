@@ -106,7 +106,9 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased}
-body{font-family:var(--ff);background:var(--white);color:var(--text);line-height:1.65;overflow-x:hidden}
+body{font-family:var(--ff);background:var(--white);color:var(--text);line-height:1.65;overflow-x:hidden;touch-action:pan-x pan-y}
+/* Permitir zoom/pinch solo en las imágenes del lightbox */
+.plb-img-wrap,.plb-img-wrap img{touch-action:pinch-zoom}
 ::-webkit-scrollbar{width:9px}::-webkit-scrollbar-track{background:var(--f1)}::-webkit-scrollbar-thumb{background:var(--green3);border-radius:5px}
 
 /* ── TYPE ── */
@@ -177,6 +179,8 @@ em{font-style:normal;color:var(--green3);font-weight:600}
   .nav-links a.act{color:var(--green)!important;border-left:3px solid var(--green);background:rgba(46,150,80,.05)}
   #nav:not(.scrolled) .nav-links.open a{color:var(--text)!important}
   #nav:not(.scrolled) .nav-links.open a.act{color:var(--green)!important}
+  #nav.scrolled .nav-links.open a{color:var(--text)!important}
+  #nav.scrolled .nav-links.open a.act{color:var(--green)!important}
 }
 
 /* ── NAVBAR RESPONSIVE FIX ── */
@@ -475,6 +479,8 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 
 #nav.scrolled .nav-brand-logo-wrap{background:transparent}
 #nav.scrolled #lang-btn{border-color:var(--border2)!important;color:var(--text2)!important}
+#nav.scrolled #lang-btn svg{color:var(--text2)!important;stroke:var(--text2)!important}
+#nav.scrolled #lang-btn span{color:var(--text2)!important}
 /* ── REVEAL ── */
 .rv{opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
 .rv.in{opacity:1;transform:translateY(0)}
@@ -2584,6 +2590,23 @@ var _p6imgs={es:'img/es6.png',ca:'img/cat6.png',en:'img/in6.png',fr:'img/fr6.png
 function swapP6Img(lang){var img=document.getElementById('p6-img');if(!img)return;var src=_p6imgs[lang]||_p6imgs.es;if(img.src!==src)img.src=src;}
 /* ── Form ── */
 /* old form handler removed */
+
+/* ── Bloquear zoom por doble-toque (excepto en imágenes del lightbox) ── */
+(function(){
+  var lastTouch=0;
+  document.addEventListener('touchend',function(e){
+    var now=Date.now();
+    if(now-lastTouch<=350){
+      if(e.target && e.target.closest && e.target.closest('.plb-img-wrap')) return;
+      e.preventDefault();
+    }
+    lastTouch=now;
+  },{passive:false});
+  document.addEventListener('gesturestart',function(e){
+    if(e.target && e.target.closest && e.target.closest('.plb-img-wrap')) return;
+    e.preventDefault();
+  },{passive:false});
+})();
 </script>
 </body>
 </html>
