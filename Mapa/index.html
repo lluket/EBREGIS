@@ -145,7 +145,36 @@
             }
         };
 
-        /* Lee idioma del localStorage (guardado por la web principal) */
+        /* ══ Diccionario de VALORES del GeoJSON ════════════════
+           Traduce el contenido de los campos (no solo etiquetas).
+           La clave es el valor original (catalán) tal cual está
+           en los datos. Números y nombres propios no se incluyen.
+        ════════════════════════════════════════════════════════ */
+        var V_t = {
+            /* Campo layer / aptitud */
+            'Aptitud alta':      {es:'Aptitud alta',          ca:'Aptitud alta',          en:'High suitability',        fr:'Aptitude élevée'},
+            'Aptitud baixa':     {es:'Aptitud baja',          ca:'Aptitud baixa',         en:'Low suitability',         fr:'Aptitude faible'},
+            'Aptitud mitjana':   {es:'Aptitud media',         ca:'Aptitud mitjana',       en:'Medium suitability',      fr:'Aptitude moyenne'},
+            'Aptitud molt alta': {es:'Aptitud muy alta',      ca:'Aptitud molt alta',     en:'Very high suitability',   fr:'Aptitude très élevée'},
+            'No apte':           {es:'No apto',               ca:'No apte',               en:'Not suitable',            fr:'Non adapté'},
+            /* Campo Idonïetat / idoneidad */
+            'Superficie insuficient':                              {es:'Superficie insuficiente',                       ca:'Superfície insuficient',                          en:'Insufficient area',                          fr:'Superficie insuffisante'},
+            'Superficie suficient amb bona capacitat expansió':   {es:'Superficie suficiente con buena capacidad de expansión',  ca:'Superfície suficient amb bona capacitat expansió',  en:'Sufficient area with good expansion capacity',  fr:'Superficie suffisante avec bonne capacité d\'expansion'},
+            'Superficie suficient amb molta capacitat expansió':  {es:'Superficie suficiente con mucha capacidad de expansión',  ca:'Superfície suficient amb molta capacitat expansió', en:'Sufficient area with high expansion capacity',  fr:'Superficie suffisante avec grande capacité d\'expansion'},
+            'Superficie suficient amb poca capacitat expansió':   {es:'Superficie suficiente con poca capacidad de expansión',   ca:'Superfície suficient amb poca capacitat expansió',  en:'Sufficient area with low expansion capacity',   fr:'Superficie suffisante avec faible capacité d\'expansion'},
+            'Superficie suficient sense capacitat expansió':      {es:'Superficie suficiente sin capacidad de expansión',        ca:'Superfície suficient sense capacitat expansió',     en:'Sufficient area without expansion capacity',    fr:'Superficie suffisante sans capacité d\'expansion'},
+            /* Campo Comarca */
+            'Tarragonés':        {es:'Tarragonès',            ca:'Tarragonès',            en:'Tarragonès',              fr:'Tarragonès'}
+        };
+
+        /* Traduce un valor si está en el diccionario; si no, lo deja igual */
+        function tVal(v) {
+            if (v === null || v === undefined) return '';
+            var key = String(v);
+            if (V_t[key] && V_t[key][currentLang]) return V_t[key][currentLang];
+            return key;
+        }
+
         function getLang() {
             try { return localStorage.getItem('ebregis_lang') || 'es'; }
             catch(e) { return 'es'; }
@@ -212,9 +241,9 @@
         function pop_Clasificacin_1(feature, layer) {
             var p = feature.properties;
             var popupContent = '<table>' +
-                '<tr><td colspan="2"><b>' + (p['layer'] || '') + '</b></td></tr>' +
+                '<tr><td colspan="2"><b>' + tVal(p['layer'] || '') + '</b></td></tr>' +
                 '<tr><th>' + L_t.superficie + '</th><td>' + (p['Superficie'] !== null ? autolinker.link(String(p['Superficie'])) : '') + '</td></tr>' +
-                '<tr><th>' + L_t.idoneidad  + '</th><td>' + (p['Idonïetat'] !== null ? autolinker.link(String(p['Idonïetat'])) : '') + '</td></tr>' +
+                '<tr><th>' + L_t.idoneidad  + '</th><td>' + (p['Idonïetat'] !== null ? tVal(p['Idonïetat']) : '') + '</td></tr>' +
                 '<tr><th>' + L_t.precio     + '</th><td>' + (p['Preu'] !== null ? autolinker.link(String(p['Preu'])) : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
@@ -330,7 +359,7 @@
         function pop_Tarragons_4(feature, layer) {
             var p = feature.properties;
             var popupContent = '<table>' +
-                '<tr><th>' + L_t.comarca   + '</th><td>' + (p['Comarca']   !== null ? autolinker.link(String(p['Comarca']))   : '') + '</td></tr>' +
+                '<tr><th>' + L_t.comarca   + '</th><td>' + (p['Comarca']   !== null ? tVal(p['Comarca'])   : '') + '</td></tr>' +
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']       !== null ? autolinker.link(String(p['km2']))       : '') + '</td></tr>' +
                 '<tr><th>' + L_t.poblacion + '</th><td>' + (p['Poblacion'] !== null ? autolinker.link(String(p['Poblacion'])) : '') + '</td></tr>' +
                 '</table>';
