@@ -390,6 +390,32 @@
         var layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
         setBounds();
 
+        /* ══ Regenera los popups con el idioma actual ══════════
+           Los popups se vincularon al cargar con bindPopup. Al
+           cambiar de idioma hay que volver a ejecutarlos para que
+           usen las nuevas etiquetas de L_t.
+        ════════════════════════════════════════════════════════ */
+        function refreshPopups() {
+            var pairs = [
+                [layer_Clasificacin_1, pop_Clasificacin_1],
+                [layer_Propuestaubicacinresortdeportivo_2, pop_Propuestaubicacinresortdeportivo_2],
+                [layer_Municipios_3, pop_Municipios_3],
+                [layer_Tarragons_4, pop_Tarragons_4]
+            ];
+            pairs.forEach(function(pair) {
+                var lyr = pair[0], popFn = pair[1];
+                if (!lyr || !popFn) return;
+                lyr.eachLayer(function(sub) {
+                    if (sub.feature) {
+                        /* Si el popup está abierto, lo cerramos para evitar contenido viejo */
+                        if (sub.isPopupOpen && sub.isPopupOpen()) sub.closePopup();
+                        sub.unbindPopup();
+                        popFn(sub.feature, sub);
+                    }
+                });
+            });
+        }
+
         /* ══ Escucha cambios de idioma desde la web padre ══════
            La web principal guarda el idioma en localStorage.
            Aquí escuchamos el evento storage para actualizarlo
@@ -410,6 +436,9 @@
             layerControl.remove();
             layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
 
+            /* Regenera los popups con el nuevo idioma */
+            refreshPopups();
+
             /* Actualiza idioma HTML */
             document.documentElement.lang = currentLang;
         });
@@ -425,6 +454,7 @@
                 if (titleEl) titleEl.textContent = L_t.title;
                 layerControl.remove();
                 layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
+                refreshPopups();
                 document.documentElement.lang = currentLang;
             }
         });
