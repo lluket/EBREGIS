@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061410">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="EBREGIS — Desarrollo de aplicaciones móviles, webs profesionales, sistemas GIS y topografía de precisión. Soluciones digitales a medida para empresas y autónomos.">
 <meta name="robots" content="index, follow">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-<title>EBREGIS | Desarrollo de Apps, Webs y Sistemas GIS</title>
+<title>EBREGIS | Sistemas de Información Geográfica</title>
 
 <!-- Canonical e idiomas -->
 <link rel="canonical" href="https://ebregis.com/">
@@ -165,10 +167,16 @@ em{font-style:normal;color:var(--green3);font-weight:600}
 #nav:not(.scrolled) #nav-tog{color:#fff}
 @media(max-width:980px){
   #nav-tog{display:flex}
-  .nav-links{display:none;flex-direction:column;gap:0;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--white);overflow-y:auto;padding:1rem 0;z-index:800;margin:0;align-items:flex-start}
-  .nav-links.open{display:flex}
-  .nav-links a{height:auto;padding:1rem 2.5rem;width:100%;border-bottom:1px solid var(--border);color:var(--text);letter-spacing:.06em}
-  #nav:not(.scrolled) .nav-links.open a{color:var(--text)}
+  .nav-links{display:none;flex-direction:column;gap:0;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--white);overflow-y:auto;padding:.5rem 0 2rem;z-index:1200;margin:0;align-items:stretch;box-shadow:inset 0 1px 0 var(--border)}
+  .nav-links.open{display:flex;animation:navFade .25s var(--ease)}
+  @keyframes navFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .nav-links li{width:100%}
+  .nav-links a{height:auto;padding:1.1rem 1.75rem;width:100%;border-bottom:1px solid var(--f2);color:var(--text)!important;letter-spacing:.08em;font-size:.82rem;font-weight:600;display:flex;align-items:center;justify-content:space-between;transition:background var(--t),color var(--t)}
+  .nav-links a::after{content:'›';font-size:1.1rem;color:var(--text4);font-weight:400}
+  .nav-links a:hover,.nav-links a:active{background:var(--f0);color:var(--green)!important;padding-left:2rem}
+  .nav-links a.act{color:var(--green)!important;border-left:3px solid var(--green);background:rgba(46,150,80,.05)}
+  #nav:not(.scrolled) .nav-links.open a{color:var(--text)!important}
+  #nav:not(.scrolled) .nav-links.open a.act{color:var(--green)!important}
 }
 
 /* ── NAVBAR RESPONSIVE FIX ── */
