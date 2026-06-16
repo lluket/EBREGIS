@@ -1256,7 +1256,6 @@ menu.querySelectorAll('a').forEach(function(a){
         var y=target.getBoundingClientRect().top+window.pageYOffset-navH;
         /* pequeño margen extra para que no se vea la sección anterior */
         window.scrollTo({top:Math.max(0,Math.round(y)),behavior:'smooth'});
-        if(history.replaceState)history.replaceState(null,'',href);
       }
     }
   });
