@@ -16,11 +16,23 @@
         .leaflet-tile-container img,
         .leaflet-tile { will-change: transform; outline: 1px solid transparent; }
         .leaflet-tile-container { transform: scale(1.001); transform-origin: 0 0; }
+        /* ── Buscador de municipios ── */
+        #muni-search-panel{position:absolute;top:10px;left:50px;z-index:1000;background:rgba(255,255,255,.96);border:1px solid #c8dcc8;border-radius:8px;box-shadow:0 2px 12px rgba(10,30,15,.18);padding:7px 9px;display:flex;align-items:center;gap:6px;font-family:Arial,Helvetica,sans-serif;backdrop-filter:blur(6px)}
+        #muni-search-input{border:1px solid #c8dcc8;border-radius:5px;padding:6px 9px;font-size:13px;font-family:inherit;outline:none;min-width:170px;color:#1e3322}
+        #muni-search-input:focus{border-color:#2e9650;box-shadow:0 0 0 2px rgba(46,150,80,.15)}
+        #muni-search-clear{border:none;background:#eef4ef;color:#4a6450;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        #muni-search-clear:hover{background:#d2e0d2;color:#1a5c30}
+        @media(max-width:600px){#muni-search-panel{left:10px;right:10px;top:10px}#muni-search-input{min-width:0;flex:1}}
         </style>
         <title>Resultados</title>
     </head>
     <body>
         <div id="map"></div>
+        <div id="muni-search-panel">
+          <input id="muni-search-input" list="muni-list" placeholder="Buscar municipio…" autocomplete="off">
+          <datalist id="muni-list"></datalist>
+          <button id="muni-search-clear" title="Limpiar" aria-label="Limpiar">✕</button>
+        </div>
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -422,6 +434,48 @@
         var layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
         setBounds();
 
+        /* ══ Buscador de municipios (autocompletado + zoom) ════ */
+        (function(){
+          var input=document.getElementById('muni-search-input');
+          var list=document.getElementById('muni-list');
+          var clearBtn=document.getElementById('muni-search-clear');
+          if(!input||!list||!layer_Municipios_3)return;
+          /* Construye índice nombre -> capa desde la propia capa de municipios */
+          var muniIndex={};var names=[];
+          layer_Municipios_3.eachLayer(function(lyr){
+            if(lyr.feature&&lyr.feature.properties){
+              var nm=lyr.feature.properties.NOMMUNI;
+              if(nm){muniIndex[nm.toLowerCase()]=lyr;names.push(nm);}
+            }
+          });
+          names.sort(function(a,b){return a.localeCompare(b,'ca');});
+          list.innerHTML=names.map(function(n){return '<option value="'+n.replace(/"/g,'&quot;')+'"></option>';}).join('');
+          function goTo(name){
+            if(!name)return;
+            var lyr=muniIndex[String(name).toLowerCase().trim()];
+            if(!lyr){
+              /* coincidencia parcial si no es exacta */
+              var key=Object.keys(muniIndex).find(function(k){return k.indexOf(String(name).toLowerCase().trim())===0;});
+              if(key)lyr=muniIndex[key];
+            }
+            if(lyr&&lyr.getBounds){
+              map.flyToBounds(lyr.getBounds(),{padding:[40,40],maxZoom:14,duration:.8});
+            }
+          }
+          input.addEventListener('change',function(){goTo(input.value);});
+          input.addEventListener('keydown',function(e){if(e.key==='Enter'){goTo(input.value);input.blur();}});
+          clearBtn.addEventListener('click',function(){
+            input.value='';
+            setBounds(); /* vuelve a la vista general */
+          });
+          /* Placeholder traducible */
+          window.updateMuniPlaceholder=function(){
+            var ph={es:'Buscar municipio…',ca:'Cerca municipi…',en:'Search municipality…',fr:'Rechercher commune…'};
+            input.placeholder=ph[currentLang]||ph.es;
+          };
+          window.updateMuniPlaceholder();
+        })();
+
         /* ══ Regenera los popups con el idioma actual ══════════
            Los popups se vincularon al cargar con bindPopup. Al
            cambiar de idioma hay que volver a ejecutarlos para que
@@ -473,6 +527,7 @@
 
             /* Actualiza idioma HTML */
             document.documentElement.lang = currentLang;
+            if(window.updateMuniPlaceholder)window.updateMuniPlaceholder();
         });
 
         /* También escucha mensajes postMessage desde el iframe padre */
@@ -488,6 +543,7 @@
                 layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
                 refreshPopups();
                 document.documentElement.lang = currentLang;
+            if(window.updateMuniPlaceholder)window.updateMuniPlaceholder();
             }
         });
 
