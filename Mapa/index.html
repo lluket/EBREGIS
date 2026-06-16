@@ -23,15 +23,28 @@
         #muni-search-clear{border:none;background:#eef4ef;color:#4a6450;width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0}
         #muni-search-clear:hover{background:#d2e0d2;color:#1a5c30}
         @media(max-width:600px){#muni-search-panel{left:10px;right:10px;top:10px}#muni-search-input{min-width:0;flex:1}}
+        /* ── Etiquetas de municipios (discretas) ── */
+        .muni-label{background:rgba(255,255,255,.6)!important;border:none!important;box-shadow:none!important;color:#5a0707!important;font-family:Arial,Helvetica,sans-serif!important;font-size:9px!important;font-weight:700!important;letter-spacing:.02em;padding:0 2px!important;border-radius:2px;text-shadow:0 1px 2px rgba(255,255,255,.8)}
+        .muni-label::before{display:none!important}
+        /* ── Desplegable personalizado del buscador ── */
+        #muni-search-panel{position:relative}
+        #muni-dropdown{position:absolute;top:calc(100% + 4px);left:9px;right:9px;background:#fff;border:1px solid #c8dcc8;border-radius:6px;box-shadow:0 6px 20px rgba(10,30,15,.2);max-height:238px;overflow-y:auto;display:none;z-index:1100}
+        #muni-dropdown.open{display:block}
+        .muni-opt{padding:8px 11px;font-size:13px;color:#1e3322;cursor:pointer;font-family:Arial,Helvetica,sans-serif;border-bottom:1px solid #f0f4f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .muni-opt:last-child{border-bottom:none}
+        .muni-opt:hover,.muni-opt.active{background:#eef4ef;color:#1a5c30}
+        #muni-dropdown::-webkit-scrollbar{width:8px}
+        #muni-dropdown::-webkit-scrollbar-thumb{background:#2e9650;border-radius:4px}
+        #muni-dropdown::-webkit-scrollbar-track{background:#f0f4f0}
         </style>
         <title>Resultados</title>
     </head>
     <body>
         <div id="map"></div>
         <div id="muni-search-panel">
-          <input id="muni-search-input" list="muni-list" placeholder="Buscar municipio…" autocomplete="off">
-          <datalist id="muni-list"></datalist>
+          <input id="muni-search-input" placeholder="Buscar municipio…" autocomplete="off">
           <button id="muni-search-clear" title="Limpiar" aria-label="Limpiar">✕</button>
+          <div id="muni-dropdown"></div>
         </div>
 
         <script src="js/qgis2web_expressions.js"></script>
@@ -351,6 +364,10 @@
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
+            /* Etiqueta permanente discreta con el nombre del municipio */
+            if(feature.properties && feature.properties.NOMMUNI){
+                layer.bindTooltip(feature.properties.NOMMUNI,{permanent:true,direction:'center',className:'muni-label'});
+            }
         }
         function style_Municipios_3_0() {
             return { pane:'pane_Municipios_3', opacity:1, color:'rgba(101,7,7,1.0)',
@@ -434,13 +451,12 @@
         var layerControl = L.control.layers({}, buildLayerControl()).addTo(map);
         setBounds();
 
-        /* ══ Buscador de municipios (autocompletado + zoom) ════ */
+        /* ══ Buscador de municipios (desplegable propio + zoom) ════ */
         (function(){
           var input=document.getElementById('muni-search-input');
-          var list=document.getElementById('muni-list');
+          var dropdown=document.getElementById('muni-dropdown');
           var clearBtn=document.getElementById('muni-search-clear');
-          if(!input||!list||!layer_Municipios_3)return;
-          /* Construye índice nombre -> capa desde la propia capa de municipios */
+          if(!input||!dropdown||!layer_Municipios_3)return;
           var muniIndex={};var names=[];
           layer_Municipios_3.eachLayer(function(lyr){
             if(lyr.feature&&lyr.feature.properties){
@@ -449,26 +465,46 @@
             }
           });
           names.sort(function(a,b){return a.localeCompare(b,'ca');});
-          list.innerHTML=names.map(function(n){return '<option value="'+n.replace(/"/g,'&quot;')+'"></option>';}).join('');
+          var activeIdx=-1,visible=[];
           function goTo(name){
             if(!name)return;
             var lyr=muniIndex[String(name).toLowerCase().trim()];
-            if(!lyr){
-              /* coincidencia parcial si no es exacta */
-              var key=Object.keys(muniIndex).find(function(k){return k.indexOf(String(name).toLowerCase().trim())===0;});
-              if(key)lyr=muniIndex[key];
-            }
-            if(lyr&&lyr.getBounds){
-              map.flyToBounds(lyr.getBounds(),{padding:[40,40],maxZoom:14,duration:.8});
-            }
+            if(lyr&&lyr.getBounds){map.flyToBounds(lyr.getBounds(),{padding:[40,40],maxZoom:14,duration:.8});}
           }
-          input.addEventListener('change',function(){goTo(input.value);});
-          input.addEventListener('keydown',function(e){if(e.key==='Enter'){goTo(input.value);input.blur();}});
-          clearBtn.addEventListener('click',function(){
-            input.value='';
-            setBounds(); /* vuelve a la vista general */
+          function renderList(filter){
+            filter=(filter||'').toLowerCase().trim();
+            visible=names.filter(function(n){return n.toLowerCase().indexOf(filter)!==-1;});
+            if(visible.length===0){dropdown.classList.remove('open');return;}
+            dropdown.innerHTML=visible.map(function(n,i){return '<div class="muni-opt" data-i="'+i+'">'+n+'</div>';}).join('');
+            dropdown.classList.add('open');
+            activeIdx=-1;
+            Array.prototype.forEach.call(dropdown.querySelectorAll('.muni-opt'),function(el){
+              el.addEventListener('click',function(){
+                input.value=visible[+el.getAttribute('data-i')];
+                dropdown.classList.remove('open');
+                goTo(input.value);
+                input.blur();
+              });
+            });
+          }
+          input.addEventListener('focus',function(){renderList(input.value);});
+          input.addEventListener('input',function(){renderList(input.value);});
+          input.addEventListener('keydown',function(e){
+            var opts=dropdown.querySelectorAll('.muni-opt');
+            if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,opts.length-1);}
+            else if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);}
+            else if(e.key==='Enter'){e.preventDefault();if(activeIdx>=0&&visible[activeIdx]){input.value=visible[activeIdx];}dropdown.classList.remove('open');goTo(input.value);input.blur();return;}
+            else if(e.key==='Escape'){dropdown.classList.remove('open');input.blur();return;}
+            else return;
+            opts.forEach(function(o,i){o.classList.toggle('active',i===activeIdx);if(i===activeIdx)o.scrollIntoView({block:'nearest'});});
           });
-          /* Placeholder traducible */
+          /* Cerrar al hacer clic fuera */
+          document.addEventListener('click',function(e){
+            if(!document.getElementById('muni-search-panel').contains(e.target))dropdown.classList.remove('open');
+          });
+          clearBtn.addEventListener('click',function(){
+            input.value='';dropdown.classList.remove('open');setBounds();
+          });
           window.updateMuniPlaceholder=function(){
             var ph={es:'Buscar municipio…',ca:'Cerca municipi…',en:'Search municipality…',fr:'Rechercher commune…'};
             input.placeholder=ph[currentLang]||ph.es;
