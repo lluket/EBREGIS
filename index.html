@@ -105,7 +105,7 @@
   --t:.25s;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;scroll-padding-top:80px}
+html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;scroll-padding-top:68px}
 body{font-family:var(--ff);background:var(--white);color:var(--text);line-height:1.65;overflow-x:hidden;touch-action:pan-x pan-y}
 /* Permitir zoom/pinch solo en las imágenes del lightbox */
 .plb-img-wrap,.plb-img-wrap img{touch-action:pinch-zoom}
@@ -122,7 +122,7 @@ em{font-style:normal;color:var(--green3);font-weight:600}
 /* ── LAYOUT ── */
 .container{max-width:1200px;margin:0 auto;padding:0 2.5rem}
 .section{padding:6.5rem 0}
-section[id]{scroll-margin-top:76px}
+section[id]{scroll-margin-top:68px}
 @media(max-width:768px){.section{padding:4rem 0}.container{padding:0 1.25rem}}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
@@ -226,7 +226,7 @@ section[id]{scroll-margin-top:76px}
 /* ── TICKER STRIP ── */
 .ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center}
 .ticker-track{display:flex;gap:4rem;animation:ticker 32s linear infinite;white-space:nowrap;align-items:center}
-.ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);flex-shrink:0}
+.ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
@@ -710,6 +710,36 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       </div>
 
 
+      <!-- Project 7: Digitalización redes de agua (posición visual 2) -->
+      <div class="proj-card rv" onclick="openProjLightbox7()" style="cursor:pointer">
+        <div class="proj-img">
+          <img loading="lazy" decoding="async" id="p7-img" src="img/es7.png" alt="Digitalización de redes de distribución de agua">
+          <div class="proj-img-overlay">
+            <span class="proj-badge" id="p7-badge">GIS · Agua · Inventario</span>
+          </div>
+          <div class="proj-play">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag-row">
+            <span class="proj-tag" id="p7-t1">GIS</span>
+            <span class="proj-tag" id="p7-t2">Redes de agua</span>
+            <span class="proj-tag" id="p7-t3">Inventario</span>
+            <span class="proj-tag" id="p7-t4">PostGIS</span>
+            <span class="proj-tag" id="p7-t5">Cartografía</span>
+          </div>
+          <h3 id="proj7-title">Digitalización de redes de distribución de agua</h3>
+          <p id="proj7-desc">Inventario y digitalización GIS de redes de abastecimiento de agua. Levantamiento y georreferenciación de tuberías, válvulas, hidrantes, acometidas y depósitos, con sus atributos técnicos (material, diámetro, presión, estado). Toda la red queda estructurada en una base de datos espacial consultable, con visores cartográficos para planificar mantenimiento, detectar incidencias y optimizar la gestión del agua. Del plano en papel al gemelo digital de la red.</p>
+          <div class="proj-stats">
+            <div><div class="proj-stat-v">100%</div><div class="proj-stat-l" id="p7-sl1">Georreferenciado</div></div>
+            <div><div class="proj-stat-v">GIS</div><div class="proj-stat-l" id="p7-sl2">Base espacial</div></div>
+            <div><div class="proj-stat-v">↺</div><div class="proj-stat-l" id="p7-sl3">Mantenimiento</div></div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- Project 2: Riego finca naranjos -->
       <div class="proj-card rv" onclick="openProjLightbox2()" style="cursor:pointer">
         <div class="proj-img">
@@ -801,6 +831,35 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
             <div><div class="proj-stat-v">100%</div><div class="proj-stat-l" id="p5-sl1">A medida</div></div>
             <div><div class="proj-stat-v">SEO</div><div class="proj-stat-l" id="p5-sl2">Optimizado</div></div>
             <div><div class="proj-stat-v">✓</div><div class="proj-stat-l" id="p5-sl3">En producción</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 8: Apps para gimnasios (posición visual 6) -->
+      <div class="proj-card rv" onclick="openProjLightbox8()" style="cursor:pointer">
+        <div class="proj-img">
+          <img loading="lazy" decoding="async" id="p8-img" src="img/es8.png" alt="Apps para gimnasios: control de accesos, reservas y comunidad">
+          <div class="proj-img-overlay">
+            <span class="proj-badge" id="p8-badge">App · iOS · Android · Gimnasios</span>
+          </div>
+          <div class="proj-play">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tag-row">
+            <span class="proj-tag" id="p8-t1">App móvil</span>
+            <span class="proj-tag" id="p8-t2">Gimnasios</span>
+            <span class="proj-tag" id="p8-t3">Acceso QR</span>
+            <span class="proj-tag" id="p8-t4">Reservas</span>
+            <span class="proj-tag" id="p8-t5">Comunidad</span>
+          </div>
+          <h3 id="proj8-title">Apps para gimnasios: control de accesos, reservas y comunidad</h3>
+          <p id="proj8-desc">Aplicación móvil integral para gimnasios y centros deportivos. Control de accesos mediante código QR personal, reserva de clases y espacios en tiempo real, tienda de merchandising integrada, calendario de accesos y actividad, y un foro social donde los socios interactúan y comparten su progreso. El panel de administración gestiona socios, aforos, horarios y ventas desde un único lugar. Más autonomía para el socio, menos gestión manual para el gimnasio.</p>
+          <div class="proj-stats">
+            <div><div class="proj-stat-v" style="color:#1a64dc">QR</div><div class="proj-stat-l" id="p8-sl1">Control de accesos</div></div>
+            <div><div class="proj-stat-v" style="color:#1a64dc">24/7</div><div class="proj-stat-l" id="p8-sl2">Reservas</div></div>
+            <div><div class="proj-stat-v" style="color:#1a64dc">Social</div><div class="proj-stat-l" id="p8-sl3">Comunidad</div></div>
           </div>
         </div>
       </div>
@@ -938,6 +997,28 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox6()">Cerrar</button>
   </div>
   <p class="plb-caption" id="lb6-caption">Gestión de reservas · Barberías · iOS & Android · Recordatorios automáticos · Dashboard</p>
+</div>
+<!-- Project 7 lightbox (agua) -->
+<div id="proj-lightbox7" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
+  <button class="plb-close" onclick="closeProjLightbox7()">✕</button>
+  <div class="plb-img-wrap">
+    <img id="plb-img7" src="img/es7.png" style="max-width:100%;max-height:75vh;object-fit:contain;border-radius:var(--r-lg)" alt="Digitalización redes de agua">
+  </div>
+  <div class="plb-actions">
+    <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox7()">Cerrar</button>
+  </div>
+  <p class="plb-caption" id="lb7-caption">Digitalización de redes de agua · Inventario GIS · PostGIS · Visores cartográficos</p>
+</div>
+<!-- Project 8 lightbox (gym) -->
+<div id="proj-lightbox8" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
+  <button class="plb-close" onclick="closeProjLightbox8()">✕</button>
+  <div class="plb-img-wrap">
+    <img id="plb-img8" src="img/es8.png" style="max-width:100%;max-height:75vh;object-fit:contain;border-radius:var(--r-lg)" alt="Apps para gimnasios">
+  </div>
+  <div class="plb-actions">
+    <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox8()">Cerrar</button>
+  </div>
+  <p class="plb-caption" id="lb8-caption">Apps para gimnasios · Acceso QR · Reservas · Merchandising · Comunidad · iOS & Android</p>
 </div>
 <!-- Video modal -->
 <div id="proj-vmodal">
@@ -1162,7 +1243,24 @@ window.addEventListener('scroll',updateNav,{passive:true});updateNav();
 const tog=document.getElementById('nav-tog');
 const menu=document.getElementById('nav-menu');
 tog.addEventListener('click',()=>{const o=menu.classList.toggle('open');tog.setAttribute('aria-expanded',o);nav.classList.toggle('menu-open',o);document.body.style.overflow=o?'hidden':'';});
-menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');tog.setAttribute('aria-expanded','false');nav.classList.remove('menu-open');document.body.style.overflow='';}));
+menu.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var href=a.getAttribute('href');
+    /* Cierra el menú móvil */
+    menu.classList.remove('open');tog.setAttribute('aria-expanded','false');nav.classList.remove('menu-open');document.body.style.overflow='';
+    if(href&&href.charAt(0)==='#'){
+      var target=document.getElementById(href.slice(1));
+      if(target){
+        e.preventDefault();
+        var navH=68;
+        var y=target.getBoundingClientRect().top+window.pageYOffset-navH;
+        /* pequeño margen extra para que no se vea la sección anterior */
+        window.scrollTo({top:Math.max(0,Math.round(y)),behavior:'smooth'});
+        if(history.replaceState)history.replaceState(null,'',href);
+      }
+    }
+  });
+});
 
 /* Active nav on scroll */
 const secIds=['hero','servicios','proyectos','gnss','visor-section','metodologia','talent','contact'];
@@ -1186,10 +1284,17 @@ function setActiveNav(){
     }
   }
   menu.querySelectorAll('a').forEach(a=>a.classList.remove('act'));
-  /* Resaltado de sección activa desactivado a petición */
+  if(currentId){const l=menu.querySelector('a[href="#'+currentId+'"]');if(l)l.classList.add('act');}
 }
-window.addEventListener('scroll',setActiveNav,{passive:true});
-window.addEventListener('resize',setActiveNav,{passive:true});
+/* Throttle con requestAnimationFrame para que el scroll sea fluido */
+var _navTick=false;
+function onScrollNav(){
+  if(_navTick)return;
+  _navTick=true;
+  requestAnimationFrame(function(){setActiveNav();_navTick=false;});
+}
+window.addEventListener('scroll',onScrollNav,{passive:true});
+window.addEventListener('resize',onScrollNav,{passive:true});
 setActiveNav();
 
 /* ── Reveal ── */
@@ -1677,7 +1782,15 @@ function buildGNSSGlobe(id){
   }
 
   const ro=new ResizeObserver(()=>{cancelAnimationFrame(animId);setup();draw();});
-  ro.observe(c);setup();draw();
+  ro.observe(c);setup();
+  /* Solo anima cuando el canvas está visible en pantalla (ahorra CPU y evita lagazo al hacer scroll) */
+  var _gnssRunning=false;
+  function startGnss(){if(_gnssRunning)return;_gnssRunning=true;draw();}
+  function stopGnss(){_gnssRunning=false;cancelAnimationFrame(animId);}
+  var visObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)startGnss();else stopGnss();});
+  },{threshold:.01});
+  visObs.observe(c);
 }
 buildGNSSGlobe('gnss-main');
 
@@ -1703,13 +1816,42 @@ var tickerData = {
   fr:[{ic:'store',t:'Localisation optimale pour votre commerce'},{ic:'monitor-smartphone',t:"Développement d\'applications mobiles"},{ic:'globe',t:'Sites web professionnels sur mesure'},{ic:'map',t:"Systèmes d\'Information Géographique"},{ic:'code-2',t:'Automatisation Python & SIG'},{ic:'satellite',t:'GNSS RTK · Topographie de précision'},{ic:'building',t:'Gestion cadastrale et foncière'},{ic:'droplets',t:"Études d\'irrigation et planification"},{ic:'layout-dashboard',t:'Digitalisation des entreprises'}]
 };
 
+var _tickerRAF=null;
 function renderTicker(lang){
   var track=document.getElementById('ticker-track');if(!track)return;
   var items=tickerData[lang]||tickerData.es;
   var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
   track.innerHTML=h+h;
   if(window.lucide)lucide.createIcons();
-  track.style.animation='none';void track.offsetHeight;track.style.animation='';
+  if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
+  track.style.animation='none';
+  track.style.transform='translateX(0)';
+  var tries=0,lastW=0,stable=0;
+  function waitAndStart(){
+    var svgCount=track.querySelectorAll('svg').length;
+    var w=track.scrollWidth;
+    var iconsReady=svgCount>=items.length;
+    if(w===lastW&&w>20)stable++;else stable=0;
+    lastW=w;tries++;
+    if((iconsReady&&stable>=2)||tries>40){startAnim();}
+    else{requestAnimationFrame(waitAndStart);}
+  }
+  function startAnim(){
+    var half=Math.round(track.scrollWidth/2);
+    if(half<10){setTimeout(waitAndStart,120);return;}
+    var px_per_sec=80,pos=0,last=null;
+    function step(ts){
+      if(last===null)last=ts;
+      var dt=(ts-last)/1000;last=ts;
+      pos-=px_per_sec*dt;
+      if(pos<=-half)pos+=half;
+      track.style.transform='translateX('+Math.round(pos)+'px)';
+      _tickerRAF=requestAnimationFrame(step);
+    }
+    _tickerRAF=requestAnimationFrame(step);
+  }
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){requestAnimationFrame(waitAndStart);});}
+  else{requestAnimationFrame(waitAndStart);}
 }
 
 /* ── Content data per language ── */
@@ -1767,7 +1909,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatización','Saneamiento','Python'
     secContactLabel:'Contacto',secContactH2:'Hablemos de tu proyecto',secContactP:'Cuéntanos qué necesitas. Respondemos en menos de 24 horas con una propuesta adaptada.',
     formName:'Nombre *',formLastname:'Apellidos *',formEmail:'Email *',formCompany:'Empresa',formService:'Servicio de interés',formServiceOpts:['— Selecciona —','Desarrollo GIS','Propiedad / Catastro','Estudios de Riego','Cartografía','Automatizaciones Python','Topografía','Apps y Webs','Otro'],formMsg:'Mensaje *',formSend:'Enviar mensaje',
     formPrivacy:'He leído y acepto la',formPrivacyErr:'Acepta la política de privacidad',formErrRequired:'Campo obligatorio',formErrEmail:'Email no válido',formErrWait:'Espera {s} segundos.',formPrivacyLink:'Política de Privacidad',formOk:'✓ Mensaje enviado. Te responderemos en menos de 24 h.',formErr:'No se pudo enviar. Inténtalo de nuevo.',
-    cookieAccept:'Aceptar todas',cookieReject:'Rechazar',cookieConfig:'Configurar',footRights:'Todos los derechos reservados',proj6Title:'Gestión de reservas para barberías',proj6Desc:'Plataforma completa para digitalizar la gestión de tu barbería y aumentar tus ingresos. Los clientes reservan online 24/7 eligiendo servicio, fecha y hora en segundos, con recordatorios automáticos por WhatsApp y email para reducir ausencias. El panel de administración centraliza la agenda, los barberos, los horarios y los servicios en tiempo real, accesible desde cualquier dispositivo. Menos llamadas, menos cancelaciones y una experiencia más profesional para tus clientes.',proj5Title:'App de autoescuela: progreso, reservas y compras desde el móvil',proj5Desc:'Aplicación móvil completa para autoescuelas que digitaliza toda la experiencia del alumno. Desde la app, el alumno puede consultar su progreso y prácticas pendientes, realizar reservas de clases de forma autónoma y comprar bonos de clases directamente desde el móvil. El panel de administración permite a la autoescuela gestionar el calendario, los alumnos y los pagos en tiempo real. Menos llamadas, menos papel, más negocio.',proj4Title:'Diseño y desarrollo web profesional a medida',proj4Desc:'Diseño, desarrollo y despliegue de páginas web profesionales a medida para empresas y autónomos. Desde la arquitectura de la información hasta la puesta en producción: sitios web corporativos, landing pages optimizadas para conversión, portfolios y tiendas online. Tecnología moderna, diseño responsive, rendimiento optimizado y posicionamiento SEO desde el primer día. Tu negocio merece una presencia digital que genere resultados reales.',proj3Title:'RefAcademy — Plataforma de formación para árbitros de fútbol',proj3Desc:'Lanzamiento de una web y una aplicación disponible en App Store y Google Play diseñada para árbitros de fútbol que quieren mejorar su conocimiento técnico y preparar los exámenes oficiales. La plataforma incluye tests con preguntas de los últimos exámenes reales, estadísticas de progreso personalizadas y una metodología orientada a subir de categoría. Porque mejorar como árbitro nunca fue tan fácil.',proj2Title:'Implantación de riego en finca de naranjos con desnivel de +60 m',proj2Desc:'Diseño e implantación de un sistema de riego para una finca de naranjos de Navelina con un desnivel superior a 60 metros. El proyecto incluyó el cálculo de las longitudes totales de tuberías, la ubicación estratégica de un nuevo depósito y la realización de una simulación hidráulica para optimizar las presiones de trabajo, permitiendo un riego mayoritariamente por gravedad. Además, se definió un nuevo marco de plantación para estimar la densidad de árboles y evaluar el coste total de implantación de la nueva plantación.',projLabel:'Proyectos destacados',projH2:'Últimos <em>proyectos</em>',projDesc:'Desde aplicaciones móviles hasta análisis geoespacial: proyectos reales con resultados directos y medibles.',proj1Title:'Automatización de inspecciones en red de saneamiento',proj1Desc:'Tras realizar las inspecciones en la red de saneamiento de un municipio de la provincia de Barcelona, se automatizó con Python en QGIS la geolocalización de acometidas y rupturas detectadas. El sistema evita revisar más de 800 horas de vídeo, geolocaliza más de 25.000 acometidas y 30.000 inspecciones, informa el tipo de red, diámetros e identifica rupturas y acometidas domiciliarias de forma automática y precisa.',projMoreText:'Próximamente más proyectos',footDesc:'Sistemas de Información Geográfica, topografía de precisión y desarrollo tecnológico al servicio del territorio.',footColSvc:'Servicios',footColEmp:'Empresa',footColLeg:'Legal',footSvc:['Desarrollo GIS', 'Propiedad y Catastro', 'Estudios de Riego', 'Cartografía', 'Topografía', 'Apps y Webs'],footEmp:['Metodología', 'Tecnología GNSS', 'Visor GIS', 'Únete', 'Contacto'],footLeg:['Aviso legal', 'Política de privacidad', 'Política de cookies', 'Gestión de cookies']
+    cookieAccept:'Aceptar todas',cookieReject:'Rechazar',cookieConfig:'Configurar',footRights:'Todos los derechos reservados',proj6Title:'Gestión de reservas para barberías',proj6Desc:'Plataforma completa para digitalizar la gestión de tu barbería y aumentar tus ingresos. Los clientes reservan online 24/7 eligiendo servicio, fecha y hora en segundos, con recordatorios automáticos por WhatsApp y email para reducir ausencias. El panel de administración centraliza la agenda, los barberos, los horarios y los servicios en tiempo real, accesible desde cualquier dispositivo. Menos llamadas, menos cancelaciones y una experiencia más profesional para tus clientes.',proj5Title:'App de autoescuela: progreso, reservas y compras desde el móvil',proj5Desc:'Aplicación móvil completa para autoescuelas que digitaliza toda la experiencia del alumno. Desde la app, el alumno puede consultar su progreso y prácticas pendientes, realizar reservas de clases de forma autónoma y comprar bonos de clases directamente desde el móvil. El panel de administración permite a la autoescuela gestionar el calendario, los alumnos y los pagos en tiempo real. Menos llamadas, menos papel, más negocio.',proj4Title:'Diseño y desarrollo web profesional a medida',proj4Desc:'Diseño, desarrollo y despliegue de páginas web profesionales a medida para empresas y autónomos. Desde la arquitectura de la información hasta la puesta en producción: sitios web corporativos, landing pages optimizadas para conversión, portfolios y tiendas online. Tecnología moderna, diseño responsive, rendimiento optimizado y posicionamiento SEO desde el primer día. Tu negocio merece una presencia digital que genere resultados reales.',proj3Title:'RefAcademy — Plataforma de formación para árbitros de fútbol',proj3Desc:'Lanzamiento de una web y una aplicación disponible en App Store y Google Play diseñada para árbitros de fútbol que quieren mejorar su conocimiento técnico y preparar los exámenes oficiales. La plataforma incluye tests con preguntas de los últimos exámenes reales, estadísticas de progreso personalizadas y una metodología orientada a subir de categoría. Porque mejorar como árbitro nunca fue tan fácil.',proj2Title:'Implantación de riego en finca de naranjos con desnivel de +60 m',proj2Desc:'Diseño e implantación de un sistema de riego para una finca de naranjos de Navelina con un desnivel superior a 60 metros. El proyecto incluyó el cálculo de las longitudes totales de tuberías, la ubicación estratégica de un nuevo depósito y la realización de una simulación hidráulica para optimizar las presiones de trabajo, permitiendo un riego mayoritariamente por gravedad. Además, se definió un nuevo marco de plantación para estimar la densidad de árboles y evaluar el coste total de implantación de la nueva plantación.',projLabel:'Proyectos destacados',projH2:'Últimos <em>proyectos</em>',projDesc:'Desde aplicaciones móviles hasta análisis geoespacial: proyectos reales con resultados directos y medibles.',proj1Title:'Automatización de inspecciones en red de saneamiento',proj1Desc:'Tras realizar las inspecciones en la red de saneamiento de un municipio de la provincia de Barcelona, se automatizó con Python en QGIS la geolocalización de acometidas y rupturas detectadas. El sistema evita revisar más de 800 horas de vídeo, geolocaliza más de 25.000 acometidas y 30.000 inspecciones, informa el tipo de red, diámetros e identifica rupturas y acometidas domiciliarias de forma automática y precisa.',projMoreText:'Próximamente más proyectos',p7Badge:'GIS · Agua · Inventario',p7Tags:['GIS','Redes de agua','Inventario','PostGIS','Cartografía'],p7Stats:['Georreferenciado','Base espacial','Mantenimiento'],p7Caption:'Digitalización de redes de agua · Inventario GIS · PostGIS · Visores cartográficos',proj7Title:'Digitalización de redes de distribución de agua',proj7Desc:'Inventario y digitalización GIS de redes de abastecimiento de agua. Levantamiento y georreferenciación de tuberías, válvulas, hidrantes, acometidas y depósitos, con sus atributos técnicos (material, diámetro, presión, estado). Toda la red queda estructurada en una base de datos espacial consultable, con visores cartográficos para planificar mantenimiento, detectar incidencias y optimizar la gestión del agua. Del plano en papel al gemelo digital de la red.',p8Badge:'App · iOS · Android · Gimnasios',p8Tags:['App móvil','Gimnasios','Acceso QR','Reservas','Comunidad'],p8Stats:['Control de accesos','Reservas','Comunidad'],p8Caption:'Apps para gimnasios · Acceso QR · Reservas · Merchandising · Comunidad · iOS & Android',proj8Title:'Apps para gimnasios: control de accesos, reservas y comunidad',proj8Desc:'Aplicación móvil integral para gimnasios y centros deportivos. Control de accesos mediante código QR personal, reserva de clases y espacios en tiempo real, tienda de merchandising integrada, calendario de accesos y actividad, y un foro social donde los socios interactúan y comparten su progreso. El panel de administración gestiona socios, aforos, horarios y ventas desde un único lugar. Más autonomía para el socio, menos gestión manual para el gimnasio.',footDesc:'Sistemas de Información Geográfica, topografía de precisión y desarrollo tecnológico al servicio del territorio.',footColSvc:'Servicios',footColEmp:'Empresa',footColLeg:'Legal',footSvc:['Desarrollo GIS', 'Propiedad y Catastro', 'Estudios de Riego', 'Cartografía', 'Topografía', 'Apps y Webs'],footEmp:['Metodología', 'Tecnología GNSS', 'Visor GIS', 'Únete', 'Contacto'],footLeg:['Aviso legal', 'Política de privacidad', 'Política de cookies', 'Gestión de cookies']
   },
   en:{
     svc:[
@@ -1822,7 +1964,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automation','Sewer network','Python','Q
     secContactLabel:'Contact',secContactH2:'Tell us about your project',secContactP:'Tell us what you need. We reply within 24 hours with a tailored proposal.',
     formName:'First name *',formLastname:'Last name *',formEmail:'Email *',formCompany:'Company',formService:'Service of interest',formServiceOpts:['— Select —','GIS development','Property / Cadastre','Irrigation studies','Cartography','Python automation','Surveying','Apps & Websites','Other'],formMsg:'Message *',formSend:'Send message',
     formPrivacy:'I have read and accept the',formPrivacyErr:'Please accept the privacy policy',formErrRequired:'Required field',formErrEmail:'Invalid email',formErrWait:'Wait {s} seconds.',formPrivacyLink:'Privacy Policy',formOk:'✓ Message sent. We will reply within 24h.',formErr:'Could not send. Please try again.',
-    cookieAccept:'Accept all',cookieReject:'Reject',cookieConfig:'Configure',footRights:'All rights reserved',proj6Title:'Booking management platform for barbershops',proj6Desc:'Complete platform to digitalise your barbershop management and boost your revenue. Clients book online 24/7, choosing service, date and time in seconds, with automatic reminders via WhatsApp and email to reduce no-shows. The admin panel centralises the agenda, barbers, schedules and services in real time, accessible from any device. Fewer calls, fewer cancellations and a more professional experience for your clients.',proj5Title:'Driving school app: progress, bookings and purchases from mobile',proj5Desc:'Complete mobile app for driving schools that digitises the entire student experience. From the app, students can check their progress and pending lessons, make class bookings independently and buy lesson packages directly from their phone. The admin panel lets the school manage the calendar, students and payments in real time. Fewer calls, less paperwork, more business.',proj4Title:'Professional custom web design and development',proj4Desc:'Design, development and deployment of professional custom websites for businesses and freelancers. From information architecture to production launch: corporate websites, conversion-optimised landing pages, portfolios and online shops. Modern technology, responsive design, optimised performance and SEO positioning from day one. Your business deserves a digital presence that delivers real results.',proj3Title:'RefAcademy — Training platform for football referees',proj3Desc:'Launch of a web platform and mobile app available on the App Store and Google Play, designed for football referees looking to improve their technical knowledge and prepare for official exams. The platform includes tests based on real recent exam questions, personalised progress stats and a methodology focused on moving up the ranks. Improving as a referee has never been easier.',proj2Title:'Irrigation system for orange grove with +60 m elevation change',proj2Desc:'Design and implementation of an irrigation system on a Navelina orange grove with over 60 metres of elevation difference. Total pipe lengths were calculated, a new tank was located and a hydraulic simulation was carried out to correctly adjust pressures, optimising costs by irrigating mainly by gravity. A 6×6 planting grid was defined to estimate tree count and total plantation cost.',projLabel:'Featured projects',projH2:'Latest <em>projects</em>',projDesc:'From mobile apps to geospatial analysis: real projects with direct, measurable results.',proj1Title:'Automated sewer network inspection',proj1Desc:'After carrying out inspections on the sewer network of a municipality in the province of Barcelona, Python scripts in QGIS were used to automatically geolocate connections and breaks detected during inspections. The system avoids reviewing over 400 hours of video, reports the network type and diameters, and identifies pipe failures and household connections automatically.',projMoreText:'More projects coming soon',footDesc:'Geographic Information Systems, precision surveying and technology development at the service of the territory.',footColSvc:'Services',footColEmp:'Company',footColLeg:'Legal',footSvc:['GIS Development', 'Property & Cadastre', 'Irrigation Studies', 'Cartography', 'Surveying', 'Apps & Websites'],footEmp:['Methodology', 'GNSS Technology', 'GIS Viewer', 'Join us', 'Contact'],footLeg:['Legal notice', 'Privacy policy', 'Cookie policy', 'Cookie settings']
+    cookieAccept:'Accept all',cookieReject:'Reject',cookieConfig:'Configure',footRights:'All rights reserved',proj6Title:'Booking management platform for barbershops',proj6Desc:'Complete platform to digitalise your barbershop management and boost your revenue. Clients book online 24/7, choosing service, date and time in seconds, with automatic reminders via WhatsApp and email to reduce no-shows. The admin panel centralises the agenda, barbers, schedules and services in real time, accessible from any device. Fewer calls, fewer cancellations and a more professional experience for your clients.',proj5Title:'Driving school app: progress, bookings and purchases from mobile',proj5Desc:'Complete mobile app for driving schools that digitises the entire student experience. From the app, students can check their progress and pending lessons, make class bookings independently and buy lesson packages directly from their phone. The admin panel lets the school manage the calendar, students and payments in real time. Fewer calls, less paperwork, more business.',proj4Title:'Professional custom web design and development',proj4Desc:'Design, development and deployment of professional custom websites for businesses and freelancers. From information architecture to production launch: corporate websites, conversion-optimised landing pages, portfolios and online shops. Modern technology, responsive design, optimised performance and SEO positioning from day one. Your business deserves a digital presence that delivers real results.',proj3Title:'RefAcademy — Training platform for football referees',proj3Desc:'Launch of a web platform and mobile app available on the App Store and Google Play, designed for football referees looking to improve their technical knowledge and prepare for official exams. The platform includes tests based on real recent exam questions, personalised progress stats and a methodology focused on moving up the ranks. Improving as a referee has never been easier.',proj2Title:'Irrigation system for orange grove with +60 m elevation change',proj2Desc:'Design and implementation of an irrigation system on a Navelina orange grove with over 60 metres of elevation difference. Total pipe lengths were calculated, a new tank was located and a hydraulic simulation was carried out to correctly adjust pressures, optimising costs by irrigating mainly by gravity. A 6×6 planting grid was defined to estimate tree count and total plantation cost.',projLabel:'Featured projects',projH2:'Latest <em>projects</em>',projDesc:'From mobile apps to geospatial analysis: real projects with direct, measurable results.',proj1Title:'Automated sewer network inspection',proj1Desc:'After carrying out inspections on the sewer network of a municipality in the province of Barcelona, Python scripts in QGIS were used to automatically geolocate connections and breaks detected during inspections. The system avoids reviewing over 400 hours of video, reports the network type and diameters, and identifies pipe failures and household connections automatically.',projMoreText:'More projects coming soon',p7Badge:'GIS · Water · Inventory',p7Tags:['GIS','Water networks','Inventory','PostGIS','Cartography'],p7Stats:['Georeferenced','Spatial database','Maintenance'],p7Caption:'Water network digitalisation · GIS inventory · PostGIS · Cartographic viewers',proj7Title:'Water distribution network digitalisation',proj7Desc:'GIS inventory and digitalisation of water supply networks. Survey and georeferencing of pipes, valves, hydrants, service connections and tanks, with their technical attributes (material, diameter, pressure, condition). The entire network is structured into a queryable spatial database, with cartographic viewers to plan maintenance, detect incidents and optimise water management. From the paper map to the digital twin of the network.',p8Badge:'App · iOS · Android · Gyms',p8Tags:['Mobile app','Gyms','QR access','Bookings','Community'],p8Stats:['Access control','Bookings','Community'],p8Caption:'Gym apps · QR access · Bookings · Merchandising · Community · iOS & Android',proj8Title:'Gym apps: access control, bookings and community',proj8Desc:'All-in-one mobile app for gyms and sports centres. Access control via personal QR code, real-time booking of classes and spaces, integrated merchandising store, access and activity calendar, and a social forum where members interact and share their progress. The admin panel manages members, capacity, schedules and sales from a single place. More autonomy for members, less manual work for the gym.',footDesc:'Geographic Information Systems, precision surveying and technology development at the service of the territory.',footColSvc:'Services',footColEmp:'Company',footColLeg:'Legal',footSvc:['GIS Development', 'Property & Cadastre', 'Irrigation Studies', 'Cartography', 'Surveying', 'Apps & Websites'],footEmp:['Methodology', 'GNSS Technology', 'GIS Viewer', 'Join us', 'Contact'],footLeg:['Legal notice', 'Privacy policy', 'Cookie policy', 'Cookie settings']
   },
   ca:{
     svc:[
@@ -1877,7 +2019,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatització','Sanejament','Python',
     secContactLabel:'Contacte',secContactH2:'Parlem del teu projecte',secContactP:"Explica'ns què necessites. Responem en menys de 24 hores amb una proposta adaptada.",
     formName:'Nom *',formLastname:'Cognoms *',formEmail:'Correu *',formCompany:'Empresa',formService:"Servei d\'interès",formServiceOpts:['— Selecciona —','Desenvolupament GIS','Propietat / Cadastre','Estudis de Reg','Cartografia','Automatitzacions Python','Topografia','Apps i Webs','Altres'],formMsg:'Missatge *',formSend:'Enviar missatge',
     formPrivacy:'He llegit i accepto la',formPrivacyErr:'Accepta la política de privacitat',formErrRequired:'Camp obligatori',formErrEmail:'Correu no vàlid',formErrWait:'Espera {s} segons.',formPrivacyLink:'Política de Privacitat',formOk:'✓ Missatge enviat. Et respondrem en menys de 24 h.',formErr:"No s'ha pogut enviar. Torna-ho a provar.",
-    cookieAccept:'Acceptar totes',cookieReject:'Rebutjar',cookieConfig:'Configurar',footRights:'Tots els drets reservats',proj6Title:'Gestió de reserves per a perruqueries i barberies',proj6Desc:"Plataforma completa per a digitalitzar la gestió de la teva barberia i augmentar els teus ingressos. Els clients reserven online 24/7 triant servei, data i hora en segons, amb recordatoris automàtics per WhatsApp i email per reduir les absències. El panell d\'administració centralitza l\'agenda, els barbers, els horaris i els serveis en temps real, accessible des de qualsevol dispositiu. Menys trucades, menys cancel·lacions i una experiència més professional per als teus clients.",proj5Title:"App d\'autoescola: progrés, reserves i compres des del mòbil",proj5Desc:"Aplicació mòbil completa per a autoescoles que digitalitza tota l\'experiència de l\'alumne. Des de l\'app, l\'alumne pot consultar el seu progrés i pràctiques pendents, fer reserves de classes de forma autònoma i comprar bons de classes directament des del mòbil. El panell d\'administració permet a l\'autoescola gestionar el calendari, els alumnes i els pagaments en temps real.",proj4Title:'Disseny i desenvolupament web professional a mida',proj4Desc:"Disseny, desenvolupament i desplegament de pàgines web professionals a mida per a empreses i autònoms. Des de l\'arquitectura de la informació fins a la posada en producció: llocs web corporatius, landing pages optimitzades per a la conversió, portfolis i botigues online. Tecnologia moderna, disseny responsive, rendiment optimitzat i posicionament SEO des del primer dia. El teu negoci mereix una presència digital que generi resultats reals.",proj3Title:'RefAcademy — Plataforma de formació per a àrbitres de futbol',proj3Desc:"Llançament d\'una web i una aplicació disponible a l\'App Store i Google Play dissenyada per a àrbitres de futbol que volen millorar el seu coneixement tècnic i preparar els exàmens oficials. La plataforma inclou tests amb preguntes dels darrers exàmens reals, estadístiques de progrés personalitzades i una metodologia orientada a pujar de categoria. Perquè millorar com a àrbitre mai havia estat tan fàcil.",proj2Title:'Implantació de reg en finca de tarongers amb desnivell de +60 m',proj2Desc:'Disseny i implantació del sistema de reg en una finca de tarongers Navelina amb un desnivell superior a 60 metres. Es van calcular les longituds totals de canonada, es va ubicar un nou dipòsit i es va realitzar una simulació hidràulica per ajustar les pressions, regant majoritàriament per gravetat. Es va definir un marc de plantació 6×6 per estimar el nombre d\'arbres i el cost total de la nova plantació.',projLabel:'Projectes destacats',projH2:'Darrers <em>projectes</em>',projDesc:'Des d\'aplicacions mòbils fins a l\'anàlisi geoespacial: projectes reals amb resultats directes i mesurables.',proj1Title:'Automatització d\'inspeccions a la xarxa de sanejament',proj1Desc:'Després de realitzar les inspeccions a la xarxa de sanejament d\'un municipi de la província de Barcelona, es va automatitzar amb Python a QGIS la geolocalització d\'escomeses i ruptures detectades. El sistema evita revisar més de 400 hores de vídeo, informa del tipus de xarxa, diàmetres i identifica ruptures i escomeses domiciliàries de forma automàtica.',projMoreText:'Pròximament més projectes',footDesc:"Sistemes d\'Informació Geogràfica, topografia de precisió i desenvolupament tecnològic al servei del territori.",footColSvc:'Serveis',footColEmp:'Empresa',footColLeg:'Legal',footSvc:['Desenvolupament GIS', 'Propietat i Cadastre', 'Estudis de Reg', 'Cartografia', 'Topografia', 'Apps i Webs'],footEmp:['Metodologia', 'Tecnologia GNSS', 'Visor GIS', 'Uneix-te', 'Contacte'],footLeg:['Avís legal', 'Política de privacitat', 'Política de galetes', 'Gestió de galetes']
+    cookieAccept:'Acceptar totes',cookieReject:'Rebutjar',cookieConfig:'Configurar',footRights:'Tots els drets reservats',proj6Title:'Gestió de reserves per a perruqueries i barberies',proj6Desc:"Plataforma completa per a digitalitzar la gestió de la teva barberia i augmentar els teus ingressos. Els clients reserven online 24/7 triant servei, data i hora en segons, amb recordatoris automàtics per WhatsApp i email per reduir les absències. El panell d\'administració centralitza l\'agenda, els barbers, els horaris i els serveis en temps real, accessible des de qualsevol dispositiu. Menys trucades, menys cancel·lacions i una experiència més professional per als teus clients.",proj5Title:"App d\'autoescola: progrés, reserves i compres des del mòbil",proj5Desc:"Aplicació mòbil completa per a autoescoles que digitalitza tota l\'experiència de l\'alumne. Des de l\'app, l\'alumne pot consultar el seu progrés i pràctiques pendents, fer reserves de classes de forma autònoma i comprar bons de classes directament des del mòbil. El panell d\'administració permet a l\'autoescola gestionar el calendari, els alumnes i els pagaments en temps real.",proj4Title:'Disseny i desenvolupament web professional a mida',proj4Desc:"Disseny, desenvolupament i desplegament de pàgines web professionals a mida per a empreses i autònoms. Des de l\'arquitectura de la informació fins a la posada en producció: llocs web corporatius, landing pages optimitzades per a la conversió, portfolis i botigues online. Tecnologia moderna, disseny responsive, rendiment optimitzat i posicionament SEO des del primer dia. El teu negoci mereix una presència digital que generi resultats reals.",proj3Title:'RefAcademy — Plataforma de formació per a àrbitres de futbol',proj3Desc:"Llançament d\'una web i una aplicació disponible a l\'App Store i Google Play dissenyada per a àrbitres de futbol que volen millorar el seu coneixement tècnic i preparar els exàmens oficials. La plataforma inclou tests amb preguntes dels darrers exàmens reals, estadístiques de progrés personalitzades i una metodologia orientada a pujar de categoria. Perquè millorar com a àrbitre mai havia estat tan fàcil.",proj2Title:'Implantació de reg en finca de tarongers amb desnivell de +60 m',proj2Desc:'Disseny i implantació del sistema de reg en una finca de tarongers Navelina amb un desnivell superior a 60 metres. Es van calcular les longituds totals de canonada, es va ubicar un nou dipòsit i es va realitzar una simulació hidràulica per ajustar les pressions, regant majoritàriament per gravetat. Es va definir un marc de plantació 6×6 per estimar el nombre d\'arbres i el cost total de la nova plantació.',projLabel:'Projectes destacats',projH2:'Darrers <em>projectes</em>',projDesc:'Des d\'aplicacions mòbils fins a l\'anàlisi geoespacial: projectes reals amb resultats directes i mesurables.',proj1Title:'Automatització d\'inspeccions a la xarxa de sanejament',proj1Desc:'Després de realitzar les inspeccions a la xarxa de sanejament d\'un municipi de la província de Barcelona, es va automatitzar amb Python a QGIS la geolocalització d\'escomeses i ruptures detectades. El sistema evita revisar més de 400 hores de vídeo, informa del tipus de xarxa, diàmetres i identifica ruptures i escomeses domiciliàries de forma automàtica.',projMoreText:'Pròximament més projectes',p7Badge:'GIS · Aigua · Inventari',p7Tags:['GIS','Xarxes d\'aigua','Inventari','PostGIS','Cartografia'],p7Stats:['Georeferenciat','Base espacial','Manteniment'],p7Caption:'Digitalització de xarxes d\'aigua · Inventari GIS · PostGIS · Visors cartogràfics',proj7Title:'Digitalització de xarxes de distribució d\'aigua',proj7Desc:'Inventari i digitalització GIS de xarxes d\'abastament d\'aigua. Aixecament i georeferenciació de canonades, vàlvules, hidrants, escomeses i dipòsits, amb els seus atributs tècnics (material, diàmetre, pressió, estat). Tota la xarxa queda estructurada en una base de dades espacial consultable, amb visors cartogràfics per planificar manteniment, detectar incidències i optimitzar la gestió de l\'aigua. Del plànol en paper al bessó digital de la xarxa.',p8Badge:'App · iOS · Android · Gimnasos',p8Tags:['App mòbil','Gimnasos','Accés QR','Reserves','Comunitat'],p8Stats:['Control d\'accessos','Reserves','Comunitat'],p8Caption:'Apps per a gimnasos · Accés QR · Reserves · Merchandising · Comunitat · iOS & Android',proj8Title:'Apps per a gimnasos: control d\'accessos, reserves i comunitat',proj8Desc:'Aplicació mòbil integral per a gimnasos i centres esportius. Control d\'accessos mitjançant codi QR personal, reserva de classes i espais en temps real, botiga de merchandising integrada, calendari d\'accessos i activitat, i un fòrum social on els socis interactuen i comparteixen el seu progrés. El panell d\'administració gestiona socis, aforaments, horaris i vendes des d\'un únic lloc. Més autonomia per al soci, menys gestió manual per al gimnàs.',footDesc:"Sistemes d\'Informació Geogràfica, topografia de precisió i desenvolupament tecnològic al servei del territori.",footColSvc:'Serveis',footColEmp:'Empresa',footColLeg:'Legal',footSvc:['Desenvolupament GIS', 'Propietat i Cadastre', 'Estudis de Reg', 'Cartografia', 'Topografia', 'Apps i Webs'],footEmp:['Metodologia', 'Tecnologia GNSS', 'Visor GIS', 'Uneix-te', 'Contacte'],footLeg:['Avís legal', 'Política de privacitat', 'Política de galetes', 'Gestió de galetes']
   },
   fr:{
     svc:[
@@ -1932,7 +2074,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatisation','Assainissement','Pytho
     secContactLabel:'Contact',secContactH2:'Parlons de votre projet',secContactP:'Dites-nous ce dont vous avez besoin. Nous répondons en moins de 24 heures.',
     formName:'Prénom *',formLastname:'Nom *',formEmail:'Email *',formCompany:'Entreprise',formService:"Service d\'intérêt",formServiceOpts:['— Sélectionnez —','Développement SIG','Propriété / Cadastre','Études d\'irrigation','Cartographie','Automatisations Python','Topographie','Apps et Sites web','Autre'],formMsg:'Message *',formSend:'Envoyer le message',
     formPrivacy:"J'ai lu et accepte la",formPrivacyLink:'Politique de Confidentialité',formOk:'✓ Message envoyé. Nous vous répondrons dans les 24h.',formErr:"Échec de l'envoi. Veuillez réessayer.",formPrivacyErr:'Veuillez accepter la politique de confidentialité',formErrRequired:'Champ obligatoire',formErrEmail:'E-mail non valide',formErrWait:'Patientez {s} secondes.',
-    cookieAccept:'Tout accepter',cookieReject:'Refuser',cookieConfig:'Configurer',footRights:'Tous droits réservés',proj6Title:'Gestion des réservations pour les salons de coiffure',proj6Desc:"Plateforme complète pour digitaliser la gestion de votre salon et augmenter vos revenus. Les clients réservent en ligne 24h/24 en choisissant service, date et heure en quelques secondes, avec des rappels automatiques par WhatsApp et email pour réduire les absences. Le panneau d\'administration centralise l\'agenda, les barbiers, les horaires et les services en temps réel, accessible depuis n\'importe quel appareil. Moins d\'appels, moins d\'annulations et une expérience plus professionnelle.",proj5Title:"Application auto-école: progrès, réservations et achats depuis le mobile",proj5Desc:"Application mobile complète pour les auto-écoles qui digitalise toute l\'expérience de l\'élève. Depuis l\'app, l\'élève peut consulter sa progression et ses leçons en attente, effectuer des réservations de façon autonome et acheter des forfaits de leçons directement depuis son téléphone. Le panneau d\'administration permet à l\'auto-école de gérer le calendrier, les élèves et les paiements en temps réel.",proj4Title:'Conception et développement web professionnel sur mesure',proj4Desc:"Conception, développement et déploiement de sites web professionnels sur mesure pour les entreprises et indépendants. De l\'architecture de l\'information à la mise en production: sites web corporatifs, landing pages optimisées pour la conversion, portfolios et boutiques en ligne. Technologie moderne, design responsive, performances optimisées et référencement SEO dès le premier jour. Votre entreprise mérite une présence digitale qui génère de vrais résultats.",proj3Title:'RefAcademy — Plateforme de formation pour arbitres de football',proj3Desc:"Lancement d\'un site web et d\'une application disponible sur l\'App Store et Google Play, conçue pour les arbitres de football souhaitant améliorer leurs connaissances techniques et préparer les examens officiels. La plateforme propose des tests basés sur les vraies questions des derniers examens, des statistiques de progression personnalisées et une méthodologie axée sur la montée en catégorie. Progresser en tant qu\'arbitre n\'a jamais été aussi simple.",proj2Title:'Mise en place de l\'irrigation dans une orangeraie avec dénivelé de +60 m',proj2Desc:'Conception et mise en place du système d\'irrigation dans une orangeraie Navelina avec un dénivelé supérieur à 60 mètres. Les longueurs totales de canalisations ont été calculées, un nouveau réservoir a été localisé et une simulation hydraulique a été réalisée pour ajuster correctement les pressions, en irriguant principalement par gravité. Un plan de plantation 6×6 a été défini pour estimer le nombre d\'arbres et le coût total de la nouvelle plantation.',projLabel:'Projets en vedette',projH2:'Derniers <em>projets</em>',projDesc:'Des applications mobiles à l\'analyse géospatiale : des projets réels aux résultats directs et mesurables.',proj1Title:'Automatisation des inspections du réseau d\'assainissement',proj1Desc:'Après avoir réalisé des inspections sur le réseau d\'assainissement d\'une commune de la province de Barcelone, des scripts Python sous QGIS ont permis de géolocaliser automatiquement les branchements et les ruptures détectées. Le système évite de visionner plus de 400 heures de vidéo et identifie les défaillances et branchements domiciliaires de manière automatique.',projMoreText:'Bientôt d\'autres projets',footDesc:"Systèmes d\'Information Géographique, topographie de précision et développement technologique au service du territoire.",footColSvc:'Services',footColEmp:'Entreprise',footColLeg:'Légal',footSvc:['Développement SIG','Propriété et Cadastre',"Études d\'irrigation",'Cartographie','Topographie','Apps et Sites Web'],footEmp:['Méthodologie', 'Technologie GNSS', 'Visionneur SIG', 'Rejoindre', 'Contact'],footLeg:['Mentions légales', 'Politique de confidentialité', 'Politique de cookies', 'Gestion des cookies']
+    cookieAccept:'Tout accepter',cookieReject:'Refuser',cookieConfig:'Configurer',footRights:'Tous droits réservés',proj6Title:'Gestion des réservations pour les salons de coiffure',proj6Desc:"Plateforme complète pour digitaliser la gestion de votre salon et augmenter vos revenus. Les clients réservent en ligne 24h/24 en choisissant service, date et heure en quelques secondes, avec des rappels automatiques par WhatsApp et email pour réduire les absences. Le panneau d\'administration centralise l\'agenda, les barbiers, les horaires et les services en temps réel, accessible depuis n\'importe quel appareil. Moins d\'appels, moins d\'annulations et une expérience plus professionnelle.",proj5Title:"Application auto-école: progrès, réservations et achats depuis le mobile",proj5Desc:"Application mobile complète pour les auto-écoles qui digitalise toute l\'expérience de l\'élève. Depuis l\'app, l\'élève peut consulter sa progression et ses leçons en attente, effectuer des réservations de façon autonome et acheter des forfaits de leçons directement depuis son téléphone. Le panneau d\'administration permet à l\'auto-école de gérer le calendrier, les élèves et les paiements en temps réel.",proj4Title:'Conception et développement web professionnel sur mesure',proj4Desc:"Conception, développement et déploiement de sites web professionnels sur mesure pour les entreprises et indépendants. De l\'architecture de l\'information à la mise en production: sites web corporatifs, landing pages optimisées pour la conversion, portfolios et boutiques en ligne. Technologie moderne, design responsive, performances optimisées et référencement SEO dès le premier jour. Votre entreprise mérite une présence digitale qui génère de vrais résultats.",proj3Title:'RefAcademy — Plateforme de formation pour arbitres de football',proj3Desc:"Lancement d\'un site web et d\'une application disponible sur l\'App Store et Google Play, conçue pour les arbitres de football souhaitant améliorer leurs connaissances techniques et préparer les examens officiels. La plateforme propose des tests basés sur les vraies questions des derniers examens, des statistiques de progression personnalisées et une méthodologie axée sur la montée en catégorie. Progresser en tant qu\'arbitre n\'a jamais été aussi simple.",proj2Title:'Mise en place de l\'irrigation dans une orangeraie avec dénivelé de +60 m',proj2Desc:'Conception et mise en place du système d\'irrigation dans une orangeraie Navelina avec un dénivelé supérieur à 60 mètres. Les longueurs totales de canalisations ont été calculées, un nouveau réservoir a été localisé et une simulation hydraulique a été réalisée pour ajuster correctement les pressions, en irriguant principalement par gravité. Un plan de plantation 6×6 a été défini pour estimer le nombre d\'arbres et le coût total de la nouvelle plantation.',projLabel:'Projets en vedette',projH2:'Derniers <em>projets</em>',projDesc:'Des applications mobiles à l\'analyse géospatiale : des projets réels aux résultats directs et mesurables.',proj1Title:'Automatisation des inspections du réseau d\'assainissement',proj1Desc:'Après avoir réalisé des inspections sur le réseau d\'assainissement d\'une commune de la province de Barcelone, des scripts Python sous QGIS ont permis de géolocaliser automatiquement les branchements et les ruptures détectées. Le système évite de visionner plus de 400 heures de vidéo et identifie les défaillances et branchements domiciliaires de manière automatique.',projMoreText:'Bientôt d\'autres projets',p7Badge:'SIG · Eau · Inventaire',p7Tags:['SIG','Réseaux d\'eau','Inventaire','PostGIS','Cartographie'],p7Stats:['Géoréférencé','Base spatiale','Maintenance'],p7Caption:'Digitalisation des réseaux d\'eau · Inventaire SIG · PostGIS · Visionneuses cartographiques',proj7Title:'Digitalisation des réseaux de distribution d\'eau',proj7Desc:'Inventaire et digitalisation SIG des réseaux d\'adduction d\'eau. Levé et géoréférencement des canalisations, vannes, hydrants, branchements et réservoirs, avec leurs attributs techniques (matériau, diamètre, pression, état). Tout le réseau est structuré dans une base de données spatiale interrogeable, avec des visionneuses cartographiques pour planifier la maintenance, détecter les incidents et optimiser la gestion de l\'eau. Du plan papier au jumeau numérique du réseau.',p8Badge:'App · iOS · Android · Salles de sport',p8Tags:['Application mobile','Salles de sport','Accès QR','Réservations','Communauté'],p8Stats:['Contrôle d\'accès','Réservations','Communauté'],p8Caption:'Apps pour salles de sport · Accès QR · Réservations · Merchandising · Communauté · iOS & Android',proj8Title:'Apps pour salles de sport : contrôle d\'accès, réservations et communauté',proj8Desc:'Application mobile tout-en-un pour salles de sport et centres sportifs. Contrôle d\'accès par code QR personnel, réservation de cours et d\'espaces en temps réel, boutique de merchandising intégrée, calendrier d\'accès et d\'activité, et un forum social où les membres interagissent et partagent leur progression. Le panneau d\'administration gère les membres, les capacités, les horaires et les ventes depuis un seul endroit. Plus d\'autonomie pour le membre, moins de gestion manuelle pour la salle.',footDesc:"Systèmes d\'Information Géographique, topographie de précision et développement technologique au service du territoire.",footColSvc:'Services',footColEmp:'Entreprise',footColLeg:'Légal',footSvc:['Développement SIG','Propriété et Cadastre',"Études d\'irrigation",'Cartographie','Topographie','Apps et Sites Web'],footEmp:['Méthodologie', 'Technologie GNSS', 'Visionneur SIG', 'Rejoindre', 'Contact'],footLeg:['Mentions légales', 'Politique de confidentialité', 'Politique de cookies', 'Gestion des cookies']
   }
 };
 
@@ -2094,6 +2236,8 @@ function applyLang(lang){
   swapP4Img(lang);
   swapP5Img(lang);
   swapP6Img(lang);
+  swapP7Img(lang);
+  swapP8Img(lang);
   window._lidarL={label:L.lidarLabel||'● LIDAR SCAN',mode:L.lidarMode||'Barrido continuo',precis:L.lidarPrecis||'±2 cm',densidad:L.lidarDensidad||'32×22 grid',elev:L.lidarElev||'ELEVACIÓN MDT',lblMode:L.lidarLblMode||'MODO',lblProg:L.lidarLblProg||'PROGRESO',lblDens:L.lidarLblDens||'DENSIDAD',lblPrec:L.lidarLblPrec||'PRECIS.'};
   /* cookie banner */
   /* cb-text updated via cb-main-text span */
@@ -2205,10 +2349,14 @@ function applyLang(lang){
   var p5d=document.getElementById('proj5-desc');if(p5d)p5d.textContent=L.proj5Desc||'';
   var p6t=document.getElementById('proj6-title');if(p6t)p6t.textContent=L.proj6Title||'';
   var p6d=document.getElementById('proj6-desc');if(p6d)p6d.textContent=L.proj6Desc||'';
+  var p7t=document.getElementById('proj7-title');if(p7t)p7t.textContent=L.proj7Title||'';
+  var p7d=document.getElementById('proj7-desc');if(p7d)p7d.textContent=L.proj7Desc||'';
+  var p8t=document.getElementById('proj8-title');if(p8t)p8t.textContent=L.proj8Title||'';
+  var p8d=document.getElementById('proj8-desc');if(p8d)p8d.textContent=L.proj8Desc||'';
   /* ── Project card static text ── */
   (function(){
     function st(id,v){var e=document.getElementById(id);if(e&&v)e.textContent=v;}
-    for(var n=1;n<=6;n++){
+    for(var n=1;n<=8;n++){
       st('p'+n+'-badge',L['p'+n+'Badge']);
       st('p'+n+'-status',L['p'+n+'Status']);
       st('p'+n+'-caption',L['p'+n+'Caption']);
@@ -2223,12 +2371,16 @@ function applyLang(lang){
   /* ── Project card static text (badges, tags, stats, captions) ── */
   function setT(id,txt){var el=document.getElementById(id);if(el&&txt)el.textContent=txt;}
   function setArr(prefix,key,arr){if(!arr)return;arr.forEach(function(v,i){setT(prefix+(i+1),v);});}
-  /* ── Cards de proyectos: traducción por posición (robusta frente a ids) ── */
+  /* ── Cards de proyectos: traducción por ID real (soporta reordenamiento) ── */
   (function(){
     var cards=document.querySelectorAll('#proyectos .proj-card');
-    cards.forEach(function(card,ci){
-      var n=ci+1;
-      var badge=card.querySelector('.proj-badge'); if(badge&&L['p'+n+'Badge'])badge.textContent=L['p'+n+'Badge'];
+    cards.forEach(function(card){
+      var badge=card.querySelector('.proj-badge');
+      if(!badge||!badge.id)return;
+      var m=badge.id.match(/^p(\d+)-badge$/);
+      if(!m)return;
+      var n=m[1];
+      if(L['p'+n+'Badge'])badge.textContent=L['p'+n+'Badge'];
       var tags=card.querySelectorAll('.proj-tag'); var T=L['p'+n+'Tags'];
       if(T)tags.forEach(function(el,i){if(T[i])el.textContent=T[i];});
       var labels=card.querySelectorAll('.proj-stat-l'); var S=L['p'+n+'Stats'];
@@ -2381,6 +2533,7 @@ function rateCheck(key,ms,max){
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
+  var _tkRz;window.addEventListener('resize',function(){clearTimeout(_tkRz);_tkRz=setTimeout(function(){renderTicker(currentLang);},250);},{passive:true});
 })();
 
 
@@ -2440,6 +2593,34 @@ window.closeProjLightbox6 = function(){
 };
 var lb6=document.getElementById('proj-lightbox6');
 if(lb6)lb6.addEventListener('click',function(e){if(e.target===this)closeProjLightbox6();});
+
+window.openProjLightbox7 = function(){
+  var lb=document.getElementById('proj-lightbox7');
+  var card=document.getElementById('p7-img'),lbimg=document.getElementById('plb-img7');
+  if(card&&lbimg)lbimg.src=card.src;
+  if(lb){lb.style.display='flex';document.body.style.overflow='hidden';}
+};
+window.closeProjLightbox7 = function(){
+  var lb=document.getElementById('proj-lightbox7');
+  if(lb)lb.style.display='none';
+  document.body.style.overflow='';
+};
+var lb7=document.getElementById('proj-lightbox7');
+if(lb7)lb7.addEventListener('click',function(e){if(e.target===this)closeProjLightbox7();});
+
+window.openProjLightbox8 = function(){
+  var lb=document.getElementById('proj-lightbox8');
+  var card=document.getElementById('p8-img'),lbimg=document.getElementById('plb-img8');
+  if(card&&lbimg)lbimg.src=card.src;
+  if(lb){lb.style.display='flex';document.body.style.overflow='hidden';}
+};
+window.closeProjLightbox8 = function(){
+  var lb=document.getElementById('proj-lightbox8');
+  if(lb)lb.style.display='none';
+  document.body.style.overflow='';
+};
+var lb8=document.getElementById('proj-lightbox8');
+if(lb8)lb8.addEventListener('click',function(e){if(e.target===this)closeProjLightbox8();});
 
 window.openProjLightbox5 = function(){
   var lb=document.getElementById('proj-lightbox5');
@@ -2593,6 +2774,12 @@ function swapP5Img(lang){var img=document.getElementById('p5-img');if(!img)retur
 /* ── Project 6 image per language ── */
 var _p6imgs={es:'img/es6.png',ca:'img/cat6.png',en:'img/in6.png',fr:'img/fr6.png'};
 function swapP6Img(lang){var img=document.getElementById('p6-img');if(!img)return;var src=_p6imgs[lang]||_p6imgs.es;if(img.src!==src)img.src=src;}
+/* ── Project 7 image per language (agua) ── */
+var _p7imgs={es:'img/es7.png',ca:'img/cat7.png',en:'img/in7.png',fr:'img/fr7.png'};
+function swapP7Img(lang){var img=document.getElementById('p7-img');if(!img)return;var src=_p7imgs[lang]||_p7imgs.es;if(img.src!==src)img.src=src;}
+/* ── Project 8 image per language (gym) ── */
+var _p8imgs={es:'img/es8.png',ca:'img/cat8.png',en:'img/in8.png',fr:'img/fr8.png'};
+function swapP8Img(lang){var img=document.getElementById('p8-img');if(!img)return;var src=_p8imgs[lang]||_p8imgs.es;if(img.src!==src)img.src=src;}
 /* ── Form ── */
 /* old form handler removed */
 
