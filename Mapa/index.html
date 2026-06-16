@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         html, body, #map { width:100%; height:100%; padding:0; margin:0; }
+        #map { position:relative; }
         .info h2 { font-size: 1rem; margin: 0 0 4px; }
         /* Elimina líneas blancas entre tiles (escala mínima para solapar) */
         .leaflet-tile-container img,
@@ -24,10 +25,10 @@
         #muni-search-clear:hover{background:#d2e0d2;color:#1a5c30}
         @media(max-width:600px){#muni-search-panel{left:10px;right:10px;top:10px}#muni-search-input{min-width:0;flex:1}}
         /* ── Etiquetas de municipios (discretas) ── */
-        .muni-label{background:rgba(255,255,255,.6)!important;border:none!important;box-shadow:none!important;color:#5a0707!important;font-family:Arial,Helvetica,sans-serif!important;font-size:9px!important;font-weight:700!important;letter-spacing:.02em;padding:0 2px!important;border-radius:2px;text-shadow:0 1px 2px rgba(255,255,255,.8)}
+        .muni-label{background:rgba(255,255,255,.6)!important;border:none!important;box-shadow:none!important;color:#5a0707!important;font-family:Arial,Helvetica,sans-serif!important;font-size:9px!important;font-weight:700!important;letter-spacing:.02em;padding:0 2px!important;border-radius:2px;text-shadow:0 1px 2px rgba(255,255,255,.8);text-align:center!important;white-space:nowrap}
+        .leaflet-tooltip.muni-label{transform:translate(-50%,-50%)}
         .muni-label::before{display:none!important}
         /* ── Desplegable personalizado del buscador ── */
-        #muni-search-panel{position:relative}
         #muni-dropdown{position:absolute;top:calc(100% + 4px);left:9px;right:9px;background:#fff;border:1px solid #c8dcc8;border-radius:6px;box-shadow:0 6px 20px rgba(10,30,15,.2);max-height:238px;overflow-y:auto;display:none;z-index:1300}
         #muni-dropdown.open{display:block}
         .muni-opt{padding:8px 11px;font-size:13px;color:#1e3322;cursor:pointer;font-family:Arial,Helvetica,sans-serif;border-bottom:1px solid #f0f4f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -40,11 +41,12 @@
         <title>Resultados</title>
     </head>
     <body>
-        <div id="map"></div>
-        <div id="muni-search-panel">
-          <input id="muni-search-input" placeholder="Buscar municipio…" autocomplete="off">
-          <button id="muni-search-clear" title="Limpiar" aria-label="Limpiar">✕</button>
-          <div id="muni-dropdown"></div>
+        <div id="map">
+          <div id="muni-search-panel">
+            <input id="muni-search-input" placeholder="Buscar municipio…" autocomplete="off">
+            <button id="muni-search-clear" title="Limpiar" aria-label="Limpiar">✕</button>
+            <div id="muni-dropdown"></div>
+          </div>
         </div>
 
         <script src="js/qgis2web_expressions.js"></script>
@@ -515,7 +517,7 @@
         /* ══ Etiquetas de municipios solo al acercar el zoom ════ */
         (function(){
           if(!layer_Municipios_3)return;
-          var ZOOM_MIN=12; /* a partir de este zoom se ven las etiquetas */
+          var ZOOM_MIN=13; /* a partir de este zoom se ven las etiquetas */
           function updateLabels(){
             var show=map.getZoom()>=ZOOM_MIN;
             layer_Municipios_3.eachLayer(function(lyr){
@@ -526,8 +528,10 @@
             });
           }
           map.on('zoomend',updateLabels);
-          /* Estado inicial (esperar a que los tooltips existan en el DOM) */
-          setTimeout(updateLabels,300);
+          map.on('zoom',updateLabels);
+          /* Estado inicial con reintentos (los tooltips tardan en estar en el DOM) */
+          var n=0;
+          var iv=setInterval(function(){updateLabels();if(++n>=10)clearInterval(iv);},200);
         })();
 
         /* ══ Regenera los popups con el idioma actual ══════════
