@@ -51,7 +51,7 @@
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/polylabel@1.1.0/polylabel.min.js"></script>
         <script src="js/multi-style-layer.js"></script>
         <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -367,26 +367,30 @@
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
-            /* Etiqueta centrada en el centroide real del municipio (Turf.js) */
+            /* Etiqueta en el punto más interior del municipio (polylabel) */
             if(feature.properties && feature.properties.NOMMUNI){
                 try{
                     var center;
-                    /* 1º: centroide real con Turf (correcto para multipolígonos) */
                     try{
-                        var cm=turf.centerOfMass(feature);
-                        var co=cm.geometry.coordinates; /* [lng,lat] */
-                        center=L.latLng(co[1],co[0]);
-                    }catch(e1){
-                        /* 2º: pointOnFeature (siempre dentro de la forma) */
-                        try{
-                            var pf=turf.pointOnFeature(feature);
-                            var pc=pf.geometry.coordinates;
-                            center=L.latLng(pc[1],pc[0]);
-                        }catch(e2){
-                            /* 3º: fallback Leaflet */
-                            try{center=layer.getCenter();}catch(e3){center=layer.getBounds().getCenter();}
+                        var g=feature.geometry, coords=null;
+                        if(g.type==='Polygon'){
+                            coords=g.coordinates;
+                        }else if(g.type==='MultiPolygon'){
+                            /* Elige el polígono de mayor área (anillo exterior con más puntos) */
+                            var best=null,bestLen=-1;
+                            g.coordinates.forEach(function(poly){
+                                var len=poly[0]?poly[0].length:0;
+                                if(len>bestLen){bestLen=len;best=poly;}
+                            });
+                            coords=best;
                         }
-                    }
+                        if(coords){
+                            var p=polylabel(coords,1.0); /* [lng,lat] */
+                            center=L.latLng(p[1],p[0]);
+                        }
+                    }catch(e1){}
+                    /* Fallback Leaflet si polylabel no estuviera disponible */
+                    if(!center){try{center=layer.getCenter();}catch(e2){center=layer.getBounds().getCenter();}}
                     var lbl=L.marker(center,{
                         icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
                         interactive:false,keyboard:false
