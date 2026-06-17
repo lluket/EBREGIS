@@ -24,11 +24,11 @@
         #muni-search-clear:hover{background:#d2e0d2;color:#1a5c30}
         @media(max-width:600px){#muni-search-panel{left:10px;right:10px;top:10px}#muni-search-input{min-width:0;flex:1}}
         /* ── Etiquetas de municipios (discretas) ── */
-        .muni-label{background:rgba(255,255,255,.6)!important;border:none!important;box-shadow:none!important;color:#5a0707!important;font-family:Arial,Helvetica,sans-serif!important;font-size:9px!important;font-weight:700!important;letter-spacing:.02em;padding:0 2px!important;border-radius:2px;text-shadow:0 1px 2px rgba(255,255,255,.8);text-align:center!important;white-space:nowrap;display:none!important}
-        body.show-muni-labels .muni-label{display:block!important}
+        .muni-label{background:rgba(255,255,255,.55)!important;border:none!important;box-shadow:none!important;color:#5a0707!important;font-family:Arial,Helvetica,sans-serif!important;font-size:9px!important;font-weight:700!important;letter-spacing:.02em;padding:0 3px!important;border-radius:2px;text-shadow:0 1px 2px rgba(255,255,255,.9);text-align:center;white-space:nowrap;width:auto!important;height:auto!important;transform:translate(-50%,-50%);display:none}
+        body.show-muni-labels .muni-label{display:inline-block}
         .muni-label::before{display:none!important}
         /* La leyenda (control de capas, arriba derecha) baja para no tapar el buscador */
-        .leaflet-top.leaflet-right .leaflet-control-layers{margin-top:56px!important}
+        .leaflet-top.leaflet-right .leaflet-control-layers{margin-top:64px!important}
         /* ── Desplegable personalizado del buscador ── */
         #muni-dropdown{position:absolute;top:calc(100% + 4px);left:9px;right:9px;background:#fff;border:1px solid #c8dcc8;border-radius:6px;box-shadow:0 6px 20px rgba(10,30,15,.2);max-height:238px;overflow-y:auto;display:none;z-index:1300}
         #muni-dropdown.open{display:block}
@@ -366,9 +366,17 @@
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
-            /* Etiqueta permanente discreta con el nombre del municipio */
+            /* Etiqueta centrada en el municipio (centro geográfico) */
             if(feature.properties && feature.properties.NOMMUNI){
-                layer.bindTooltip(feature.properties.NOMMUNI,{permanent:true,direction:'center',className:'muni-label'});
+                try{
+                    var center=layer.getBounds().getCenter();
+                    var lbl=L.marker(center,{
+                        icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
+                        interactive:false,keyboard:false
+                    });
+                    if(!window._muniLabels)window._muniLabels=L.layerGroup();
+                    window._muniLabels.addLayer(lbl);
+                }catch(e){}
             }
         }
         function style_Municipios_3_0() {
@@ -517,8 +525,12 @@
         /* ══ Etiquetas de municipios solo al acercar el zoom ════ */
         (function(){
           var ZOOM_MIN=13; /* a partir de este zoom se ven las etiquetas */
+          var added=false;
           function updateLabels(){
-            document.body.classList.toggle('show-muni-labels',map.getZoom()>=ZOOM_MIN);
+            if(!window._muniLabels)return;
+            var show=map.getZoom()>=ZOOM_MIN;
+            if(show&&!added){map.addLayer(window._muniLabels);added=true;document.body.classList.add('show-muni-labels');}
+            else if(!show&&added){map.removeLayer(window._muniLabels);added=false;document.body.classList.remove('show-muni-labels');}
           }
           map.on('zoomend',updateLabels);
           updateLabels();
