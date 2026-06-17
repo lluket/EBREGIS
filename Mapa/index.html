@@ -449,8 +449,21 @@
             if(feature.properties && feature.properties.NOMMUNI){
                 try{
                     var center=computeLabelPoint(feature,layer);
+                    /* Ajustes finos manuales por municipio (en px).
+                       x>0 mueve a la IZQUIERDA · y>0 mueve ARRIBA (y<0 = abajo) */
+                    var ADJ={
+                        'la Canonja':[38,-38],          /* izquierda y abajo */
+                        'la Nou de Gaià':[38,0],        /* izquierda */
+                        'Altafulla':[38,0],             /* izquierda */
+                        'la Pobla de Montornès':[38,0], /* izquierda */
+                        'Creixell':[38,0]               /* izquierda */
+                    };
+                    var off=ADJ[feature.properties.NOMMUNI]||[0,0];
+                    /* offset via margin: x>0 izquierda (margin-left negativo), y>0 arriba (margin-top negativo) */
+                    var mstyle=(off[0]||off[1])?(' style="margin-left:'+(-off[0])+'px;margin-top:'+(-off[1])+'px"'):'';
+                    var html='<span'+mstyle+'>'+feature.properties.NOMMUNI+'</span>';
                     var lbl=L.marker(center,{
-                        icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
+                        icon:L.divIcon({className:'muni-label',html:html,iconSize:[0,0]}),
                         interactive:false,keyboard:false
                     });
                     if(!window._muniLabels)window._muniLabels=L.layerGroup();
