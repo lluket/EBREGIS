@@ -51,6 +51,7 @@
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
         <script src="js/multi-style-layer.js"></script>
         <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -366,13 +367,26 @@
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
-            /* Etiqueta centrada en el municipio (centro geográfico) */
+            /* Etiqueta centrada en el centroide real del municipio (Turf.js) */
             if(feature.properties && feature.properties.NOMMUNI){
                 try{
-                    /* Centroide real del polígono (cae dentro de la forma),
-                       con fallback al centro del bounding box si no está disponible */
                     var center;
-                    try{center=layer.getCenter();}catch(e){center=layer.getBounds().getCenter();}
+                    /* 1º: centroide real con Turf (correcto para multipolígonos) */
+                    try{
+                        var cm=turf.centerOfMass(feature);
+                        var co=cm.geometry.coordinates; /* [lng,lat] */
+                        center=L.latLng(co[1],co[0]);
+                    }catch(e1){
+                        /* 2º: pointOnFeature (siempre dentro de la forma) */
+                        try{
+                            var pf=turf.pointOnFeature(feature);
+                            var pc=pf.geometry.coordinates;
+                            center=L.latLng(pc[1],pc[0]);
+                        }catch(e2){
+                            /* 3º: fallback Leaflet */
+                            try{center=layer.getCenter();}catch(e3){center=layer.getBounds().getCenter();}
+                        }
+                    }
                     var lbl=L.marker(center,{
                         icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
                         interactive:false,keyboard:false
