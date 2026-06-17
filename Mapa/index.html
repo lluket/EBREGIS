@@ -369,7 +369,10 @@
             /* Etiqueta centrada en el municipio (centro geográfico) */
             if(feature.properties && feature.properties.NOMMUNI){
                 try{
-                    var center=layer.getBounds().getCenter();
+                    /* Centroide real del polígono (cae dentro de la forma),
+                       con fallback al centro del bounding box si no está disponible */
+                    var center;
+                    try{center=layer.getCenter();}catch(e){center=layer.getBounds().getCenter();}
                     var lbl=L.marker(center,{
                         icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
                         interactive:false,keyboard:false
