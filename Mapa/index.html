@@ -51,7 +51,85 @@
 
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/polylabel@1.1.0/polylabel.min.js"></script>
+        <script>
+        /* polylabel (Mapbox) incrustado - encuentra el punto más interior de un polígono */
+        (function(global){
+        function polylabel(polygon, precision, debug) {
+            precision = precision || 1.0;
+            var minX, minY, maxX, maxY;
+            for (var i = 0; i < polygon[0].length; i++) {
+                var p = polygon[0][i];
+                if (!i || p[0] < minX) minX = p[0];
+                if (!i || p[1] < minY) minY = p[1];
+                if (!i || p[0] > maxX) maxX = p[0];
+                if (!i || p[1] > maxY) maxY = p[1];
+            }
+            var width = maxX - minX, height = maxY - minY;
+            var cellSize = Math.min(width, height);
+            var h = cellSize / 2;
+            if (cellSize === 0) return [minX, minY];
+            var cellQueue = new Queue();
+            for (var x = minX; x < maxX; x += cellSize)
+                for (var y = minY; y < maxY; y += cellSize)
+                    cellQueue.push(new Cell(x + h, y + h, h, polygon));
+            var bestCell = getCentroidCell(polygon);
+            var bboxCell = new Cell(minX + width / 2, minY + height / 2, 0, polygon);
+            if (bboxCell.d > bestCell.d) bestCell = bboxCell;
+            while (cellQueue.length) {
+                var cell = cellQueue.pop();
+                if (cell.d > bestCell.d) bestCell = cell;
+                if (cell.max - bestCell.d <= precision) continue;
+                h = cell.h / 2;
+                cellQueue.push(new Cell(cell.x - h, cell.y - h, h, polygon));
+                cellQueue.push(new Cell(cell.x + h, cell.y - h, h, polygon));
+                cellQueue.push(new Cell(cell.x - h, cell.y + h, h, polygon));
+                cellQueue.push(new Cell(cell.x + h, cell.y + h, h, polygon));
+            }
+            return [bestCell.x, bestCell.y];
+        }
+        function Queue(){this.items=[];this.length=0;}
+        Queue.prototype.push=function(c){this.items.push(c);this.length++;};
+        Queue.prototype.pop=function(){this.length--;return this.items.pop();};
+        function Cell(x, y, h, polygon) {
+            this.x = x; this.y = y; this.h = h;
+            this.d = pointToPolygonDist(x, y, polygon);
+            this.max = this.d + this.h * Math.SQRT2;
+        }
+        function pointToPolygonDist(x, y, polygon) {
+            var inside = false, minDistSq = Infinity;
+            for (var k = 0; k < polygon.length; k++) {
+                var ring = polygon[k];
+                for (var i = 0, len = ring.length, j = len - 1; i < len; j = i++) {
+                    var a = ring[i], b = ring[j];
+                    if ((a[1] > y !== b[1] > y) && (x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0])) inside = !inside;
+                    minDistSq = Math.min(minDistSq, getSegDistSq(x, y, a, b));
+                }
+            }
+            return minDistSq === Infinity ? 0 : (inside ? 1 : -1) * Math.sqrt(minDistSq);
+        }
+        function getCentroidCell(polygon) {
+            var area = 0, x = 0, y = 0, points = polygon[0];
+            for (var i = 0, len = points.length, j = len - 1; i < len; j = i++) {
+                var a = points[i], b = points[j];
+                var f = a[0] * b[1] - b[0] * a[1];
+                x += (a[0] + b[0]) * f; y += (a[1] + b[1]) * f; area += f * 3;
+            }
+            if (area === 0) return new Cell(points[0][0], points[0][1], 0, polygon);
+            return new Cell(x / area, y / area, 0, polygon);
+        }
+        function getSegDistSq(px, py, a, b) {
+            var x = a[0], y = a[1], dx = b[0] - x, dy = b[1] - y;
+            if (dx !== 0 || dy !== 0) {
+                var t = ((px - x) * dx + (py - y) * dy) / (dx * dx + dy * dy);
+                if (t > 1) { x = b[0]; y = b[1]; }
+                else if (t > 0) { x += dx * t; y += dy * t; }
+            }
+            dx = px - x; dy = py - y;
+            return dx * dx + dy * dy;
+        }
+        global.polylabel = polylabel;
+        })(window);
+        </script>
         <script src="js/multi-style-layer.js"></script>
         <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -367,30 +445,10 @@
                 '<tr><th>' + L_t.km2       + '</th><td>' + (p['km2']      !== null ? autolinker.link(String(p['km2']))      : '') + '</td></tr>' +
                 '</table>';
             layer.bindPopup(popupContent, {maxHeight:400});
-            /* Etiqueta en el punto más interior del municipio (polylabel) */
+            /* Etiqueta en el punto más interior del municipio */
             if(feature.properties && feature.properties.NOMMUNI){
                 try{
-                    var center;
-                    try{
-                        var g=feature.geometry, coords=null;
-                        if(g.type==='Polygon'){
-                            coords=g.coordinates;
-                        }else if(g.type==='MultiPolygon'){
-                            /* Elige el polígono de mayor área (anillo exterior con más puntos) */
-                            var best=null,bestLen=-1;
-                            g.coordinates.forEach(function(poly){
-                                var len=poly[0]?poly[0].length:0;
-                                if(len>bestLen){bestLen=len;best=poly;}
-                            });
-                            coords=best;
-                        }
-                        if(coords){
-                            var p=polylabel(coords,1.0); /* [lng,lat] */
-                            center=L.latLng(p[1],p[0]);
-                        }
-                    }catch(e1){}
-                    /* Fallback Leaflet si polylabel no estuviera disponible */
-                    if(!center){try{center=layer.getCenter();}catch(e2){center=layer.getBounds().getCenter();}}
+                    var center=computeLabelPoint(feature,layer);
                     var lbl=L.marker(center,{
                         icon:L.divIcon({className:'muni-label',html:feature.properties.NOMMUNI,iconSize:[0,0]}),
                         interactive:false,keyboard:false
@@ -399,6 +457,41 @@
                     window._muniLabels.addLayer(lbl);
                 }catch(e){}
             }
+        }
+        /* Devuelve el L.latLng donde colocar la etiqueta de un municipio */
+        function computeLabelPoint(feature,layer){
+            var g=feature.geometry;
+            /* Area aproximada de un anillo [[lng,lat],...] (fórmula del área de Gauss) */
+            function ringArea(ring){
+                var a=0;for(var i=0,n=ring.length,j=n-1;i<n;j=i++){a+=(ring[j][0]+ring[i][0])*(ring[j][1]-ring[i][1]);}
+                return Math.abs(a/2);
+            }
+            var rings=null; /* formato polígono: [outerRing, hole1, ...] */
+            if(g.type==='Polygon'){
+                rings=g.coordinates;
+            }else if(g.type==='MultiPolygon'){
+                /* Elige la parte (polígono) de MAYOR ÁREA real */
+                var best=null,bestA=-1;
+                g.coordinates.forEach(function(poly){
+                    var ar=poly[0]?ringArea(poly[0]):0;
+                    if(ar>bestA){bestA=ar;best=poly;}
+                });
+                rings=best;
+            }
+            if(rings && typeof polylabel!=='undefined'){
+                try{
+                    var p=polylabel(rings,0.5); /* [lng,lat], precision en grados */
+                    if(p && isFinite(p[0]) && isFinite(p[1]))return L.latLng(p[1],p[0]);
+                }catch(e){}
+            }
+            /* Fallback: promedio de los vértices del anillo exterior */
+            if(rings && rings[0] && rings[0].length){
+                var sx=0,sy=0,k=rings[0].length;
+                rings[0].forEach(function(c){sx+=c[0];sy+=c[1];});
+                return L.latLng(sy/k,sx/k);
+            }
+            /* Último recurso */
+            try{return layer.getCenter();}catch(e){return layer.getBounds().getCenter();}
         }
         function style_Municipios_3_0() {
             return { pane:'pane_Municipios_3', opacity:1, color:'rgba(101,7,7,1.0)',
