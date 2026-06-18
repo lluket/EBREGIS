@@ -1912,14 +1912,20 @@ var tickerData = {
   fr:[{ic:'store',t:'Localisation optimale pour votre commerce'},{ic:'monitor-smartphone',t:"Développement d\'applications mobiles"},{ic:'globe',t:'Sites web professionnels sur mesure'},{ic:'map',t:"Systèmes d\'Information Géographique"},{ic:'code-2',t:'Automatisation Python & SIG'},{ic:'satellite',t:'GNSS RTK · Topographie de précision'},{ic:'building',t:'Gestion cadastrale et foncière'},{ic:'droplets',t:"Études d\'irrigation et planification"},{ic:'layout-dashboard',t:'Digitalisation des entreprises'},{ic:'terminal-square',t:'Développement de logiciels sur mesure'}]
 };
 
-var _tickerRAF=null;
-function renderTicker(lang){
+var _tickerRAF=null,_tickerLang=null,_tickerStarted=false;
+function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
+  /* Si ya está corriendo con el mismo idioma y no se fuerza, no hacer nada
+     (evita los reinicios/lagazos al llamarse varias veces durante la carga) */
+  if(_tickerStarted && _tickerLang===lang && !force)return;
   var items=tickerData[lang]||tickerData.es;
-  var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
-  track.innerHTML=h+h;
-  if(window.lucide)lucide.createIcons();
-  if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
+  /* Reconstruir el contenido solo si cambió el idioma */
+  if(_tickerLang!==lang){
+    var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
+    track.innerHTML=h+h;
+    if(window.lucide)lucide.createIcons();
+  }
+  _tickerLang=lang;
   track.style.animation='none';
   track.style.transform='';
   var tries=0,lastW=0,stable=0;
@@ -1937,12 +1943,13 @@ function renderTicker(lang){
     if(half<10){setTimeout(waitAndStart,120);return;}
     /* Animación CSS (acelerada por hardware = fluida en móvil) */
     var px_per_sec=80;
-    var dur=half/px_per_sec; /* segundos para recorrer media cinta */
+    var dur=half/px_per_sec;
     var kf=document.getElementById('ticker-kf-style');
     if(!kf){kf=document.createElement('style');kf.id='ticker-kf-style';document.head.appendChild(kf);}
     kf.textContent='@keyframes tickerMove{from{transform:translateX(0)}to{transform:translateX(-'+half+'px)}}';
     track.style.willChange='transform';
     track.style.animation='tickerMove '+dur+'s linear infinite';
+    _tickerStarted=true;
   }
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){requestAnimationFrame(waitAndStart);});}
   else{requestAnimationFrame(waitAndStart);}
@@ -2353,7 +2360,7 @@ function applyLang(lang){
   if(fus&&L.footSvc){var hrefs=['#servicios','#servicios','#servicios','#servicios','#servicios','#servicios'];fus.innerHTML=L.footSvc.map(function(t,i){return '<li><a href="'+hrefs[i]+'">'+t+'</a></li>';}).join('');}
   /* Footer company list */
   var fue=document.getElementById('foot-ul-emp');
-  if(fue&&L.footEmp){var hrefs2=['#metodologia','#gnss','#visor-section','#talent','#contact'];fue.innerHTML=L.footEmp.map(function(t,i){return '<li><a href="'+hrefs2[i]+'">'+t+'</a></li>';}).join('');}
+  if(fue&&L.footEmp){var hrefs2=['#servicios','#proyectos','#gnss','#visor-section','#metodologia','#talent','#contact'];fue.innerHTML=L.footEmp.map(function(t,i){return '<li><a href="'+hrefs2[i]+'">'+t+'</a></li>';}).join('');}
   /* Footer legal list */
   var ful=document.getElementById('foot-ul-leg');
   if(ful&&L.footLeg){var actions=["openM('legal')","openM('privacy')","openM('cookies')","showCB()"];ful.innerHTML=L.footLeg.map(function(t,i){return '<li><button onclick="'+actions[i]+'">'+t+'</button></li>';}).join('');}
@@ -2638,7 +2645,7 @@ function rateCheck(key,ms,max){
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
-  var _tkRz;window.addEventListener('resize',function(){clearTimeout(_tkRz);_tkRz=setTimeout(function(){renderTicker(currentLang);},250);},{passive:true});
+  var _tkRz;window.addEventListener('resize',function(){clearTimeout(_tkRz);_tkRz=setTimeout(function(){renderTicker(currentLang,true);},250);},{passive:true});
 })();
 
 
