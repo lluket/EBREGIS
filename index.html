@@ -229,6 +229,7 @@ section[id]{scroll-margin-top:68px}
 @keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
+.ticker-dot{width:5px;height:5px;background:rgba(255,255,255,.55);border-radius:50%;flex-shrink:0;display:inline-block}
 
 /* ── SERVICE CARDS ── */
 .svc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:all var(--t) var(--ease);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.8rem}
@@ -1919,9 +1920,10 @@ function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
   var items=tickerData[lang]||tickerData.es;
-  var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
+  /* Sin iconos SVG: solo texto + puntito CSS. Mucho más ligero de animar
+     y no se ve afectado por las reconversiones de iconos Lucide al cargar. */
+  var h=items.map(function(i){return '<span class="ticker-item"><span class="ticker-dot"></span>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
   track.innerHTML=h+h;
-  if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
   if(_isTouch){
     /* ── MÓVIL/TÁCTIL: animación por JavaScript fluida ── */
@@ -1945,9 +1947,8 @@ function renderTicker(lang,force){
       }
       _tickerRAF=requestAnimationFrame(step);
     }
-    /* Arranca una vez que iconos+fuentes estén listos, sin reinicios visibles */
+    /* Arranca una vez que las fuentes estén listas, sin reinicios visibles */
     function whenReady(){
-      if(window.lucide)lucide.createIcons();
       requestAnimationFrame(startJS);
     }
     if(document.fonts&&document.fonts.ready){document.fonts.ready.then(whenReady);setTimeout(whenReady,400);}
