@@ -1912,7 +1912,9 @@ var tickerData = {
   fr:[{ic:'store',t:'Localisation optimale pour votre commerce'},{ic:'monitor-smartphone',t:"Développement d\'applications mobiles"},{ic:'globe',t:'Sites web professionnels sur mesure'},{ic:'map',t:"Systèmes d\'Information Géographique"},{ic:'code-2',t:'Automatisation Python & SIG'},{ic:'satellite',t:'GNSS RTK · Topographie de précision'},{ic:'building',t:'Gestion cadastrale et foncière'},{ic:'droplets',t:"Études d\'irrigation et planification"},{ic:'layout-dashboard',t:'Digitalisation des entreprises'},{ic:'terminal-square',t:'Développement de logiciels sur mesure'}]
 };
 
-var _tickerLang=null;
+var _tickerLang=null,_tickerRAF=null;
+/* Detecta dispositivo táctil (móvil/tablet) */
+var _isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
 function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
@@ -1921,9 +1923,38 @@ function renderTicker(lang,force){
   track.innerHTML=h+h;
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
-  /* La animación es CSS pura (definida en el <style>), basada en -50%:
-     como el contenido está duplicado, el bucle es perfecto y arranca
-     de inmediato sin medir nada → fluido desde la carga, robusto en móvil */
+  if(_isTouch){
+    /* ── MÓVIL/TÁCTIL: animación por JavaScript (más fluida en estos dispositivos) ── */
+    track.style.animation='none'; /* desactiva la animación CSS */
+    if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
+    var tries=0,lastW=0,stable=0;
+    function waitAndStart(){
+      var svgCount=track.querySelectorAll('svg').length;
+      var w=track.scrollWidth;
+      var iconsReady=svgCount>=items.length;
+      if(w===lastW&&w>20)stable++;else stable=0;
+      lastW=w;tries++;
+      if((iconsReady&&stable>=2)||tries>40){startJS();}
+      else{requestAnimationFrame(waitAndStart);}
+    }
+    function startJS(){
+      var half=Math.round(track.scrollWidth/2);
+      if(half<10){setTimeout(waitAndStart,120);return;}
+      var px_per_sec=70,pos=0,last=null;
+      function step(ts){
+        if(last===null)last=ts;
+        var dt=(ts-last)/1000;last=ts;
+        pos-=px_per_sec*dt;
+        if(pos<=-half)pos+=half;
+        track.style.transform='translate3d('+Math.round(pos)+'px,0,0)';
+        _tickerRAF=requestAnimationFrame(step);
+      }
+      _tickerRAF=requestAnimationFrame(step);
+    }
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){requestAnimationFrame(waitAndStart);});}
+    else{requestAnimationFrame(waitAndStart);}
+  }
+  /* En PC se usa la animación CSS (definida en el <style>), que ya va perfecta */
 }
 
 /* ── Content data per language ── */
