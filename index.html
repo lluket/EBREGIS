@@ -224,8 +224,8 @@ section[id]{scroll-margin-top:68px}
 @media(max-width:900px){.hero-right{display:none}}
 
 /* ── TICKER STRIP ── */
-.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0);contain:layout style paint;content-visibility:auto}
-.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
+.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform}
 @keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
@@ -1915,9 +1915,7 @@ var tickerData = {
   fr:[{ic:'store',t:'Localisation optimale pour votre commerce'},{ic:'monitor-smartphone',t:"Développement d\'applications mobiles"},{ic:'globe',t:'Sites web professionnels sur mesure'},{ic:'map',t:"Systèmes d\'Information Géographique"},{ic:'code-2',t:'Automatisation Python & SIG'},{ic:'satellite',t:'GNSS RTK · Topographie de précision'},{ic:'building',t:'Gestion cadastrale et foncière'},{ic:'droplets',t:"Études d\'irrigation et planification"},{ic:'layout-dashboard',t:'Digitalisation des entreprises'},{ic:'terminal-square',t:'Développement de logiciels sur mesure'}]
 };
 
-var _tickerLang=null,_tickerRAF=null;
-/* Detecta dispositivo táctil (móvil/tablet) */
-var _isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+var _tickerLang=null;
 function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
@@ -1926,36 +1924,9 @@ function renderTicker(lang,force){
   track.innerHTML=h+h;
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
-  if(_isTouch){
-    /* ── MÓVIL/TÁCTIL: animación por JavaScript fluida ── */
-    track.style.animation='none';
-    if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
-    var started=false;
-    function startJS(){
-      if(started)return;
-      var half=track.scrollWidth/2;
-      if(half<10){requestAnimationFrame(startJS);return;}
-      started=true;
-      var px_per_sec=70,pos=0,last=null;
-      function step(ts){
-        if(last===null)last=ts;
-        var dt=(ts-last)/1000;last=ts;
-        if(dt>0.1)dt=0.016; /* ignora saltos grandes (cambio de pestaña) */
-        pos-=px_per_sec*dt;
-        if(pos<=-half)pos+=half;
-        track.style.transform='translate3d('+pos.toFixed(2)+'px,0,0)';
-        _tickerRAF=requestAnimationFrame(step);
-      }
-      _tickerRAF=requestAnimationFrame(step);
-    }
-    /* Arranca una vez que las fuentes estén listas, sin reinicios visibles */
-    function whenReady(){
-      requestAnimationFrame(startJS);
-    }
-    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(whenReady);setTimeout(whenReady,400);}
-    else{whenReady();}
-  }
-  /* En PC se usa la animación CSS (definida en el <style>), que ya va perfecta */
+  /* Animación 100% CSS (keyframe tickerScroll -50%). Como el contenido está
+     duplicado, el bucle es perfecto. Al ser CSS, no sufre los reinicios del
+     requestAnimationFrame cuando el elemento entra/sale del viewport en móvil. */
 }
 
 /* ── Content data per language ── */
