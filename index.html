@@ -224,9 +224,9 @@ section[id]{scroll-margin-top:68px}
 @media(max-width:900px){.hero-right{display:none}}
 
 /* ── TICKER STRIP ── */
-.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center}
-.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;will-change:transform}
-@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
+.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+@keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
 
@@ -1930,7 +1930,7 @@ function renderTicker(lang,force){
 var D={
   es:{
     svc:[
-      {ic:'map',n:'01',t:'Desarrollo GIS',p:'Arquitectura e implementación de SIG. Bases de datos espaciales (PostGIS), GeoServer, análisis avanzado, publicación de servicios OGC y desarrollo de plugins a medida para QGIS.'},
+      {ic:'map',n:'01',t:'Desarrollo GIS',p:'Arquitectura e implementación de SIG. Bases de datos espaciales (PostGIS), GeoServer, análisis avanzado, publicación de servicios OGC y desarrollo de plugins a medida para QGIS, ArcMap y ArcGIS Pro.'},
       {ic:'map-pin',n:'02',t:'Localización de inmuebles',p:'Visores cartográficos para portales inmobiliarios al estilo Idealista. Búsqueda geográfica por zona, filtros de precio y tipología, capas de servicios y análisis de mercado georreferenciado.'},
       {ic:'store',n:'03',t:'Ubicación óptima para negocios',p:'Análisis multicriterio para encontrar la ubicación ideal de tu negocio: densidad de población, acceso a carreteras principales, competencia, flujo peatonal, poder adquisitivo por zona y proximidad a servicios. Decisiones basadas en datos, no en intuición.'},
       {ic:'monitor-smartphone',n:'04',t:'Apps y Páginas Web',p:'Aplicaciones web y móviles a medida, visores cartográficos interactivos, dashboards y portales profesionales para cualquier sector.'},
@@ -1940,7 +1940,8 @@ var D={
       {ic:'code-2',n:'08',t:'Automatizaciones Python',p:'Pipelines ETL y procesamiento automático con PyQGIS, GeoPandas, GDAL/OGR y Shapely. Flujos reproducibles y escalables.'},
       {ic:'database',n:'09',t:'Gestión de Geodatos',p:'Tratamiento, depuración y publicación de datos geográficos. Servicios WMS, WFS, WCS, WMTS y API Features.'},
       {ic:'crosshair',n:'10',t:'Topografía y Construcción',p:'Levantamientos GPS/GNSS, estación total, replanteos, nivelaciones y apoyo a proyectos de ingeniería civil.'},
-      {ic:'terminal-square',n:'11',t:'Desarrollo de Software',p:'Aplicaciones de escritorio y software empresarial a medida: programas de fichaje y control horario, facturación y presupuestos, control de stock e inventario, CRM y paneles de gestión. Automatizamos procesos internos y conectamos tus herramientas para que trabajes con menos esfuerzo.'}
+      {ic:'terminal-square',n:'11',t:'Desarrollo de Software',p:'Aplicaciones de escritorio y software empresarial a medida: programas de fichaje y control horario, facturación y presupuestos, control de stock e inventario, CRM y paneles de gestión. Automatizamos procesos internos y conectamos tus herramientas para que trabajes con menos esfuerzo.'},
+      {ic:'route',n:'12',t:'Optimización de Rutas',p:'Cálculo de rutas óptimas para empresas de transporte, reparto y logística. Optimización de recorridos según distancia, tiempo, ventanas horarias y capacidad de vehículos (problema VRP), reduciendo kilómetros, combustible y tiempos de entrega. Análisis de redes viarias con GIS y planificación de flotas para repartir más con menos recursos.'}
     ],
     gnssFeats:[
       {ic:'signal',t:'Corrección diferencial RTK',p:'Precisión en tiempo real mediante red NTRIP o base propia. Horizontal ±2cm, vertical ±2cm.'},
@@ -1986,7 +1987,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatización','Saneamiento','Python'
   },
   en:{
     svc:[
-      {ic:'map',n:'01',t:'GIS Development',p:'Architecture and implementation of GIS. Spatial databases (PostGIS), GeoServer, advanced analysis, OGC services and custom QGIS plugin development.'},
+      {ic:'map',n:'01',t:'GIS Development',p:'Architecture and implementation of GIS. Spatial databases (PostGIS), GeoServer, advanced analysis, OGC services and custom plugin development for QGIS, ArcMap and ArcGIS Pro.'},
       {ic:'map-pin',n:'02',t:'Property location & mapping',p:'Cartographic viewers for real estate portals in the style of Idealista. Geographic search by area, price and type filters and georeferenced market analysis.'},
       {ic:'store',n:'03',t:'Optimal business location',p:'Multi-criteria analysis to find the ideal location for your business: population density, access to main roads, competition, foot traffic, purchasing power by area and proximity to services. Data-driven decisions, not intuition.'},
       {ic:'monitor-smartphone',n:'04',t:'Apps & Websites',p:'Custom web and mobile applications, interactive cartographic viewers, dashboards and professional portals for any sector.'},
@@ -1996,7 +1997,8 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatización','Saneamiento','Python'
       {ic:'code-2',n:'08',t:'Python Automation',p:'ETL pipelines and automatic processing with PyQGIS, GeoPandas, GDAL/OGR and Shapely. Reproducible workflows.'},
       {ic:'database',n:'09',t:'Geodata Management',p:'Processing, cleaning and publishing geographic data. WMS, WFS, WCS, WMTS and API Features services.'},
       {ic:'crosshair',n:'10',t:'Surveying & Construction',p:'GPS/GNSS surveys, total station, set-outs, levelling and technical support for civil engineering projects.'},
-      {ic:'terminal-square',n:'11',t:'Software Development',p:'Custom desktop applications and business software: time-tracking and attendance systems, invoicing and quotes, stock and inventory control, CRM and management dashboards. We automate internal processes and connect your tools so you work with less effort.'}
+      {ic:'terminal-square',n:'11',t:'Software Development',p:'Custom desktop applications and business software: time-tracking and attendance systems, invoicing and quotes, stock and inventory control, CRM and management dashboards. We automate internal processes and connect your tools so you work with less effort.'},
+      {ic:'route',n:'12',t:'Route Optimisation',p:'Optimal route calculation for transport, delivery and logistics companies. Route optimisation based on distance, time, time windows and vehicle capacity (VRP), reducing mileage, fuel and delivery times. Road network analysis with GIS and fleet planning to deliver more with fewer resources.'}
     ],
     gnssFeats:[
       {ic:'signal',t:'RTK Differential Correction',p:'Real-time precision via NTRIP network or own base. Horizontal ±2cm, vertical ±2cm.'},
@@ -2042,7 +2044,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automation','Sewer network','Python','Q
   },
   ca:{
     svc:[
-      {ic:'map',n:'01',t:'Desenvolupament GIS',p:'Arquitectura i implementació de SIG. Bases de dades espacials (PostGIS), GeoServer, publicació de serveis OGC i desenvolupament de plugins a mida per a QGIS.'},
+      {ic:'map',n:'01',t:'Desenvolupament GIS',p:'Arquitectura i implementació de SIG. Bases de dades espacials (PostGIS), GeoServer, publicació de serveis OGC i desenvolupament de plugins a mida per a QGIS, ArcMap i ArcGIS Pro.'},
       {ic:'map-pin',n:'02',t:"Localització d\'immobles",p:"Visors cartogràfics per a portals immobiliaris a l\'estil d\'Idealista. Cerca geogràfica per zona, filtres de preu i tipologia i anàlisi de mercat georeferenciat."},
       {ic:'store',n:'03',t:'Ubicació òptima per a negocis',p:"Anàlisi multicriteri per trobar la ubicació ideal del teu negoci: densitat de població, accés a carreteres principals, competència, flux de vianants, poder adquisitiu per zona i proximitat a serveis. Decisions basades en dades, no en intuïció."},
       {ic:'monitor-smartphone',n:'04',t:'Apps i Webs',p:"Aplicacions web i mòbils a mida, visors cartogràfics interactius, taulers i portals professionals per a qualsevol sector."},
@@ -2052,7 +2054,8 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automation','Sewer network','Python','Q
       {ic:'code-2',n:'08',t:'Automatitzacions Python',p:'Pipelines ETL i processament automàtic amb PyQGIS, GeoPandas, GDAL/OGR i Shapely. Fluxos reproduïbles.'},
       {ic:'database',n:'09',t:'Gestió de Geodades',p:'Tractament, depuració i publicació de dades geogràfiques. Serveis WMS, WFS, WCS, WMTS i API Features.'},
       {ic:'crosshair',n:'10',t:'Topografia i Construcció',p:"Aixecaments GPS/GNSS, estació total, replantejos, anivellaments i suport a projectes d\'enginyeria civil."},
-      {ic:'terminal-square',n:'11',t:'Desenvolupament de Software',p:"Aplicacions d\'escriptori i software empresarial a mida: programes de fitxatge i control horari, facturació i pressupostos, control d\'estoc i inventari, CRM i panells de gestió. Automatitzem processos interns i connectem les teves eines perquè treballis amb menys esforç."}
+      {ic:'terminal-square',n:'11',t:'Desenvolupament de Software',p:"Aplicacions d\'escriptori i software empresarial a mida: programes de fitxatge i control horari, facturació i pressupostos, control d\'estoc i inventari, CRM i panells de gestió. Automatitzem processos interns i connectem les teves eines perquè treballis amb menys esforç."},
+      {ic:'route',n:'12',t:'Optimització de Rutes',p:"Càlcul de rutes òptimes per a empreses de transport, repartiment i logística. Optimització de recorreguts segons distància, temps, finestres horàries i capacitat dels vehicles (problema VRP), reduint quilòmetres, combustible i temps de lliurament. Anàlisi de xarxes viàries amb GIS i planificació de flotes per repartir més amb menys recursos."}
     ],
     gnssFeats:[
       {ic:'signal',t:'Correcció diferencial RTK',p:'Precisió en temps real mitjançant xarxa NTRIP o base pròpia. Horitzontal ±2cm, vertical ±2cm.'},
@@ -2098,7 +2101,7 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatització','Sanejament','Python',
   },
   fr:{
     svc:[
-      {ic:'map',n:'01',t:'Développement SIG',p:"Architecture et mise en œuvre de SIG. Bases de données spatiales (PostGIS), GeoServer, services OGC et développement de plugins sur mesure pour QGIS."},
+      {ic:'map',n:'01',t:'Développement SIG',p:"Architecture et mise en œuvre de SIG. Bases de données spatiales (PostGIS), GeoServer, services OGC et développement de plugins sur mesure pour QGIS, ArcMap et ArcGIS Pro."},
       {ic:'map-pin',n:'02',t:'Localisation immobilière',p:"Visionneuses cartographiques pour portails immobiliers dans le style d\'Idealista. Recherche par zone, filtres de prix et analyse de marché géoréférencée."},
       {ic:'store',n:'03',t:'Localisation optimale pour entreprises',p:"Analyse multicritère pour trouver l\'emplacement idéal de votre commerce: densité de population, accès aux axes principaux, concurrence, flux piétonnier, pouvoir d\'achat par zone et proximité des services. Des décisions basées sur les données, pas sur l\'intuition."},
       {ic:'monitor-smartphone',n:'04',t:'Applications et Sites Web',p:'Applications web et mobiles sur mesure, visionneuses cartographiques, tableaux de bord et portails professionnels pour tout secteur.'},
@@ -2108,7 +2111,8 @@ p1Badge:'GIS · Python · QGIS',p1Tags:['Automatització','Sanejament','Python',
       {ic:'code-2',n:'08',t:'Automatisations Python',p:'Pipelines ETL et traitement automatique avec PyQGIS, GeoPandas, GDAL/OGR et Shapely.'},
       {ic:'database',n:'09',t:'Gestion des Géodonnées',p:'Traitement, nettoyage et publication de données géographiques. Services WMS, WFS, WCS, WMTS et API Features.'},
       {ic:'crosshair',n:'10',t:'Topographie et Construction',p:'Levés GPS/GNSS, station totale, implantations, nivellements et support à des projets de génie civil.'},
-      {ic:'terminal-square',n:'11',t:'Développement de Logiciels',p:"Applications de bureau et logiciels d\'entreprise sur mesure : systèmes de pointage et de gestion du temps, facturation et devis, gestion des stocks et inventaire, CRM et tableaux de bord de gestion. Nous automatisons les processus internes et connectons vos outils pour que vous travailliez avec moins d\'effort."}
+      {ic:'terminal-square',n:'11',t:'Développement de Logiciels',p:"Applications de bureau et logiciels d\'entreprise sur mesure : systèmes de pointage et de gestion du temps, facturation et devis, gestion des stocks et inventaire, CRM et tableaux de bord de gestion. Nous automatisons les processus internes et connectons vos outils pour que vous travailliez avec moins d\'effort."},
+      {ic:'route',n:'12',t:'Optimisation d\'Itinéraires',p:"Calcul d\'itinéraires optimaux pour les entreprises de transport, de livraison et de logistique. Optimisation des trajets selon la distance, le temps, les fenêtres horaires et la capacité des véhicules (problème VRP), réduisant les kilomètres, le carburant et les délais de livraison. Analyse des réseaux routiers avec SIG et planification de flottes pour livrer plus avec moins de ressources."}
     ],
     gnssFeats:[
       {ic:'signal',t:'Correction différentielle RTK',p:'Précision en temps réel via réseau NTRIP ou base propre. Horizontale ±2cm, verticale ±2cm.'},
