@@ -1924,35 +1924,34 @@ function renderTicker(lang,force){
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
   if(_isTouch){
-    /* ── MÓVIL/TÁCTIL: animación por JavaScript (más fluida en estos dispositivos) ── */
-    track.style.animation='none'; /* desactiva la animación CSS */
+    /* ── MÓVIL/TÁCTIL: animación por JavaScript fluida ── */
+    track.style.animation='none';
     if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
-    var tries=0,lastW=0,stable=0;
-    function waitAndStart(){
-      var svgCount=track.querySelectorAll('svg').length;
-      var w=track.scrollWidth;
-      var iconsReady=svgCount>=items.length;
-      if(w===lastW&&w>20)stable++;else stable=0;
-      lastW=w;tries++;
-      if((iconsReady&&stable>=2)||tries>40){startJS();}
-      else{requestAnimationFrame(waitAndStart);}
-    }
+    var started=false;
     function startJS(){
-      var half=Math.round(track.scrollWidth/2);
-      if(half<10){setTimeout(waitAndStart,120);return;}
+      if(started)return;
+      var half=track.scrollWidth/2;
+      if(half<10){requestAnimationFrame(startJS);return;}
+      started=true;
       var px_per_sec=70,pos=0,last=null;
       function step(ts){
         if(last===null)last=ts;
         var dt=(ts-last)/1000;last=ts;
+        if(dt>0.1)dt=0.016; /* ignora saltos grandes (cambio de pestaña) */
         pos-=px_per_sec*dt;
         if(pos<=-half)pos+=half;
-        track.style.transform='translate3d('+Math.round(pos)+'px,0,0)';
+        track.style.transform='translate3d('+pos.toFixed(2)+'px,0,0)';
         _tickerRAF=requestAnimationFrame(step);
       }
       _tickerRAF=requestAnimationFrame(step);
     }
-    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){requestAnimationFrame(waitAndStart);});}
-    else{requestAnimationFrame(waitAndStart);}
+    /* Arranca una vez que iconos+fuentes estén listos, sin reinicios visibles */
+    function whenReady(){
+      if(window.lucide)lucide.createIcons();
+      requestAnimationFrame(startJS);
+    }
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(whenReady);setTimeout(whenReady,400);}
+    else{whenReady();}
   }
   /* En PC se usa la animación CSS (definida en el <style>), que ya va perfecta */
 }
