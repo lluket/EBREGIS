@@ -225,7 +225,26 @@ section[id]{scroll-margin-top:68px}
 
 /* ── TICKER STRIP ── */
 .ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
-.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ticker-track{
+  display:flex;
+  gap:4rem;
+  white-space:nowrap;
+  align-items:center;
+
+  animation:tickerScroll 45s linear infinite;
+
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  contain:layout paint;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+@media (max-width:768px){
+  .ticker-track{
+    animation-duration:60s;
+  }
+}
 @keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
@@ -1428,6 +1447,10 @@ const kpiEl=document.querySelector('.hero-kpis');if(kpiEl)cntObs.observe(kpiEl);
 /* ── Hero Canvas ── */
 (function(){
   const c=document.getElementById('hero-cv');if(!c)return;
+  if(window.innerWidth < 768){
+  c.style.display='none';
+  return;
+}
   const ctx=c.getContext('2d');
   let W,H,pts=[];
   const resize=()=>{W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;pts=[];const n=Math.floor(W*H/11000);for(let i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.14,vy:(Math.random()-.5)*.14,a:Math.random()*.28+.04});};
@@ -1606,12 +1629,9 @@ function buildGNSS(id){
   var ghObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)startGH();else stopGH();});},{threshold:.01});
   ghObs.observe(c);
 }
-buildGNSS('gnss-hero');
-function buildGNSSGlobe(id){
-  const c=document.getElementById(id);if(!c)return;
-  const ctx=c.getContext('2d');
-  let W,H,animId,t=0;
-
+if(window.innerWidth > 768){
+  buildGNSS('gnss-hero');
+}
   const COLS=36,ROWS=24;
   let grid=[];
 
@@ -1917,9 +1937,23 @@ function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
   var items=tickerData[lang]||tickerData.es;
-  var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
-  track.innerHTML=h+h;
-  if(window.lucide)lucide.createIcons();
+var isMobile = window.innerWidth < 768;
+
+var h = items.map(function(i){
+  return `
+    <span class="ticker-item">
+      ${isMobile ? '' : '<i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'}
+      ${i.t}
+    </span>
+    <span class="ticker-sep"></span>
+  `;
+}).join('');
+
+track.innerHTML = isMobile ? h : h + h;
+
+if(!isMobile && window.lucide){
+  lucide.createIcons();
+}
   _tickerLang=lang;
   /* La animación es CSS pura (definida en el <style>), basada en -50%:
      como el contenido está duplicado, el bucle es perfecto y arranca
