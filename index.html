@@ -225,13 +225,9 @@ section[id]{scroll-margin-top:68px}
 
 /* ── TICKER STRIP ── */
 .ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center}
-.ticker-track{display:flex;gap:4rem;white-space:nowrap;align-items:center}
-/* PC (con puntero fino): animación CSS por porcentaje */
-@media (hover:hover) and (pointer:fine){
-  .ticker-track{animation:tickerScrollPC 38s linear infinite;transform:translateZ(0);will-change:transform}
-}
-@keyframes tickerScrollPC{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-/* Móvil/táctil: la animación se aplica por JS con keyframe en píxeles (más estable) */
+.ticker-track{display:flex;gap:4rem;white-space:nowrap;align-items:center;animation:tickerScroll 40s linear infinite;-webkit-animation:tickerScroll 40s linear infinite;transform:translateZ(0);-webkit-transform:translateZ(0);will-change:transform}
+@keyframes tickerScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+@-webkit-keyframes tickerScroll{0%{-webkit-transform:translate3d(0,0,0)}100%{-webkit-transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
 .ticker-dot{width:5px;height:5px;background:rgba(255,255,255,.55);border-radius:50%;flex-shrink:0;display:inline-block}
@@ -1921,7 +1917,6 @@ var tickerData = {
 };
 
 var _tickerLang=null;
-var _isTouchTicker=window.matchMedia&&window.matchMedia('(hover:none) and (pointer:coarse)').matches;
 function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
@@ -1930,28 +1925,9 @@ function renderTicker(lang,force){
   track.innerHTML=h+h;
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
-  if(_isTouchTicker){
-    /* ── TICKER MÓVIL: keyframe CSS en píxeles exactos ──
-       Animación CSS (no rAF, así no se pausa/reinicia al entrar en viewport).
-       El ancho exacto evita el salto del -50% con anchos impares. */
-    track.style.animation='none';
-    var _mobileSet=false;
-    function setupMobile(){
-      if(_mobileSet)return;
-      var half=track.scrollWidth/2;
-      if(half<10){requestAnimationFrame(setupMobile);return;}
-      _mobileSet=true;
-      var dur=half/55; /* velocidad px/seg */
-      var st=document.getElementById('ticker-mobile-kf');
-      if(!st){st=document.createElement('style');st.id='ticker-mobile-kf';document.head.appendChild(st);}
-      st.textContent='@keyframes tickerMobile{from{transform:translate3d(0,0,0)}to{transform:translate3d(-'+half+'px,0,0)}}';
-      track.style.willChange='transform';
-      track.style.animation='tickerMobile '+dur+'s linear infinite';
-    }
-    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){requestAnimationFrame(setupMobile);});setTimeout(setupMobile,500);}
-    else{requestAnimationFrame(setupMobile);}
-  }
-  /* En PC la animación la pone el CSS (@media hover:hover) */
+  /* La animación la gestiona el CSS (keyframe tickerScroll, -50%).
+     CSS puro + capa GPU permanente = la forma más nativa y fluida,
+     tanto en PC como en móvil. */
 }
 
 /* ── Content data per language ── */
