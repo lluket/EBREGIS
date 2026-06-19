@@ -224,19 +224,12 @@ section[id]{scroll-margin-top:68px}
 @media(max-width:900px){.hero-right{display:none}}
 
 /* ── TICKER STRIP ── */
-.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;contain:paint}
-.ticker-track{display:flex;gap:4rem;width:max-content;animation:tickerScroll 42s linear infinite;white-space:nowrap;align-items:center;transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform}
+.ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
+.ticker-track{display:flex;gap:4rem;animation:tickerScroll 38s linear infinite;white-space:nowrap;align-items:center;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform}
 @keyframes tickerScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 .ticker-sep{width:4px;height:4px;background:rgba(255,255,255,.4);border-radius:50%;flex-shrink:0}
 .ticker-dot{width:5px;height:5px;background:rgba(255,255,255,.55);border-radius:50%;flex-shrink:0;display:inline-block}
-@media(max-width:700px){
-  .ticker{height:40px}
-  .ticker-track{gap:2rem;animation-duration:56s}
-  .ticker-item{gap:.45rem;font-size:.62rem;letter-spacing:.08em}
-  .ticker-item .lucide{display:none}
-  .ticker-sep{width:3px;height:3px}
-}
 
 /* ── SERVICE CARDS ── */
 .svc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:all var(--t) var(--ease);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.8rem}
@@ -1396,6 +1389,29 @@ setActiveNav();
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
+/* ── Ticker ── */
+(function(){
+  const items=[
+    {icon:'map',text:'Topografía de alta precisión'},
+    {icon:'layers',text:'Sistemas de Información Geográfica'},
+    {icon:'satellite',text:'GNSS RTK · Post-proceso'},
+    {icon:'code-2',text:'Automatización Python & GIS'},
+    {icon:'building',text:'Gestión catastral e inmuebles'},
+    {icon:'droplets',text:'Estudios de riego y planificación'},
+    {icon:'map-pin',text:'Cartografía y geodatos'},
+    {icon:'monitor',text:'Desarrollo de apps y visores web'},
+  ];
+  const track=document.getElementById('ticker-track');
+  if(!track)return;
+  const render=arr=>arr.map(i=>`
+    <span class="ticker-item">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#lucide-${i.icon}"/></svg>
+      ${i.text}
+    </span><span class="ticker-sep"></span>
+  `).join('');
+  track.innerHTML=render(items)+render(items);
+})();
+
 /* ── Counter animation ── */
 function animN(el,to,dur=1600){
   const s=performance.now();
@@ -1904,12 +1920,15 @@ function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
   var items=tickerData[lang]||tickerData.es;
-  var h=items.map(function(i){return '<span class="ticker-item"><span class="ticker-dot"></span>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
+  var h=items.map(function(i){return '<span class="ticker-item"><i data-lucide="'+i.ic+'" style="width:12px;height:12px;stroke-width:2;flex-shrink:0"></i>'+i.t+'</span><span class="ticker-sep"></span>';}).join('');
   track.innerHTML=h+h;
-  track.style.animation='';
-  track.style.transform='';
+  if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
+  /* Animación 100% CSS (keyframe tickerScroll -50%). Como el contenido está
+     duplicado, el bucle es perfecto. Al ser CSS, no sufre los reinicios del
+     requestAnimationFrame cuando el elemento entra/sale del viewport en móvil. */
 }
+
 /* ── Content data per language ── */
 var D={
   es:{
@@ -2604,6 +2623,7 @@ function rateCheck(key,ms,max){
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
+  var _tkRz;window.addEventListener('resize',function(){clearTimeout(_tkRz);_tkRz=setTimeout(function(){renderTicker(currentLang,true);},250);},{passive:true});
 })();
 
 
