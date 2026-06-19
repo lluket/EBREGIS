@@ -225,7 +225,11 @@ section[id]{scroll-margin-top:68px}
 
 /* ── TICKER STRIP ── */
 .ticker{background:var(--green);overflow:hidden;height:46px;display:flex;align-items:center}
-.ticker-track{display:flex;gap:4rem;white-space:nowrap;align-items:center;animation:tickerScroll 40s linear infinite;-webkit-animation:tickerScroll 40s linear infinite;transform:translateZ(0);-webkit-transform:translateZ(0);will-change:transform}
+.ticker-track{display:flex;gap:4rem;white-space:nowrap;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
+/* PC (puntero fino): animación CSS. En móvil la mueve el JS (requestAnimationFrame) */
+@media (hover:hover) and (pointer:fine){
+  .ticker-track{animation:tickerScroll 40s linear infinite;-webkit-animation:tickerScroll 40s linear infinite;will-change:transform}
+}
 @keyframes tickerScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
 @-webkit-keyframes tickerScroll{0%{-webkit-transform:translate3d(0,0,0)}100%{-webkit-transform:translate3d(-50%,0,0)}}
 .ticker-item{display:flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);flex-shrink:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
@@ -1916,7 +1920,8 @@ var tickerData = {
   fr:[{ic:'store',t:'Localisation optimale pour votre commerce'},{ic:'monitor-smartphone',t:"Développement d\'applications mobiles"},{ic:'globe',t:'Sites web professionnels sur mesure'},{ic:'map',t:"Systèmes d\'Information Géographique"},{ic:'code-2',t:'Automatisation Python & SIG'},{ic:'satellite',t:'GNSS RTK · Topographie de précision'},{ic:'building',t:'Gestion cadastrale et foncière'},{ic:'droplets',t:"Études d\'irrigation et planification"},{ic:'layout-dashboard',t:'Digitalisation des entreprises'},{ic:'terminal-square',t:'Développement de logiciels sur mesure'}]
 };
 
-var _tickerLang=null;
+var _tickerLang=null,_tickerRAF=null;
+var _tickerTouch=window.matchMedia&&window.matchMedia('(hover:none) and (pointer:coarse)').matches;
 function renderTicker(lang,force){
   var track=document.getElementById('ticker-track');if(!track)return;
   if(_tickerLang===lang && !force)return;
@@ -1925,9 +1930,25 @@ function renderTicker(lang,force){
   track.innerHTML=h+h;
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
-  /* La animación la gestiona el CSS (keyframe tickerScroll, -50%).
-     CSS puro + capa GPU permanente = la forma más nativa y fluida,
-     tanto en PC como en móvil. */
+  if(_tickerTouch){
+    /* ── MÓVIL: animación por requestAnimationFrame (la que va fluida en móvil) ── */
+    if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
+    track.style.animation='none';
+    var pos=0,last=null,half=0;
+    function step(ts){
+      if(!half){half=track.scrollWidth/2;}
+      if(half<10){half=0;_tickerRAF=requestAnimationFrame(step);return;}
+      if(last===null)last=ts;
+      var dt=(ts-last)/1000;last=ts;
+      if(dt>0.1)dt=0.016; /* evita salto al volver de segundo plano */
+      pos-=(half/40)*dt; /* misma velocidad que PC: half px en 40s */
+      if(pos<=-half)pos+=half;
+      track.style.transform='translate3d('+pos.toFixed(2)+'px,0,0)';
+      _tickerRAF=requestAnimationFrame(step);
+    }
+    _tickerRAF=requestAnimationFrame(step);
+  }
+  /* En PC la animación la gestiona el CSS (@media hover:hover) */
 }
 
 /* ── Content data per language ── */
