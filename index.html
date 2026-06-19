@@ -1931,24 +1931,32 @@ function renderTicker(lang,force){
   if(window.lucide)lucide.createIcons();
   _tickerLang=lang;
   if(_tickerTouch){
-    /* ── MÓVIL: animación por requestAnimationFrame (la que va fluida en móvil) ── */
-    if(_tickerRAF){cancelAnimationFrame(_tickerRAF);_tickerRAF=null;}
+    /* ── MÓVIL: animación rAF que arranca UNA sola vez y nunca se reinicia.
+       Aunque renderTicker se llame varias veces (carga, cambio idioma),
+       el bucle sigue intacto desde donde estaba → sin reinicios ni saltos. ── */
     track.style.animation='none';
-    var pos=0,last=null,half=0;
-    function step(ts){
-      if(!half){half=track.scrollWidth/2;}
-      if(half<10){half=0;_tickerRAF=requestAnimationFrame(step);return;}
-      if(last===null)last=ts;
-      var dt=(ts-last)/1000;last=ts;
-      if(dt>0.1)dt=0.016; /* evita salto al volver de segundo plano */
-      pos-=(half/40)*dt; /* misma velocidad que PC: half px en 40s */
-      if(pos<=-half)pos+=half;
-      track.style.transform='translate3d('+pos.toFixed(2)+'px,0,0)';
-      _tickerRAF=requestAnimationFrame(step);
-    }
-    _tickerRAF=requestAnimationFrame(step);
+    startTickerMobile(track);
   }
   /* En PC la animación la gestiona el CSS (@media hover:hover) */
+}
+/* Estado global del ticker móvil: persiste entre llamadas a renderTicker */
+var _tkPos=0,_tkLast=null,_tkRunning=false;
+function startTickerMobile(track){
+  if(_tkRunning)return; /* ya está corriendo: no reiniciar */
+  _tkRunning=true;
+  function step(ts){
+    var half=track.scrollWidth/2;
+    if(half>=10){
+      if(_tkLast===null)_tkLast=ts;
+      var dt=(ts-_tkLast)/1000;_tkLast=ts;
+      if(dt>0.1)dt=0.016;
+      _tkPos-=(half/40)*dt;
+      if(_tkPos<=-half)_tkPos+=half;
+      track.style.transform='translate3d('+_tkPos.toFixed(2)+'px,0,0)';
+    }else{_tkLast=ts;}
+    _tickerRAF=requestAnimationFrame(step);
+  }
+  _tickerRAF=requestAnimationFrame(step);
 }
 
 /* ── Content data per language ── */
