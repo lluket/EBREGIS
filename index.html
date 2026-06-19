@@ -2190,24 +2190,27 @@ function renderAll(lang){
   var L=d(lang);
   /* Services */
   var sg=document.getElementById('svc-grid');
-  if(sg){sg.innerHTML=L.svc.map(function(s){return '<div class="svc rv" style="opacity:1;transform:none"><div class="svc-icon"><i data-lucide="'+s.ic+'"></i></div><span class="svc-n">'+s.n+'</span><h3>'+s.t+'</h3><p>'+s.p+'</p></div>';}).join('');if(window.lucide)lucide.createIcons();}
+  if(sg){sg.innerHTML=L.svc.map(function(s){return '<div class="svc rv" style="opacity:1;transform:none"><div class="svc-icon"><i data-lucide="'+s.ic+'"></i></div><span class="svc-n">'+s.n+'</span><h3>'+s.t+'</h3><p>'+s.p+'</p></div>';}).join('');}
   /* GNSS feats */
   var gf=document.getElementById('gnss-feats');
-  if(gf){gf.innerHTML=L.gnssFeats.map(function(f){return '<div class="gnss-feat"><div class="gnss-feat-ic"><i data-lucide="'+f.ic+'"></i></div><div><h3>'+f.t+'</h3><p>'+f.p+'</p></div></div>';}).join('');if(window.lucide)lucide.createIcons();}
+  if(gf){gf.innerHTML=L.gnssFeats.map(function(f){return '<div class="gnss-feat"><div class="gnss-feat-ic"><i data-lucide="'+f.ic+'"></i></div><div><h3>'+f.t+'</h3><p>'+f.p+'</p></div></div>';}).join('');}
   var gs=document.getElementById('gnss-specs');
   if(gs){gs.innerHTML=L.gnssSpecs.map(function(s){return '<div class="g-spec"><div class="g-spec-v">'+s.v+'</div><div class="g-spec-l">'+s.l+'</div></div>';}).join('');}
   /* Visor list */
   var vl=document.getElementById('visor-list');
-  if(vl){vl.innerHTML=L.visorFeats.map(function(i){return '<li style="display:flex;gap:.75rem;align-items:flex-start"><span style="color:var(--green3);flex-shrink:0;margin-top:2px"><i data-lucide="'+i.ic+'" style="width:16px;height:16px;stroke-width:1.8"></i></span><span style="font-size:.9rem;font-weight:500;color:var(--text)">'+i.t+'</span></li>';}).join('');if(window.lucide)lucide.createIcons();}
+  if(vl){vl.innerHTML=L.visorFeats.map(function(i){return '<li style="display:flex;gap:.75rem;align-items:flex-start"><span style="color:var(--green3);flex-shrink:0;margin-top:2px"><i data-lucide="'+i.ic+'" style="width:16px;height:16px;stroke-width:1.8"></i></span><span style="font-size:.9rem;font-weight:500;color:var(--text)">'+i.t+'</span></li>';}).join('');}
   /* Methodology */
   var mg=document.getElementById('method-grid');
-  if(mg){mg.innerHTML=L.method.map(function(s){return '<div class="val-card" style="opacity:1;transform:none"><div class="val-n">'+s.n+'</div><div><div style="width:38px;height:38px;background:rgba(46,150,80,.1);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:.7rem"><i data-lucide="'+s.ic+'" style="width:18px;height:18px;stroke-width:1.7"></i></div><h3 style="font-size:.95rem;margin-bottom:.4rem">'+s.t+'</h3><p style="font-size:.85rem">'+s.p+'</p></div></div>';}).join('');if(window.lucide)lucide.createIcons();}
+  if(mg){mg.innerHTML=L.method.map(function(s){return '<div class="val-card" style="opacity:1;transform:none"><div class="val-n">'+s.n+'</div><div><div style="width:38px;height:38px;background:rgba(46,150,80,.1);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:.7rem"><i data-lucide="'+s.ic+'" style="width:18px;height:18px;stroke-width:1.7"></i></div><h3 style="font-size:.95rem;margin-bottom:.4rem">'+s.t+'</h3><p style="font-size:.85rem">'+s.p+'</p></div></div>';}).join('');}
   /* Talent */
   var tg=document.getElementById('talent-grid');
-  if(tg){tg.innerHTML=L.talent.map(function(p){return '<div class="pc" style="opacity:1;transform:none"><div class="pc-icon"><i data-lucide="'+p.ic+'"></i></div><h3>'+p.t+'</h3><p>'+p.p+'</p></div>';}).join('')+'<div class="pc" style="background:var(--green);border-color:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:1;transform:none"><div class="pc-icon" style="background:rgba(255,255,255,.15)"><i data-lucide="mail" style="color:#fff"></i></div><h3 style="color:#fff;margin-bottom:.4rem">'+L.talentOther+'</h3><p style="color:rgba(255,255,255,.72);font-size:.85rem;margin-bottom:1.3rem">'+L.talentOtherP+'</p><a href="mailto:jlluch@ebregis.com" class="btn btn-wh" style="font-size:.72rem;padding:.55rem 1.2rem">'+L.talentOtherBtn+'</a></div>';if(window.lucide)lucide.createIcons();}
+  if(tg){tg.innerHTML=L.talent.map(function(p){return '<div class="pc" style="opacity:1;transform:none"><div class="pc-icon"><i data-lucide="'+p.ic+'"></i></div><h3>'+p.t+'</h3><p>'+p.p+'</p></div>';}).join('')+'<div class="pc" style="background:var(--green);border-color:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:1;transform:none"><div class="pc-icon" style="background:rgba(255,255,255,.15)"><i data-lucide="mail" style="color:#fff"></i></div><h3 style="color:#fff;margin-bottom:.4rem">'+L.talentOther+'</h3><p style="color:rgba(255,255,255,.72);font-size:.85rem;margin-bottom:1.3rem">'+L.talentOtherP+'</p><a href="mailto:jlluch@ebregis.com" class="btn btn-wh" style="font-size:.72rem;padding:.55rem 1.2rem">'+L.talentOtherBtn+'</a></div>';}
   /* Contact info */
   var ci=document.getElementById('contact-info');
-  if(ci){ci.innerHTML=L.contact.map(function(i){return '<div class="ci-item"><div class="ci-ico"><i data-lucide="'+i.ic+'"></i></div><div><span class="ci-label">'+i.l+'</span><span class="ci-val">'+i.v+'</span></div></div>';}).join('')+'<div class="tags"><span class="tag">GIS</span><span class="tag">Topografía</span><span class="tag">GNSS RTK</span><span class="tag">Catastro</span><span class="tag">Riego</span><span class="tag">Python</span><span class="tag">Cartografía</span><span class="tag">Web</span><span class="tag">Software</span></div>';if(window.lucide)lucide.createIcons();}
+  if(ci){ci.innerHTML=L.contact.map(function(i){return '<div class="ci-item"><div class="ci-ico"><i data-lucide="'+i.ic+'"></i></div><div><span class="ci-label">'+i.l+'</span><span class="ci-val">'+i.v+'</span></div></div>';}).join('')+'<div class="tags"><span class="tag">GIS</span><span class="tag">Topografía</span><span class="tag">GNSS RTK</span><span class="tag">Catastro</span><span class="tag">Riego</span><span class="tag">Python</span><span class="tag">Cartografía</span><span class="tag">Web</span><span class="tag">Software</span></div>';}
+
+  /* Una sola conversión de iconos al final (en vez de 7) = sin bloqueos */
+  if(window.lucide)lucide.createIcons();
 }
 
 
@@ -2637,10 +2640,9 @@ function rateCheck(key,ms,max){
 /* ── Init ── */
 (function(){
   function init(){
-    renderAll(currentLang);
-    renderTicker(currentLang);
+    /* applyLang ya llama internamente a renderAll y renderTicker,
+       así que no los duplicamos aquí (evita render doble = sin lagazos) */
     applyLang(currentLang);
-    if(window.lucide)lucide.createIcons();
     try{document.documentElement.style.visibility='';}catch(e){}
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
