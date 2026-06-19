@@ -228,7 +228,7 @@ section[id]{scroll-margin-top:68px}
 .ticker-track{display:flex;gap:4rem;white-space:nowrap;align-items:center;transform:translateZ(0);-webkit-transform:translateZ(0)}
 /* PC (puntero fino): animación CSS. En móvil la mueve el JS (requestAnimationFrame) */
 @media (hover:hover) and (pointer:fine){
-  .ticker-track{animation:tickerScroll 44s linear infinite;-webkit-animation:tickerScroll 44s linear infinite;will-change:transform}
+  .ticker-track{animation:tickerScroll 52s linear infinite;-webkit-animation:tickerScroll 52s linear infinite;will-change:transform}
 }
 @keyframes tickerScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
 @-webkit-keyframes tickerScroll{0%{-webkit-transform:translate3d(0,0,0)}100%{-webkit-transform:translate3d(-50%,0,0)}}
@@ -1950,9 +1950,9 @@ function startTickerMobile(track){
       if(_tkLast===null)_tkLast=ts;
       var dt=(ts-_tkLast)/1000;_tkLast=ts;
       if(dt>0.1)dt=0.016;
-      _tkPos-=(half/40)*dt;
+      _tkPos-=(half/52)*dt;
       if(_tkPos<=-half)_tkPos+=half;
-      track.style.transform='translate3d('+_tkPos.toFixed(2)+'px,0,0)';
+      track.style.transform='translate3d('+Math.round(_tkPos)+'px,0,0)';
     }else{_tkLast=ts;}
     _tickerRAF=requestAnimationFrame(step);
   }
