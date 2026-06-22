@@ -218,6 +218,9 @@ section[id]{scroll-margin-top:68px}
 .hero-eyebrow-t{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.16em;text-transform:uppercase}
 .hero-h1{color:#fff;margin-bottom:1.5rem;font-weight:700}
 .hero-h1 em{color:var(--green4);font-weight:700}
+/* Oculta solo el texto del hero (no la página) hasta que cargue la fuente: evita FOUT sin pantallazo blanco */
+.fonts-loading .hero-h1,.fonts-loading .hero-sub{opacity:0}
+.hero-h1,.hero-sub{transition:opacity .25s ease}
 .hero-sub{font-size:.98rem;color:rgba(255,255,255,.65);margin-bottom:2.5rem;line-height:1.8;max-width:480px;font-weight:300}
 .hero-ctas{display:flex;gap:.85rem;flex-wrap:wrap;margin-bottom:3.5rem}
 .hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.1)}
@@ -1915,7 +1918,7 @@ var currentLang = (function(){
   }catch(e){return 'es';}
 })();
 /* Anti-flash: si el idioma inicial no es español, ocultar hasta traducir */
-try{document.documentElement.style.visibility='hidden';}catch(e){}
+try{if(currentLang!=='es'){document.documentElement.style.visibility='hidden';}document.documentElement.classList.add('fonts-loading');}catch(e){}
 
 /* ── Ticker items per language ── */
 var tickerData = {
@@ -2659,11 +2662,11 @@ function rateCheck(key,ms,max){
        así que no los duplicamos aquí (evita render doble = sin lagazos) */
     applyLang(currentLang);
     var _revealed=false;
-    function reveal(){if(_revealed)return;_revealed=true;try{document.documentElement.style.visibility='';}catch(e){}}
+    function reveal(){if(_revealed)return;_revealed=true;try{document.documentElement.style.visibility='';document.documentElement.classList.remove('fonts-loading');}catch(e){}}
     // Mostrar cuando las fuentes estén listas (evita el parpadeo FOUT del título)
     if(document.fonts&&document.fonts.ready){document.fonts.ready.then(reveal);}
     // Red de seguridad: nunca dejar la página oculta más de 800 ms
-    setTimeout(reveal,800);
+    setTimeout(reveal,600);
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
