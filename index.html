@@ -61,6 +61,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <!-- Lucide icons via CDN -->
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
@@ -109,7 +110,7 @@ html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;sc
 body{font-family:var(--ff);background:var(--white);color:var(--text);line-height:1.65;overflow-x:hidden}
 /* Zoom controlado en imágenes del lightbox (sin que salgan de pantalla) */
 .plb-img-wrap{overflow:hidden;touch-action:none}
-.plb-img-wrap img{touch-action:none;will-change:transform;cursor:zoom-in}
+.plb-img-wrap img{touch-action:none;will-change:transform;cursor:default}
 .plb-img-wrap img.is-zoomed{cursor:grab}
 .plb-img-wrap img.is-grabbing{cursor:grabbing}
 ::-webkit-scrollbar{width:9px}::-webkit-scrollbar-track{background:var(--f1)}::-webkit-scrollbar-thumb{background:var(--green3);border-radius:5px}
@@ -1914,7 +1915,7 @@ var currentLang = (function(){
   }catch(e){return 'es';}
 })();
 /* Anti-flash: si el idioma inicial no es español, ocultar hasta traducir */
-try{if(currentLang!=='es'){document.documentElement.style.visibility='hidden';}}catch(e){}
+try{document.documentElement.style.visibility='hidden';}catch(e){}
 
 /* ── Ticker items per language ── */
 var tickerData = {
@@ -2657,7 +2658,12 @@ function rateCheck(key,ms,max){
     /* applyLang ya llama internamente a renderAll y renderTicker,
        así que no los duplicamos aquí (evita render doble = sin lagazos) */
     applyLang(currentLang);
-    try{document.documentElement.style.visibility='';}catch(e){}
+    var _revealed=false;
+    function reveal(){if(_revealed)return;_revealed=true;try{document.documentElement.style.visibility='';}catch(e){}}
+    // Mostrar cuando las fuentes estén listas (evita el parpadeo FOUT del título)
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(reveal);}
+    // Red de seguridad: nunca dejar la página oculta más de 800 ms
+    setTimeout(reveal,800);
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
