@@ -1,53 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ebregis.com/</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/"/>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/?lang=ca"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/"/>
   </url>
-
   <url>
-    <loc>https://ebregis.com/?lang=ca</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://ebregis.com/ca/</loc>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/"/>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/?lang=ca"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/"/>
   </url>
-
   <url>
-    <loc>https://ebregis.com/?lang=en</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://ebregis.com/en/</loc>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/"/>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/?lang=ca"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/"/>
   </url>
-
   <url>
-    <loc>https://ebregis.com/?lang=fr</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://ebregis.com/fr/</loc>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/"/>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/?lang=ca"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/"/>
   </url>
-
+  <url>
+    <loc>https://ebregis.com/blog/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/ca/blog/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/en/blog/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/fr/blog/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/quant-costa-desenvolupar-una-app-a-mida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/how-much-custom-app-development-costs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/combien-coute-developpement-application-sur-mesure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/ca/blog/quant-costa-desenvolupar-una-app-a-mida/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/quant-costa-desenvolupar-una-app-a-mida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/how-much-custom-app-development-costs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/combien-coute-developpement-application-sur-mesure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/en/blog/how-much-custom-app-development-costs/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/quant-costa-desenvolupar-una-app-a-mida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/how-much-custom-app-development-costs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/combien-coute-developpement-application-sur-mesure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/fr/blog/combien-coute-developpement-application-sur-mesure/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/quant-costa-desenvolupar-una-app-a-mida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/how-much-custom-app-development-costs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/combien-coute-developpement-application-sur-mesure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/blog/que-es-un-gis-para-que-sirve/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/en/blog/what-is-gis-what-is-it-for/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+  </url>
+  <url>
+    <loc>https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/"/>
+  </url>
 </urlset>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061410">
+<title>Qu&#x27;est-ce qu&#x27;un SIG et à quoi sert-il dans une entreprise ? | EBREGIS</title>
+<meta name="description" content="Qu&#x27;est-ce qu&#x27;un SIG (Système d&#x27;Information Géographique), comment il fonctionne et à quoi il sert dans une entreprise : cas d&#x27;usage réels et bénéfices.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/">
+<link rel="alternate" hreflang="es" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/">
+<link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/">
+<link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/">
+<link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/">
+<link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="EBREGIS">
+<meta property="og:title" content="Qu&#x27;est-ce qu&#x27;un SIG et à quoi sert-il dans une entreprise ? | EBREGIS">
+<meta property="og:description" content="Qu&#x27;est-ce qu&#x27;un SIG (Système d&#x27;Information Géographique), comment il fonctionne et à quoi il sert dans une entreprise : cas d&#x27;usage réels et bénéfices.">
+<meta property="og:url" content="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/">
+<meta property="og:image" content="https://ebregis.com/img/og-image.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/img/icon-512.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Qu'est-ce qu'un SIG et à quoi sert-il dans une entreprise ?","inLanguage":"fr","datePublished":"2026-09-03","author":{"@type":"Organization","name":"EBREGIS"},"publisher":{"@type":"Organization","name":"EBREGIS","logo":{"@type":"ImageObject","url":"https://ebregis.com/img/icon-512.png"}},"mainEntityOfPage":"https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/pages.css">
+</head>
+<body>
+<nav id="nav" role="navigation" aria-label="EBREGIS">
+  <div class="nav-in">
+    <a href="/fr/" class="nav-brand"><span class="nav-brand-logo-wrap"><img src="/img/logo.png" alt="Logo EBREGIS"></span><span class="nav-brand-name">EBRE<span>GIS</span></span></a>
+    <ul class="nav-links" id="nav-menu"><li><a href="/fr/#servicios">Services</a></li><li><a href="/fr/#proyectos">Projets</a></li><li><a href="/fr/#gnss">GNSS</a></li><li><a href="/fr/#visor-section">Visionneuse SIG</a></li><li><a href="/fr/#metodologia">Méthodologie</a></li><li><a href="/fr/#talent">Équipe</a></li><li><a href="/fr/blog/">Blog</a></li><li><a href="/fr/#contact">Contact</a></li></ul>
+    <div id="lang-sel" style="position:relative">
+      <button id="lang-btn" onclick="toggleLang()" style="display:flex;align-items:center;gap:.38rem;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:3px;padding:.4rem .7rem;color:rgba(255,255,255,.85);font-family:var(--ff);font-size:.68rem;font-weight:600;letter-spacing:.08em;cursor:pointer"><i data-lucide="globe" style="width:13px;height:13px"></i><span>Français</span><span style="font-size:.55rem;opacity:.6">▾</span></button>
+      <div id="lang-menu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh2);min-width:130px;z-index:1001;overflow:hidden"><a href="https://ebregis.com/blog/que-es-un-gis-para-que-sirve/">Español</a><a href="https://ebregis.com/ca/blog/que-es-un-sig-per-a-que-serveix/">Català</a><a href="https://ebregis.com/en/blog/what-is-gis-what-is-it-for/">English</a><a href="https://ebregis.com/fr/blog/quest-ce-quun-sig-a-quoi-ca-sert/">Français</a></div>
+    </div>
+    <a href="/fr/#contact" class="btn btn-g" style="padding:.52rem 1.2rem;font-size:.7rem">Contacter</a>
+    <button id="nav-tog" aria-label="Menu" aria-expanded="false"><i data-lucide="menu" style="width:22px;height:22px"></i></button>
+  </div>
+</nav>
+<main class="page-main">
+<section class="phero">
+  <div class="container">
+    <div class="crumb"><a href="/fr/">Accueil</a><span>›</span>Blog</div>
+    <div class="phero-eyebrow"><span class="d"></span><span>SIG</span></div>
+    <h1>Qu&#x27;est-ce qu&#x27;un SIG et à quoi sert-il dans une entreprise ?</h1>
+    <p class="meta"><time datetime="2026-09-03">3 septembre 2026</time> · EBREGIS</p>
+  </div>
+</section>
+<section class="section"><div class="container"><article class="article">
+
+<p class="lead">Vous avez sûrement vu des cartes interactives où chaque point cache des informations détaillées. Derrière se trouve une technologie que de nombreuses entreprises et administrations utilisent chaque jour pour mieux décider. Voici, sans jargon, ce qu'est un SIG et comment il peut aider votre organisation.</p>
+<h2>Qu'est-ce qu'un SIG</h2>
+<p>SIG signifie Système d'Information Géographique (GIS en anglais). C'est un système qui permet de <strong>capturer, stocker, analyser et visualiser des données liées à un emplacement</strong>. Simplement : il relie l'information au lieu auquel elle appartient et vous la montre sur une carte.</p>
+<p>La différence avec une carte ordinaire, c'est qu'un SIG ne montre pas seulement où se trouve une chose : il <strong>croise des couches d'information</strong> pour répondre à des questions. Ce n'est pas une photo du territoire : c'est une base de données dotée d'intelligence géographique.</p>
+<h2>Comment ça fonctionne</h2>
+<p>Un SIG organise la réalité en <strong>couches</strong>. Une couche peut être le réseau de canalisations d'eau, une autre les parcelles cadastrales, une autre les pannes enregistrées l'an dernier. En les superposant apparaissent des relations invisibles dans un tableur : par exemple, que les pannes se concentrent sur un tronçon précis et ancien.</p>
+<p>Chaque élément porte ses informations : un poteau électrique conserve sa date d'installation, son état et sa dernière maintenance. La carte devient un outil de consultation et d'analyse, pas seulement d'affichage.</p>
+<h2>À quoi ça sert dans une entreprise</h2>
+<p><strong>Gestion des infrastructures et réseaux.</strong> Les entreprises d'eau, d'électricité, de gaz ou de télécoms savent où se trouve chaque élément, dans quel état et quand intervenir. Cela réduit les délais de réponse et organise la maintenance.</p>
+<p><strong>Décisions liées au territoire.</strong> Où ouvrir un site, quelles zones couvrir, comment optimiser les tournées. Quand la décision a une composante géographique, le SIG apporte des données plutôt que des intuitions.</p>
+<p><strong>Gestion d'actifs distribués.</strong> Inventoriez et gérez sur une carte unique tout élément réparti sur le territoire.</p>
+<p><strong>Conformité et documentation.</strong> Une information géographique bien ordonnée facilite les audits et les exigences réglementaires.</p>
+<h2>Qu'est-ce qu'une visionneuse cartographique</h2>
+<p>La carte interactive affichée à l'écran s'appelle une <strong>visionneuse cartographique</strong> : la « fenêtre » par laquelle les personnes de l'entreprise consultent l'information du SIG sans être techniciennes. Une bonne visionneuse sur mesure montre exactement ce dont chaque équipe a besoin.</p>
+<h2>Votre entreprise a-t-elle besoin d'un SIG ?</h2>
+<p>Si vous travaillez avec des informations liées à un emplacement (réseaux, actifs, parcelles, tournées, incidents) et que vous les gérez aujourd'hui dans des tableurs ou des plans épars, un SIG vous fera très probablement gagner du temps. Pas besoin de commencer par un grand système : vous pouvez démarrer en numérisant un réseau ou en créant une première visionneuse. Chez EBREGIS, nous développons des SIG sur mesure, numérisons les infrastructures et créons des visionneuses cartographiques adaptées à chaque organisation.</p>
+
+</article></div></section>
+<section class="cta-band"><div class="container">
+  <h2>Parlons de votre projet</h2>
+  <p>Dites-nous ce dont vous avez besoin et nous préparons une proposition sur mesure, sans engagement. Nous travaillons avec des clients dans toute l&#x27;Espagne.</p>
+  <a href="/fr/#contact" class="btn btn-wh">Contacter EBREGIS</a>
+</div></section>
+</main>
+<footer><div class="container"><div class="f-bot" style="padding-top:2rem"><span class="f-copy">© 2026 EBREGIS · Tous droits réservés</span><div class="f-leg"><a href="/fr/#contact">Contact</a></div></div></div></footer>
+<script src="/pages.js"></script>
+</body>
+</html>
