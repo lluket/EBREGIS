@@ -23,7 +23,7 @@
 .article .lead{font-size:1.16rem;color:var(--text2);line-height:1.8}
 .article a{color:var(--green2);text-underline-offset:3px}
 
-.cta-band{background:linear-gradient(148deg,#0d2218,#091c2a);color:#fff;text-align:center;padding:4rem 0}
+.cta-band{background:var(--ink);color:#fff;text-align:center;padding:4rem 0}
 .cta-band h2{color:#fff;margin-bottom:1rem}
 .cta-band p{color:rgba(255,255,255,.72);max-width:52ch;margin:0 auto 2rem;line-height:1.7}
 
@@ -43,3 +43,7 @@
 .bcard-body p{color:var(--text2);font-size:.92rem;line-height:1.6;margin:0;flex:1}
 .bcard-more{color:var(--green2);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem}
 .blog-intro{max-width:60ch;color:var(--text2);margin-top:.5rem;line-height:1.7}
+
+/* ── Enlace de contacto del footer (blog) ── */
+.f-leg a.flink{color:rgba(255,255,255,.5);text-decoration:none;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:color var(--t)}
+.f-leg a.flink:hover{color:var(--green4)}
