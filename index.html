@@ -47,15 +47,43 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
   "name": "EBREGIS",
   "legalName": "EBREGIS, S.L.",
   "url": "https://ebregis.com/",
   "logo": "https://ebregis.com/img/icon-512.png",
   "image": "https://ebregis.com/img/og-image.jpg",
-  "description": "Desarrollo de aplicaciones móviles, webs profesionales, sistemas de información geográfica (GIS) y topografía de precisión.",
-  "areaServed": "ES",
-  "knowsAbout": ["Sistemas de Información Geográfica", "Topografía", "Desarrollo de aplicaciones móviles", "Desarrollo web", "Cartografía", "Catastro"]
+  "description": "Desarrollo de aplicaciones móviles, webs profesionales, sistemas de información geográfica (GIS) y topografía de precisión en Tortosa (Tarragona), para toda España.",
+  "email": "info@ebregis.com",
+  "vatID": "ESB26708800",
+  "taxID": "B26708800",
+  "foundingDate": "2026-01",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Tortosa",
+    "addressRegion": "Tarragona",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
+    "Tortosa",
+    "Tarragona",
+    "Cataluña",
+    "España"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/ebregis-s-l/",
+    "https://share.google/9kAw4o4zlDlW7a7oM"
+  ],
+  "knowsAbout": [
+    "Sistemas de Información Geográfica",
+    "Topografía",
+    "GNSS RTK",
+    "Desarrollo de aplicaciones móviles",
+    "Desarrollo web",
+    "Cartografía",
+    "Catastro",
+    "Digitalización de redes"
+  ]
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -692,7 +720,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 1 -->
       <div class="proj-card rv" onclick="openProjLightbox()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p1-img" src="/img/es1.jpg" alt="Automatización inspecciones red de saneamiento">
+          <img loading="lazy" decoding="async" id="p1-img" src="/img/es1.webp" alt="Automatización inspecciones red de saneamiento">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p1-badge">GIS · Python · QGIS</span>
           </div>
@@ -722,7 +750,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 7: Digitalización redes de agua (posición visual 2) -->
       <div class="proj-card rv" onclick="openProjLightbox7()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p7-img" src="/img/es7.png" alt="Digitalización de redes de distribución de agua">
+          <img loading="lazy" decoding="async" id="p7-img" src="/img/es7.webp" alt="Digitalización de redes de distribución de agua">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p7-badge">GIS · Agua · Inventario</span>
           </div>
@@ -752,7 +780,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 10: Digitalización de redes eléctricas, telefónicas y de gas (posición 3) -->
       <div class="proj-card rv" onclick="openProjLightbox10()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p10-img" src="/img/es10.png" alt="Digitalización de redes eléctricas, telefónicas y de gas">
+          <img loading="lazy" decoding="async" id="p10-img" src="/img/es10.webp" alt="Digitalización de redes eléctricas, telefónicas y de gas">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p10-badge">GIS · Servicios urbanos</span>
           </div>
@@ -781,7 +809,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 2: Riego finca naranjos -->
       <div class="proj-card rv" onclick="openProjLightbox2()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p2-img" src="/img/es2.jpg" alt="Implantación de riego en finca de naranjos">
+          <img loading="lazy" decoding="async" id="p2-img" src="/img/es2.webp" alt="Implantación de riego en finca de naranjos">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p2-badge">GIS · Riego · Topografía</span>
           </div>
@@ -811,7 +839,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 3: RefAcademy — En curso -->
       <div class="proj-card rv" onclick="openProjLightbox3()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p3-img" src="/img/es3.jpg" alt="RefAcademy — Plataforma para árbitros de fútbol">
+          <img loading="lazy" decoding="async" id="p3-img" src="/img/es3.webp" alt="RefAcademy — Plataforma para árbitros de fútbol">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p3-badge" style="background:var(--green)">Web · App · iOS · Android</span>
           </div>
@@ -843,10 +871,10 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       </div>
 
 
-      <!-- Project 4: Portal inmobiliario -->
+      <!-- Project 4: Desarrollo web profesional -->
       <div class="proj-card rv" onclick="openProjLightbox4()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p4-img" src="/img/es4.png" alt="Diseño y desarrollo web profesional a medida">
+          <img loading="lazy" decoding="async" id="p4-img" src="/img/es4.webp" alt="Diseño y desarrollo web profesional a medida">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p4-badge">Diseño · Desarrollo · SEO</span>
           </div>
@@ -876,7 +904,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 9: Desarrollo de software (tras web profesional) -->
       <div class="proj-card rv" onclick="openProjLightbox9()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p9-img" src="/img/es9.png" alt="Desarrollo de software a medida: fichaje, facturación y gestión">
+          <img loading="lazy" decoding="async" id="p9-img" src="/img/es9.webp" alt="Desarrollo de software a medida: fichaje, facturación y gestión">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p9-badge">Software · Escritorio · Empresa</span>
           </div>
@@ -938,7 +966,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 5: App Autoescuelas -->
       <div class="proj-card rv" onclick="openProjLightbox5()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p5-img" src="/img/es5.png" alt="App autoescuela - reservas, progreso y compras">
+          <img loading="lazy" decoding="async" id="p5-img" src="/img/es5.webp" alt="App autoescuela - reservas, progreso y compras">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p5-badge">App · iOS · Android · Web</span>
           </div>
@@ -968,7 +996,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <!-- Project 6: Gestión de reservas barberías -->
       <div class="proj-card rv" onclick="openProjLightbox6()" style="cursor:pointer">
         <div class="proj-img">
-          <img loading="lazy" decoding="async" id="p6-img" src="/img/es6.png" alt="Gestión de reservas para barberías">
+          <img loading="lazy" decoding="async" id="p6-img" src="/img/es6.webp" alt="Gestión de reservas para barberías">
           <div class="proj-img-overlay">
             <span class="proj-badge" id="p6-badge">App · iOS · Android · Barberías</span>
           </div>
@@ -1015,7 +1043,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox2" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox2()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img2" src="/img/es2.jpg" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Riego finca naranjos" data-zoom-init="1">
+    <img id="plb-img2" src="/img/es2.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Riego finca naranjos" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox2()">Cerrar</button>
@@ -1027,18 +1055,18 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox3" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.95);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox3()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img3" src="/img/es3.jpg" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="RefAcademy" data-zoom-init="1">
+    <img id="plb-img3" src="/img/es3.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="RefAcademy" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox3()">Cerrar</button>
   </div>
-  <p class="plb-caption" id="lb3-caption">RefAcademy · Web + App iOS &amp; Android · Árbitros de fútbol · En curso</p>
+  <p class="plb-caption" id="lb3-caption">RefAcademy · Web + App iOS &amp; Android · Árbitros de fútbol · Ya disponible</p>
 </div>
 <!-- Project 4 lightbox -->
 <div id="proj-lightbox4" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox4()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img4" src="/img/es4.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Portal inmobiliario GIS" data-zoom-init="1">
+    <img id="plb-img4" src="/img/es4.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Diseño y desarrollo web profesional a medida" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox4()">Cerrar</button>
@@ -1049,7 +1077,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox5" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox5()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img5" src="/img/es5.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="App autoescuela" data-zoom-init="1">
+    <img id="plb-img5" src="/img/es5.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="App autoescuela" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox5()">Cerrar</button>
@@ -1060,7 +1088,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox6" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox6()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img6" src="/img/es6.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="App barberías" data-zoom-init="1">
+    <img id="plb-img6" src="/img/es6.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="App barberías" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox6()">Cerrar</button>
@@ -1071,7 +1099,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox7" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox7()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img7" src="/img/es7.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Digitalización redes de agua" data-zoom-init="1">
+    <img id="plb-img7" src="/img/es7.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Digitalización redes de agua" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox7()">Cerrar</button>
@@ -1093,7 +1121,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox9" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox9()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img9" src="/img/es9.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Desarrollo de software a medida" data-zoom-init="1">
+    <img id="plb-img9" src="/img/es9.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Desarrollo de software a medida" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox9()">Cerrar</button>
@@ -1104,7 +1132,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
 <div id="proj-lightbox10" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
   <button class="plb-close" onclick="closeProjLightbox10()">✕</button>
   <div class="plb-img-wrap">
-    <img id="plb-img10" src="/img/es10.png" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Digitalización de redes eléctricas, telefónicas y de gas" data-zoom-init="1">
+    <img id="plb-img10" src="/img/es10.webp" style="max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: var(--r-lg); box-shadow: rgba(0, 0, 0, 0.6) 0px 24px 80px; transform-origin: center center; transition: transform 0.2s; transform: translate(0px, 0px) scale(1);" alt="Digitalización de redes eléctricas, telefónicas y de gas" data-zoom-init="1">
   </div>
   <div class="plb-actions">
     <button class="plb-btn plb-btn-close lb-close-btn" onclick="closeProjLightbox10()">Cerrar</button>
@@ -1231,7 +1259,7 @@ footer p{font-size:.85rem;color:rgba(255,255,255,.4);max-width:260px;font-weight
       <p>Cuéntanos qué necesitas. Respondemos en menos de 24 horas con una propuesta adaptada.</p>
     </div>
     <div class="cg">
-      <div class="rv" id="contact-info"><div class="ci-item"><div class="ci-ico"><i data-lucide="globe"></i></div><div><span class="ci-label">Ámbito</span><span class="ci-val">España · Proyectos internacionales</span></div></div><div class="ci-item"><div class="ci-ico"><i data-lucide="clock"></i></div><div><span class="ci-label">Respuesta</span><span class="ci-val">Menos de 24 h en días laborables</span></div></div><div class="tags"><span class="tag">GIS</span><span class="tag">Topografía</span><span class="tag">GNSS RTK</span><span class="tag">Catastro</span><span class="tag">Riego</span><span class="tag">Python</span><span class="tag">Cartografía</span><span class="tag">Web</span><span class="tag">Software</span></div></div>
+      <div class="rv" id="contact-info"><div class="ci-item"><div class="ci-ico"><i data-lucide="mail"></i></div><div><span class="ci-label">Email</span><span class="ci-val"><a href="mailto:info@ebregis.com" style="color:inherit;text-decoration:none">info@ebregis.com</a></span></div></div><div class="ci-item"><div class="ci-ico"><i data-lucide="globe"></i></div><div><span class="ci-label">Ámbito</span><span class="ci-val">España · Proyectos internacionales</span></div></div><div class="ci-item"><div class="ci-ico"><i data-lucide="clock"></i></div><div><span class="ci-label">Respuesta</span><span class="ci-val">Menos de 24 h en días laborables</span></div></div><div class="tags"><span class="tag">GIS</span><span class="tag">Topografía</span><span class="tag">GNSS RTK</span><span class="tag">Catastro</span><span class="tag">Riego</span><span class="tag">Python</span><span class="tag">Cartografía</span><span class="tag">Web</span><span class="tag">Software</span></div></div>
       <div class="fbox rv d2">
         <form id="cform" class="cform" novalidate="">
           <input type="hidden" name="_csrf" value="e28e094c4f3a7180d3ed5400fa21ace2512b342616abd1f84978ad4d28aeff54">
@@ -2895,7 +2923,7 @@ function saveCfg(){setC({n:true,a:document.getElementById('sw-a').checked,p:docu
 
 
 /* ── Project 1 image per language ── */
-var _p1imgs={es:'/img/es1.jpg',ca:'/img/cat1.png',en:'/img/in1.png',fr:'/img/fr1.png'};
+var _p1imgs={es:'/img/es1.webp',ca:'/img/cat1.webp',en:'/img/in1.webp',fr:'/img/fr1.webp'};
 function swapP1Img(lang){
   var img = document.getElementById('p1-img');
   if(!img) return;
@@ -2905,30 +2933,30 @@ function swapP1Img(lang){
 
 
 /* ── Project 2 image per language ── */
-var _p2imgs={es:'/img/es2.jpg',ca:'/img/cat2.png',en:'/img/in2.png',fr:'/img/fr2.png'};
+var _p2imgs={es:'/img/es2.webp',ca:'/img/cat2.webp',en:'/img/in2.webp',fr:'/img/fr2.webp'};
 function swapP2Img(lang){var img=document.getElementById('p2-img');if(!img)return;var src=_p2imgs[lang]||_p2imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 3 image per language ── */
-var _p3imgs={es:'/img/es3.jpg',ca:'/img/cat3.png',en:'/img/in3.png',fr:'/img/fr3.png'};
+var _p3imgs={es:'/img/es3.webp',ca:'/img/cat3.webp',en:'/img/in3.webp',fr:'/img/fr3.webp'};
 function swapP3Img(lang){var img=document.getElementById('p3-img');if(!img)return;var src=_p3imgs[lang]||_p3imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 4 image per language ── */
-var _p4imgs={es:'/img/es4.png',ca:'/img/cat4.png',en:'/img/in4.png',fr:'/img/fr4.png'};
+var _p4imgs={es:'/img/es4.webp',ca:'/img/cat4.webp',en:'/img/in4.webp',fr:'/img/fr4.webp'};
 function swapP4Img(lang){var img=document.getElementById('p4-img');if(!img)return;var src=_p4imgs[lang]||_p4imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 5 image per language ── */
-var _p5imgs={es:'/img/es5.png',ca:'/img/cat5.png',en:'/img/in5.png',fr:'/img/fr5.png'};
+var _p5imgs={es:'/img/es5.webp',ca:'/img/cat5.webp',en:'/img/in5.webp',fr:'/img/fr5.webp'};
 function swapP5Img(lang){var img=document.getElementById('p5-img');if(!img)return;var src=_p5imgs[lang]||_p5imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 6 image per language ── */
-var _p6imgs={es:'/img/es6.png',ca:'/img/cat6.png',en:'/img/in6.png',fr:'/img/fr6.png'};
+var _p6imgs={es:'/img/es6.webp',ca:'/img/cat6.webp',en:'/img/in6.webp',fr:'/img/fr6.webp'};
 function swapP6Img(lang){var img=document.getElementById('p6-img');if(!img)return;var src=_p6imgs[lang]||_p6imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 7 image per language (agua) ── */
-var _p7imgs={es:'/img/es7.png',ca:'/img/cat7.png',en:'/img/in7.png',fr:'/img/fr7.png'};
+var _p7imgs={es:'/img/es7.webp',ca:'/img/cat7.webp',en:'/img/in7.webp',fr:'/img/fr7.webp'};
 function swapP7Img(lang){var img=document.getElementById('p7-img');if(!img)return;var src=_p7imgs[lang]||_p7imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 8 image per language (planos) ── */
 var _p8imgs={es:'/img/plano-vivienda-es.webp',en:'/img/plano-vivienda-en.webp',ca:'/img/plano-vivienda-ca.webp',fr:'/img/plano-vivienda-fr.webp'};
 function swapP8Img(lang){var img=document.getElementById('p8-img');if(!img)return;var src=_p8imgs[lang]||_p8imgs.es;if(img.src!==src)img.src=src;}
 /* ── Project 9 image per language (software) ── */
-var _p9imgs={es:'/img/es9.png',ca:'/img/cat9.png',en:'/img/in9.png',fr:'/img/fr9.png'};
+var _p9imgs={es:'/img/es9.webp',ca:'/img/cat9.webp',en:'/img/in9.webp',fr:'/img/fr9.webp'};
 function swapP9Img(lang){var img=document.getElementById('p9-img');if(!img)return;var src=_p9imgs[lang]||_p9imgs.es;if(img.src!==src)img.src=src;}
-var _p10imgs={es:'/img/es10.png',ca:'/img/cat10.png',en:'/img/in10.png',fr:'/img/fr10.png'};
+var _p10imgs={es:'/img/es10.webp',ca:'/img/cat10.webp',en:'/img/in10.webp',fr:'/img/fr10.webp'};
 function swapP10Img(lang){var img=document.getElementById('p10-img');if(!img)return;var src=_p10imgs[lang]||_p10imgs.es;if(img.src!==src)img.src=src;}
 /* ── Form ── */
 /* old form handler removed */
