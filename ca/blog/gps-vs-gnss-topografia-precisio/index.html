@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061410">
+<title>Diferència entre GPS i GNSS en topografia de precisió | EBREGIS</title>
+<meta name="description" content="Diferència entre GPS i GNSS explicada sense tecnicismes: què són, per què el GNSS arriba a precisió de centímetres i què usar en topografia.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ebregis.com/ca/blog/gps-vs-gnss-topografia-precisio/">
+<link rel="alternate" hreflang="es" href="https://ebregis.com/blog/gps-vs-gnss-topografia-precision/">
+<link rel="alternate" hreflang="ca" href="https://ebregis.com/ca/blog/gps-vs-gnss-topografia-precisio/">
+<link rel="alternate" hreflang="en" href="https://ebregis.com/en/blog/gps-vs-gnss-precision-surveying/">
+<link rel="alternate" hreflang="fr" href="https://ebregis.com/fr/blog/gps-vs-gnss-topographie-precision/">
+<link rel="alternate" hreflang="x-default" href="https://ebregis.com/blog/gps-vs-gnss-topografia-precision/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="EBREGIS">
+<meta property="og:title" content="Diferència entre GPS i GNSS en topografia de precisió | EBREGIS">
+<meta property="og:description" content="Diferència entre GPS i GNSS explicada sense tecnicismes: què són, per què el GNSS arriba a precisió de centímetres i què usar en topografia.">
+<meta property="og:url" content="https://ebregis.com/ca/blog/gps-vs-gnss-topografia-precisio/">
+<meta property="og:image" content="https://ebregis.com/img/gnss_cat.png">
+<meta property="og:locale" content="ca_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/img/icon-512.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Diferència entre GPS i GNSS en topografia de precisió","inLanguage":"ca","datePublished":"2026-10-25","author":{"@type":"Organization","name":"EBREGIS"},"publisher":{"@type":"Organization","name":"EBREGIS","logo":{"@type":"ImageObject","url":"https://ebregis.com/img/icon-512.png"}},"mainEntityOfPage":"https://ebregis.com/ca/blog/gps-vs-gnss-topografia-precisio/","image":"https://ebregis.com/img/gnss_cat.png"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/pages.css">
+</head>
+<body>
+<nav id="nav" role="navigation" aria-label="EBREGIS">
+  <div class="nav-in">
+    <a href="/ca/" class="nav-brand"><span class="nav-brand-logo-wrap"><img src="/img/logo.png" alt="Logo EBREGIS"></span><span class="nav-brand-name">EBRE<span>GIS</span></span></a>
+    <ul class="nav-links" id="nav-menu"><li><a href="/ca/#servicios">Serveis</a></li><li><a href="/ca/#proyectos">Projectes</a></li><li><a href="/ca/#gnss">GNSS</a></li><li><a href="/ca/#visor-section">Visor SIG</a></li><li><a href="/ca/#metodologia">Metodologia</a></li><li><a href="/ca/#talent">Equip</a></li><li><a href="/ca/blog/">Blog</a></li><li><a href="/ca/#contact">Contacte</a></li></ul>
+    <div id="lang-sel" style="position:relative">
+      <button id="lang-btn" onclick="toggleLang()" style="display:flex;align-items:center;gap:.38rem;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:3px;padding:.4rem .7rem;color:rgba(255,255,255,.85);font-family:var(--ff);font-size:.68rem;font-weight:600;letter-spacing:.08em;cursor:pointer"><i data-lucide="globe" style="width:13px;height:13px"></i><span>Català</span><span style="font-size:.55rem;opacity:.6">▾</span></button>
+      <div id="lang-menu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh2);min-width:130px;z-index:1001;overflow:hidden"><a href="https://ebregis.com/blog/gps-vs-gnss-topografia-precision/">Español</a><a href="https://ebregis.com/ca/blog/gps-vs-gnss-topografia-precisio/">Català</a><a href="https://ebregis.com/en/blog/gps-vs-gnss-precision-surveying/">English</a><a href="https://ebregis.com/fr/blog/gps-vs-gnss-topographie-precision/">Français</a></div>
+    </div>
+    <a href="/ca/#contact" class="btn btn-g" style="padding:.52rem 1.2rem;font-size:.7rem">Contactar</a>
+    <button id="nav-tog" aria-label="Menu" aria-expanded="false"><i data-lucide="menu" style="width:22px;height:22px"></i></button>
+  </div>
+</nav>
+<main class="page-main">
+<section class="phero">
+  <div class="container">
+    <div class="crumb"><a href="/ca/">Inici</a><span>›</span>Blog</div>
+    <div class="phero-eyebrow"><span class="d"></span><span>GNSS / Topografia</span></div>
+    <h1>Diferència entre GPS i GNSS en topografia de precisió</h1>
+    <p class="meta"><time datetime="2026-10-25">25 d&#x27;octubre de 2026</time> · EBREGIS</p>
+  </div>
+</section>
+<section class="section"><div class="container"><article class="article">
+
+<p class="lead">«Vaig a prendre un punt amb el GPS.» Ho diem tots, però gairebé sempre el que portem a la mà és un receptor GNSS. No és el mateix, i en topografia de precisió aquesta diferència és la que separa un error de diversos metres d&#x27;un error d&#x27;uns pocs centímetres. T&#x27;ho expliquem sense tecnicismes.</p>
+<figure style="margin:1.75rem 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--border)"><a href="/img/gnss_cat.png" target="_blank" rel="noopener" title="Ampliar imatge"><img src="/img/gnss_cat.png" alt="Diferència entre GPS i GNSS: les quatre constel·lacions i un receptor de precisió" loading="lazy" style="display:block;width:100%;height:auto;cursor:zoom-in"></a></figure>
+<h2>«GPS»: una marca que es va quedar amb el nom</h2>
+<p>El GPS (<em>Global Positioning System</em>) és el sistema de posicionament per satèl·lit dels Estats Units. Va ser el primer a funcionar a escala global i d&#x27;ús massiu, així que el seu nom va acabar convertint-se en sinònim de «posicionament per satèl·lit». Però el GPS és <strong>només una</strong> de les constel·lacions de satèl·lits que orbiten la Terra.</p>
+<h2>Què és realment el GNSS</h2>
+<p>GNSS són les sigles de <em>Global Navigation Satellite System</em>: el terme que engloba <strong>totes</strong> les constel·lacions de navegació per satèl·lit. Avui n&#x27;hi ha quatre d&#x27;operatives a escala global:</p>
+<p><strong>GPS</strong> (Estats Units), <strong>GLONASS</strong> (Rússia), <strong>Galileo</strong> (Unió Europea) i <strong>BeiDou</strong> (Xina). Un receptor GNSS modern no escolta només el GPS: capta senyals de diverses d&#x27;aquestes constel·lacions alhora.</p>
+<p>Dit de manera senzilla: <strong>tot GPS és GNSS, però no tot GNSS és GPS</strong>. El GPS és una part; el GNSS és el conjunt.</p>
+<h2>La diferència que importa en topografia de precisió</h2>
+<p>Per posicionar-se, un receptor necessita «veure» diversos satèl·lits alhora i calcular la distància a cadascun. Com més satèl·lits tingui a la vista, més fiable i precís és el càlcul. Aquí és on el GNSS guanya de llarg:</p>
+<p><strong>Més satèl·lits disponibles.</strong> Usant les quatre constel·lacions, el receptor pot tenir desenes de satèl·lits a la vista en lloc dels pocs que oferiria només el GPS. Això vol dir fixar la posició més ràpid i amb menys incertesa.</p>
+<p><strong>Millor cobertura en entorns difícils.</strong> En carrers estrets, al costat d&#x27;edificis, sota arbrat o en barrancs, part del cel queda tapada. Amb més constel·lacions és molt més probable continuar tenint satèl·lits suficients per treballar.</p>
+<p><strong>Més robustesa.</strong> Si una constel·lació dona problemes o un satèl·lit falla, queden les altres. El mesurament no depèn d&#x27;un únic sistema.</p>
+<h2>De metres a centímetres: RTK i PPK</h2>
+<p>Un mòbil o un navegador de cotxe donen una precisió de diversos metres: suficient per saber en quin carrer ets, però inútil per marcar l&#x27;eix d&#x27;una canonada o el límit d&#x27;una parcel·la. La topografia de precisió necessita <strong>centímetres</strong>, i això s&#x27;aconsegueix amb tècniques de correcció.</p>
+<p>El <strong>RTK</strong> (<em>Real-Time Kinematic</em>) corregeix la posició en temps real usant una estació de referència (pròpia o d&#x27;una xarxa d&#x27;estacions permanents) que envia correccions al receptor. El resultat típic al camp és una precisió d&#x27;uns <strong>±2 cm</strong>. El <strong>PPK</strong> (<em>Post-Processed Kinematic</em>) aplica aquestes mateixes correccions després, al gabinet, quan no hi ha bona connexió al camp.</p>
+<p>Aquestes tècniques funcionen millor com més satèl·lits hi ha disponibles, de manera que la combinació «GNSS multiconstel·lació + RTK» és la que permet treballar amb garanties de precisió real.</p>
+<h2>GPS o GNSS: què necessites?</h2>
+<p>Per orientar-te per la ciutat o registrar una ruta aproximada, el GPS de qualsevol mòbil fa el fet. Però si parlem de <strong>aixecaments topogràfics, replantejos, delimitacions, inventari de xarxes o qualsevol dada que després alimenti un SIG</strong>, necessites un receptor GNSS amb correcció RTK/PPK: és l&#x27;única manera de garantir que un punt és on diu que és, amb precisió de centímetres.</p>
+<p>A EBREGIS treballem amb posicionament GNSS de precisió per a captura de dades al camp, replantejos i digitalització d&#x27;infraestructures, i integrem aquesta informació directament en sistemes SIG a mida. Si tens un projecte que depèn de saber <em>exactament</em> on és cada cosa, et podem ajudar.</p>
+
+</article></div></section>
+<section class="cta-band"><div class="container">
+  <h2>En parlem, del teu projecte?</h2>
+  <p>Explica&#x27;ns què necessites i et preparem una proposta a mida, sense compromís. Treballem amb clients de tot Espanya.</p>
+  <a href="/ca/#contact" class="btn btn-wh">Contactar amb EBREGIS</a>
+</div></section>
+</main>
+<footer><div class="container"><div class="f-bot" style="padding-top:2rem"><span class="f-copy">© 2026 EBREGIS · Tots els drets reservats</span><div class="f-leg"><a href="/ca/#legal" class="flink">Avís legal</a><a href="/ca/#privacy" class="flink">Política de privacitat</a><a href="/ca/#cookies" class="flink">Política de cookies</a><a href="/ca/#contact" class="flink">Contacte</a></div></div></div></footer>
+<script src="/pages.js"></script>
+</body>
+</html>
