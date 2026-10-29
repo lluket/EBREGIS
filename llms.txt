@@ -1,0 +1,19 @@
+# EBREGIS
+
+> EBREGIS, S.L. es una consultora de ingeniería territorial y desarrollo de software con sede en Tortosa (Tarragona, España), especializada en sistemas de información geográfica (GIS), topografía de precisión (GNSS/RTK), digitalización de redes e infraestructuras, y desarrollo de aplicaciones móviles, webs y software a medida. Trabaja para empresas y administraciones públicas de toda España. Inscrita en ROLECE y RELI.
+
+## Páginas principales
+- [Inicio](https://ebregis.com/): servicios, proyectos, tecnología GNSS, visor GIS y contacto
+- [Blog](https://ebregis.com/blog/): artículos sobre GIS, topografía y desarrollo a medida
+
+## Artículos del blog
+- [¿Qué es un GIS y para qué sirve en una empresa?](https://ebregis.com/blog/que-es-un-gis-para-que-sirve/)
+- [Diferencia entre GPS y GNSS en topografía de precisión](https://ebregis.com/blog/gps-vs-gnss-topografia-precision/)
+- [¿Cuánto cuesta desarrollar una app a medida en 2026?](https://ebregis.com/blog/cuanto-cuesta-desarrollar-app-a-medida/)
+
+## Idiomas
+El sitio está disponible en español (/), catalán (/ca/), inglés (/en/) y francés (/fr/).
+
+## Contacto
+- Email: info@ebregis.com
+- Web: https://ebregis.com

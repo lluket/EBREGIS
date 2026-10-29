@@ -1,4 +1,29 @@
 User-agent: *
 Allow: /
 
+# Rastreadores de IA — permitidos explícitamente (queremos que el contenido de EBREGIS sea accesible para asistentes de IA)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://ebregis.com/sitemap.xml
