@@ -33,7 +33,7 @@
 /* ── GA4 (blog) — only if analytics consent was given on the site ── */
 (function(){try{var c=JSON.parse(localStorage.getItem('ebregis_c'));if(!(c&&c.a))return;}catch(e){return;}
   if(window.__gaLoaded)return;window.__gaLoaded=true;
-  var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-TTVMFKMYNJ';document.head.appendChild(s);
+  var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-BE2YTNVQR9';document.head.appendChild(s);
   window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};
-  gtag('js',new Date());gtag('config','G-TTVMFKMYNJ',{anonymize_ip:true});
+  gtag('js',new Date());gtag('config','G-BE2YTNVQR9',{anonymize_ip:true});gtag('config','G-TTVMFKMYNJ',{anonymize_ip:true});
 })();
